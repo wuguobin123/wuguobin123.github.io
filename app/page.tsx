@@ -14,21 +14,22 @@ export default function Home() {
           <span className="brand-mark">W</span>
           <span>
             <strong>WUGUOBIN</strong>
-            <small>独立开发者 · AI 实践者</small>
+            <small>Independent Developer · AI Builder</small>
           </span>
         </a>
         <nav aria-label="主要导航">
           <a href="#about">关于</a>
           <a href="#work">实践</a>
           <a href={`${basePath}/posts/`}>文章</a>
-          <a href="#contact">联系</a>
+          <a className="header-cta" href="#contact">合作交流 ↗</a>
         </nav>
       </header>
 
       <section className="hero" id="top">
+        <div className="hero-glow" aria-hidden="true" />
         <div className="hero-kicker">
-          <span>10+ 年全栈经验</span>
-          <span>近 3 年 AI 产品实践</span>
+          <span>Independent Developer · AI Practitioner</span>
+          <span>10+ Years Full-Stack · 3 Years AI Product</span>
         </div>
         <h1>
           <span className="hero-line">把复杂技术，</span>
@@ -41,17 +42,15 @@ export default function Home() {
             我是 wuguobin，持续探索 AI 在客服、外贸、知识生产与软件研发中的落地方式。
             这里记录方法、项目和仍在发生的思考。
           </p>
-          <a className="circle-link" href="#notes" aria-label="阅读最新文章">
-            阅读
-            <br />
-            知见 <span aria-hidden="true">↘</span>
+          <a className="hero-link" href="#notes" aria-label="阅读最新文章">
+            阅读最新知见 <span aria-hidden="true">↘</span>
           </a>
         </div>
-        <div className="hero-grid" aria-hidden="true">
+        <div className="hero-grid" aria-label="关注领域">
           <span>AI PRODUCT</span>
-          <span>FULL-STACK</span>
-          <span>OPEN SOURCE</span>
-          <span>KNOWLEDGE</span>
+          <span>AGENT SYSTEM</span>
+          <span>FULL-STACK ENGINEERING</span>
+          <span>KNOWLEDGE SYSTEM</span>
         </div>
       </section>
 
@@ -84,31 +83,31 @@ export default function Home() {
         </div>
         <div className="work-list">
           <article>
-            <span className="work-number">01</span>
-            <div>
-              <p className="eyebrow">AI × CUSTOMER SERVICE</p>
-              <h2>客服 AI 产品</h2>
-              <p>外呼、质检与人机协作流程，把模型能力嵌入可度量、可追踪的业务闭环。</p>
+            <div className="work-card-head">
+              <span className="work-number">01</span>
+              <span className="work-arrow" aria-hidden="true">↗</span>
             </div>
-            <span className="work-arrow" aria-hidden="true">↗</span>
+            <p className="eyebrow">AI × CUSTOMER SERVICE</p>
+            <h2>客服 AI 产品</h2>
+            <p>外呼、质检与人机协作流程，把模型能力嵌入可度量、可追踪的业务闭环。</p>
           </article>
           <article>
-            <span className="work-number">02</span>
-            <div>
-              <p className="eyebrow">AGENTS × ENGINEERING</p>
-              <h2>多智能体系统</h2>
-              <p>研究 Agent 的角色边界、工作流编排、记忆系统、验证门禁与工程化落地。</p>
+            <div className="work-card-head">
+              <span className="work-number">02</span>
+              <span className="work-arrow" aria-hidden="true">↗</span>
             </div>
-            <span className="work-arrow" aria-hidden="true">↗</span>
+            <p className="eyebrow">AGENTS × ENGINEERING</p>
+            <h2>多智能体系统</h2>
+            <p>研究 Agent 的角色边界、工作流编排、记忆系统、验证门禁与工程化落地。</p>
           </article>
           <article>
-            <span className="work-number">03</span>
-            <div>
-              <p className="eyebrow">OBSIDIAN × OPEN SOURCE</p>
-              <h2>知识生产系统</h2>
-              <p>用 Markdown、自动化与 AI，把零散收藏变成可检索、可复用、可发布的知识资产。</p>
+            <div className="work-card-head">
+              <span className="work-number">03</span>
+              <span className="work-arrow" aria-hidden="true">↗</span>
             </div>
-            <span className="work-arrow" aria-hidden="true">↗</span>
+            <p className="eyebrow">OBSIDIAN × OPEN SOURCE</p>
+            <h2>知识生产系统</h2>
+            <p>用 Markdown、自动化与 AI，把零散收藏变成可检索、可复用、可发布的知识资产。</p>
           </article>
         </div>
       </section>
@@ -129,12 +128,17 @@ export default function Home() {
             className="featured-note"
             href={`${basePath}/posts/${featuredPost.slug}/`}
           >
-            <div>
+            <div className="featured-note-visual" aria-hidden="true">
+              <span>FEATURED · 01</span>
+              <strong>NOTE</strong>
+              <span className="featured-note-arrow">↗</span>
+            </div>
+            <div className="featured-note-copy">
               <p className="eyebrow">LATEST NOTE · {formatPostDate(featuredPost.date)}</p>
               <h2>{featuredPost.title}</h2>
               <p>{featuredPost.description}</p>
+              <span className="featured-note-link">读全文 ↗</span>
             </div>
-            <span aria-hidden="true">读全文 ↗</span>
           </a>
         ) : null}
 
@@ -168,10 +172,15 @@ export default function Home() {
       <section className="contact section" id="contact">
         <p className="eyebrow">LET&apos;S BUILD SOMETHING USEFUL</p>
         <h2>一起探索下一件<br />值得做的事。</h2>
+        <p className="contact-intro">
+          如果你也在做 AI 产品、Agent 工程或知识系统，欢迎交换实践。
+        </p>
         <div className="contact-row">
-          <p>如果你也在做 AI 产品、Agent 工程或知识系统，欢迎交换实践。</p>
           <a href="https://github.com/wuguobin123" target="_blank" rel="noreferrer">
             GitHub <span aria-hidden="true">↗</span>
+          </a>
+          <a href={`${basePath}/posts/`}>
+            阅读全部文章 <span aria-hidden="true">↗</span>
           </a>
         </div>
       </section>
