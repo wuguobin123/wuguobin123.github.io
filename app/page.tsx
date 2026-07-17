@@ -1,4 +1,5 @@
 import { formatPostDate, getAllPosts } from "@/lib/posts";
+import ScrollMotion from "./ScrollMotion";
 
 export default function Home() {
   const posts = getAllPosts();
@@ -7,6 +8,7 @@ export default function Home() {
 
   return (
     <main>
+      <ScrollMotion />
       <header className="site-header">
         <a className="brand" href="#top" aria-label="回到首页顶部">
           <span className="brand-mark">W</span>
@@ -16,24 +18,25 @@ export default function Home() {
           </span>
         </a>
         <nav aria-label="主要导航">
-          <a href="#about">关于</a>
-          <a href="#work">实践</a>
-          <a href="#notes">知见</a>
-          <a href="#contact">联系</a>
+          <a href="#about" data-nav>关于</a>
+          <a href="#work" data-nav>实践</a>
+          <a href="#notes" data-nav>知见</a>
+          <a href="#contact" data-nav>联系</a>
         </nav>
       </header>
 
       <section className="hero" id="top">
-        <div className="hero-kicker">
+        <div className="hero-kicker" data-reveal>
           <span>10+ 年全栈经验</span>
           <span>近 3 年 AI 产品实践</span>
         </div>
-        <h1>
-          把复杂技术，
-          <br />
-          做成真正<span>可用的 AI 产品。</span>
+        <h1 data-reveal data-reveal-delay="1">
+          <span className="hero-line">把复杂技术，</span>
+          <span className="hero-line">
+            做成真正<strong>可用的 AI 产品。</strong>
+          </span>
         </h1>
-        <div className="hero-footer">
+        <div className="hero-footer" data-reveal data-reveal-delay="2">
           <p>
             我是 wuguobin，持续探索 AI 在客服、外贸、知识生产与软件研发中的落地方式。
             这里记录方法、项目和仍在发生的思考。
@@ -44,7 +47,7 @@ export default function Home() {
             知见 <span aria-hidden="true">↘</span>
           </a>
         </div>
-        <div className="hero-grid" aria-hidden="true">
+        <div className="hero-grid" aria-hidden="true" data-reveal data-reveal-delay="3">
           <span>AI PRODUCT</span>
           <span>FULL-STACK</span>
           <span>OPEN SOURCE</span>
@@ -53,11 +56,11 @@ export default function Home() {
       </section>
 
       <section className="about section" id="about">
-        <div className="section-label">
+        <div className="section-label" data-reveal>
           <span>01</span>
           <p>关于我</p>
         </div>
-        <div className="about-copy">
+        <div className="about-copy" data-reveal data-reveal-delay="1">
           <p className="lead">
             从全栈研发到 AI 产品，我更在意技术如何穿过演示，进入真实业务流程。
           </p>
@@ -75,12 +78,12 @@ export default function Home() {
       </section>
 
       <section className="work section" id="work">
-        <div className="section-label">
+        <div className="section-label" data-reveal>
           <span>02</span>
           <p>实践方向</p>
         </div>
         <div className="work-list">
-          <article>
+          <article data-reveal>
             <span className="work-number">01</span>
             <div>
               <p className="eyebrow">AI × CUSTOMER SERVICE</p>
@@ -89,7 +92,7 @@ export default function Home() {
             </div>
             <span className="work-arrow" aria-hidden="true">↗</span>
           </article>
-          <article>
+          <article data-reveal data-reveal-delay="1">
             <span className="work-number">02</span>
             <div>
               <p className="eyebrow">AGENTS × ENGINEERING</p>
@@ -98,7 +101,7 @@ export default function Home() {
             </div>
             <span className="work-arrow" aria-hidden="true">↗</span>
           </article>
-          <article>
+          <article data-reveal data-reveal-delay="2">
             <span className="work-number">03</span>
             <div>
               <p className="eyebrow">OBSIDIAN × OPEN SOURCE</p>
@@ -111,7 +114,7 @@ export default function Home() {
       </section>
 
       <section className="notes section" id="notes">
-        <div className="notes-head">
+        <div className="notes-head" data-reveal>
           <div className="section-label">
             <span>03</span>
             <p>日新知见</p>
@@ -120,7 +123,12 @@ export default function Home() {
         </div>
 
         {featuredPost ? (
-          <a className="featured-note" href={`${basePath}/posts/${featuredPost.slug}/`}>
+          <a
+            className="featured-note"
+            href={`${basePath}/posts/${featuredPost.slug}/`}
+            data-reveal
+            data-reveal-delay="1"
+          >
             <div>
               <p className="eyebrow">LATEST NOTE · {formatPostDate(featuredPost.date)}</p>
               <h2>{featuredPost.title}</h2>
@@ -130,7 +138,7 @@ export default function Home() {
           </a>
         ) : null}
 
-        <div className="note-list">
+        <div className="note-list" data-reveal data-reveal-delay="2">
           {posts.slice(1).map((post, index) => (
             <a href={`${basePath}/posts/${post.slug}/`} key={post.slug}>
               <span className="note-index">{String(index + 2).padStart(2, "0")}</span>
@@ -148,9 +156,9 @@ export default function Home() {
       </section>
 
       <section className="contact section" id="contact">
-        <p className="eyebrow">LET&apos;S BUILD SOMETHING USEFUL</p>
-        <h2>一起探索下一件<br />值得做的事。</h2>
-        <div className="contact-row">
+        <p className="eyebrow" data-reveal>LET&apos;S BUILD SOMETHING USEFUL</p>
+        <h2 data-reveal data-reveal-delay="1">一起探索下一件<br />值得做的事。</h2>
+        <div className="contact-row" data-reveal data-reveal-delay="2">
           <p>如果你也在做 AI 产品、Agent 工程或知识系统，欢迎交换实践。</p>
           <a href="https://github.com/wuguobin123" target="_blank" rel="noreferrer">
             GitHub <span aria-hidden="true">↗</span>
