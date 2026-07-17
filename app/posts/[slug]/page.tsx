@@ -42,14 +42,6 @@ export default async function PostPage({ params }: PostPageProps) {
   const currentIndex = posts.findIndex((item) => item.slug === post.slug);
   const previousPost = posts[currentIndex + 1];
   const nextPost = posts[currentIndex - 1];
-  const relatedPosts = posts
-    .filter((item) => item.slug !== post.slug)
-    .sort((a, b) => {
-      const scoreA = a.tags.filter((tag) => post.tags.includes(tag)).length;
-      const scoreB = b.tags.filter((tag) => post.tags.includes(tag)).length;
-      return scoreB - scoreA || b.date.localeCompare(a.date);
-    })
-    .slice(0, 3);
 
   return (
     <main className="article-shell">
@@ -65,15 +57,50 @@ export default async function PostPage({ params }: PostPageProps) {
       </header>
 
       <article className="article-page">
+        <div className="article-back-row">
+          <a href={`${basePath}/posts/`}>
+            <span aria-hidden="true">←</span> BACK TO ARTICLES
+          </a>
+        </div>
+
         <header className="article-hero">
-          <p className="eyebrow">NOTE · {formatPostDate(post.date)}</p>
+          <div className="article-labels">
+            <span>NOTE · {formatPostDate(post.date)}</span>
+            {post.tags.slice(0, 4).map((tag, index) => (
+              <span className={index % 2 === 0 ? "is-lime" : "is-dark"} key={tag}>
+                #{tag}
+              </span>
+            ))}
+          </div>
           <h1>{post.title}</h1>
           <p className="article-description">{post.description}</p>
-          <div className="article-meta">
-            <span>{post.readingTime} 分钟阅读</span>
-            {post.tags.map((tag) => <span key={tag}>#{tag}</span>)}
+          <div className="article-info-band">
+            <div className="article-author">
+              <span className="article-author-mark" aria-hidden="true">W</span>
+              <div>
+                <small>AUTHOR</small>
+                <strong>WUGUOBIN</strong>
+              </div>
+            </div>
+            <div className="article-stats">
+              <div>
+                <small>READING TIME</small>
+                <strong>{post.readingTime} MINUTES</strong>
+              </div>
+              <div>
+                <small>VISIBILITY</small>
+                <strong>PUBLIC NOTE</strong>
+              </div>
+            </div>
           </div>
         </header>
+
+        <section className="article-cover" aria-hidden="true">
+          <div className="article-cover-grid" />
+          <span>WUGUOBIN / DIGITAL GARDEN</span>
+          <strong>IDEAS<br />IN PUBLIC</strong>
+          <i>{String(currentIndex + 1).padStart(2, "0")}</i>
+        </section>
 
         {post.toc.length > 0 ? (
           <details className="article-toc-mobile">
@@ -93,8 +120,12 @@ export default async function PostPage({ params }: PostPageProps) {
         ) : null}
 
         <div className="article-layout">
-          <aside className="article-toc article-toc-desktop">
-            <span>本篇目录</span>
+          <aside className="article-sidebar article-toc-desktop">
+            <div className="article-summary">
+              <span>SUMMARY</span>
+              <p>{post.description}</p>
+            </div>
+            <span>CONTENTS</span>
             {post.toc.length > 0 ? (
               <nav aria-label="本篇文章目录">
                 {post.toc.map((item) => (
@@ -118,33 +149,27 @@ export default async function PostPage({ params }: PostPageProps) {
             className="prose"
             dangerouslySetInnerHTML={{ __html: post.html }}
           />
-          <aside className="article-related">
-            <span>继续阅读</span>
-            {relatedPosts.length > 0 ? (
-              <div className="related-list">
-                {relatedPosts.map((item) => (
-                  <a href={`${basePath}/posts/${item.slug}/`} key={item.slug}>
-                    <small>{formatPostDate(item.date)} · {item.readingTime} 分钟</small>
-                    <strong>{item.title}</strong>
-                  </a>
-                ))}
-              </div>
-            ) : (
-              <p>更多文章正在整理中。</p>
-            )}
-          </aside>
         </div>
+
+        <section className="article-inline-cta">
+          <div>
+            <span>KEEP BUILDING IN PUBLIC</span>
+            <h2>把想法写下来，把方法变成作品。</h2>
+            <p>这里持续记录 AI 产品、Agent 工程与知识生产系统的真实实践。</p>
+          </div>
+          <a href={`${basePath}/posts/`}>浏览全部文章 ↗</a>
+        </section>
 
         <nav className="article-pager" aria-label="相邻文章">
           {previousPost ? (
             <a href={`${basePath}/posts/${previousPost.slug}/`}>
-              <span>← 上一篇</span>
+              <span>PREVIOUS POST</span>
               <strong>{previousPost.title}</strong>
             </a>
           ) : <span />}
           {nextPost ? (
             <a className="is-next" href={`${basePath}/posts/${nextPost.slug}/`}>
-              <span>下一篇 →</span>
+              <span>NEXT POST</span>
               <strong>{nextPost.title}</strong>
             </a>
           ) : <span />}
@@ -152,7 +177,7 @@ export default async function PostPage({ params }: PostPageProps) {
       </article>
 
       <section className="article-end">
-        <p>持续写，持续验证。</p>
+        <p>WUGUOBIN · 日新知见</p>
         <a href={`${basePath}/posts/`}>进入文章目录 <span aria-hidden="true">↗</span></a>
       </section>
     </main>
