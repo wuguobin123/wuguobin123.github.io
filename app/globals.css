@@ -141,10 +141,10 @@ footer a:hover::after {
 .hero h1 {
   max-width: 1360px;
   margin: clamp(42px, 6vw, 84px) 0 clamp(40px, 5vw, 68px);
-  font-size: clamp(58px, 7.4vw, 132px);
+  font-size: clamp(50px, 6.35vw, 112px);
   font-weight: 640;
   letter-spacing: -0.055em;
-  line-height: 0.94;
+  line-height: 0.97;
   text-wrap: balance;
 }
 
@@ -1071,9 +1071,9 @@ footer {
 
   .hero h1 {
     margin: 46px 0 40px;
-    font-size: clamp(46px, 12vw, 64px);
+    font-size: clamp(40px, 10.5vw, 56px);
     letter-spacing: -0.045em;
-    line-height: 1;
+    line-height: 1.02;
   }
 
   .hero-footer {
