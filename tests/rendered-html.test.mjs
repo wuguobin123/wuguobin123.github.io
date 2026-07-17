@@ -4,6 +4,39 @@ import test from "node:test";
 
 const root = new URL("../", import.meta.url);
 
+async function renderFromWorker(pathname = "/") {
+  const workerUrl = new URL("dist/server/index.js", root);
+  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
+  const { default: worker } = await import(workerUrl.href);
+
+  assert.equal(typeof worker?.fetch, "function");
+
+  return worker.fetch(
+    new Request(new URL(pathname, "http://localhost"), {
+      headers: { accept: "text/html" },
+    }),
+    {
+      ASSETS: {
+        fetch: async () => new Response("Not found", { status: 404 }),
+      },
+    },
+    {
+      waitUntil() {},
+      passThroughOnException() {},
+    },
+  );
+}
+
+test("exposes a Cloudflare Worker request handler", async () => {
+  const response = await renderFromWorker("/");
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
+  assert.match(html, /WUGUOBIN/);
+  assert.match(html, /日新知见/);
+});
+
 test("exports the homepage, directory, and article pages", async () => {
   const homepage = await readFile(new URL("dist/client/index.html", root), "utf8");
   const directory = await readFile(new URL("dist/client/posts/index.html", root), "utf8");
