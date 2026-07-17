@@ -13,7 +13,7 @@ export default function PostsPage() {
 
   return (
     <>
-      <header className="article-header-bar">
+      <header className="article-header-bar posts-index-header">
         <a className="brand" href={`${basePath}/`}>
           <span className="brand-mark">W</span>
           <span>
@@ -21,18 +21,25 @@ export default function PostsPage() {
             <small>日新知见</small>
           </span>
         </a>
-        <a className="back-link" href={`${basePath}/`}>← 返回首页</a>
+        <nav className="posts-index-nav" aria-label="文章页导航">
+          <a href={`${basePath}/`}>首页</a>
+          <a className="is-active" href={`${basePath}/posts/`}>文章</a>
+          <a href={`${basePath}/#contact`}>联系</a>
+        </nav>
       </header>
 
       <main className="posts-index-page">
         <header className="posts-index-hero">
           <p className="eyebrow">WRITING ARCHIVE · {posts.length} NOTES</p>
           <div>
-            <h1>文章目录</h1>
-            <p>
-              从最新思考开始，也可以按主题或关键词寻找。每篇文章都来自 Markdown，
-              会随着实践继续更新。
-            </p>
+            <div className="posts-index-hero-copy">
+              <h1>文章目录</h1>
+              <p>
+                从最新思考开始，也可以按主题或关键词寻找。每篇文章都来自 Markdown，
+                会随着实践继续更新。
+              </p>
+            </div>
+            <span className="posts-index-hero-mark" aria-hidden="true">文</span>
           </div>
         </header>
 
