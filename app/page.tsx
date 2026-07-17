@@ -1,4 +1,5 @@
 import { formatPostDate, getAllPosts } from "@/lib/posts";
+import AnchorNavigation from "./AnchorNavigation";
 
 export default function Home() {
   const posts = getAllPosts();
@@ -7,6 +8,7 @@ export default function Home() {
 
   return (
     <main>
+      <AnchorNavigation />
       <header className="site-header">
         <a className="brand" href="#top" aria-label="回到首页顶部">
           <span className="brand-mark">W</span>
