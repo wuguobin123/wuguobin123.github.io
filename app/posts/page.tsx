@@ -35,8 +35,8 @@ export default function PostsPage() {
             <div className="posts-index-hero-copy">
               <h1>文章目录</h1>
               <p>
-                从最新思考开始，也可以按主题或关键词寻找。每篇文章都来自 Markdown，
-                会随着实践继续更新。
+                这里记录的不是最终答案，而是认知形成的过程：从实践中提出问题，
+                在写作中校准判断，再用新的行动继续验证。
               </p>
             </div>
             <span className="posts-index-hero-mark" aria-hidden="true">文</span>
