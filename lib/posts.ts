@@ -1,5 +1,11 @@
 import { marked } from "marked";
 
+export type TableOfContentsItem = {
+  id: string;
+  title: string;
+  level: 2 | 3;
+};
+
 export type Post = {
   slug: string;
   title: string;
@@ -9,6 +15,7 @@ export type Post = {
   readingTime: number;
   body: string;
   html: string;
+  toc: TableOfContentsItem[];
 };
 
 type Frontmatter = {
@@ -69,6 +76,56 @@ function slugFromPath(path: string): string {
   return path.split("/").pop()?.replace(/\.md$/, "") ?? "";
 }
 
+function decodeHeadingText(value: string): string {
+  return value
+    .replace(/<[^>]+>/g, "")
+    .replaceAll("&amp;", "&")
+    .replaceAll("&lt;", "<")
+    .replaceAll("&gt;", ">")
+    .replaceAll("&quot;", "\"")
+    .replaceAll("&#39;", "'")
+    .trim();
+}
+
+function createHeadingId(title: string, index: number): string {
+  const normalized = title
+    .normalize("NFKC")
+    .toLowerCase()
+    .replace(/[^\p{Letter}\p{Number}]+/gu, "-")
+    .replace(/^-+|-+$/g, "");
+
+  return normalized || `section-${index + 1}`;
+}
+
+function addHeadingNavigation(markup: string): {
+  html: string;
+  toc: TableOfContentsItem[];
+} {
+  const toc: TableOfContentsItem[] = [];
+  const usedIds = new Map<string, number>();
+  const html = markup.replace(
+    /<h([23])([^>]*)>([\s\S]*?)<\/h\1>/g,
+    (heading, rawLevel: string, rawAttributes: string, rawTitle: string) => {
+      const level = Number(rawLevel) as 2 | 3;
+      const title = decodeHeadingText(rawTitle);
+
+      if (!title) return heading;
+
+      const baseId = createHeadingId(title, toc.length);
+      const duplicateCount = usedIds.get(baseId) ?? 0;
+      const id = duplicateCount === 0 ? baseId : `${baseId}-${duplicateCount + 1}`;
+      const attributes = rawAttributes.replace(/\s+id=(["']).*?\1/, "");
+
+      usedIds.set(baseId, duplicateCount + 1);
+      toc.push({ id, title, level });
+
+      return `<h${level}${attributes} id="${id}">${rawTitle}</h${level}>`;
+    },
+  );
+
+  return { html, toc };
+}
+
 export function getAllPosts(): Post[] {
   return Object.entries(markdownModules)
     .map(([path, source]) => {
@@ -84,6 +141,7 @@ export function getAllPosts(): Post[] {
         /\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g,
         (_match, title: string, alias?: string) => alias ?? title,
       );
+      const rendered = addHeadingNavigation(marked.parse(preparedBody) as string);
 
       return {
         slug,
@@ -93,11 +151,12 @@ export function getAllPosts(): Post[] {
         tags: Array.isArray(data.tags) ? data.tags : [],
         readingTime: estimateReadingTime(body),
         body,
-        html: marked.parse(preparedBody) as string,
+        html: rendered.html,
+        toc: rendered.toc,
       };
     })
     .filter((post): post is Post => post !== null)
-    .sort((a, b) => b.date.localeCompare(a.date));
+    .sort((a, b) => b.date.localeCompare(a.date) || b.slug.localeCompare(a.slug));
 }
 
 export function getPostBySlug(slug: string): Post | undefined {

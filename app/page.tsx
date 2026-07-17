@@ -20,7 +20,7 @@ export default function Home() {
         <nav aria-label="主要导航">
           <a href="#about">关于</a>
           <a href="#work">实践</a>
-          <a href="#notes">知见</a>
+          <a href={`${basePath}/posts/`}>文章</a>
           <a href="#contact">联系</a>
         </nav>
       </header>
@@ -119,7 +119,10 @@ export default function Home() {
             <span>03</span>
             <p>日新知见</p>
           </div>
-          <p className="notes-intro">从 Markdown 原稿直接发布。观点会更新，过程有迹可循。</p>
+          <div className="notes-head-meta">
+            <span className="notes-count">{posts.length} 篇文章</span>
+            <p className="notes-intro">从 Markdown 原稿直接发布。观点会更新，过程有迹可循。</p>
+          </div>
         </div>
 
         {featuredPost ? (
@@ -137,12 +140,15 @@ export default function Home() {
         ) : null}
 
         <div className="note-list">
-          {posts.slice(1).map((post, index) => (
+          {posts.slice(1, 5).map((post, index) => (
             <a href={`${basePath}/posts/${post.slug}/`} key={post.slug}>
               <span className="note-index">{String(index + 2).padStart(2, "0")}</span>
               <div>
                 <h3>{post.title}</h3>
                 <p>{post.description}</p>
+                <div className="note-tags" aria-label="文章标签">
+                  {post.tags.slice(0, 3).map((tag) => <span key={tag}>#{tag}</span>)}
+                </div>
               </div>
               <div className="note-meta">
                 <span>{formatPostDate(post.date)}</span>
@@ -150,6 +156,13 @@ export default function Home() {
               </div>
             </a>
           ))}
+        </div>
+
+        <div className="notes-footer">
+          <p>首页只保留最近 5 篇，完整内容按标签和关键词查找。</p>
+          <a href={`${basePath}/posts/`}>
+            浏览全部 {posts.length} 篇文章 <span aria-hidden="true">↗</span>
+          </a>
         </div>
       </section>
 

@@ -38,6 +38,19 @@ export default async function PostPage({ params }: PostPageProps) {
 
   if (!post) notFound();
 
+  const posts = getAllPosts();
+  const currentIndex = posts.findIndex((item) => item.slug === post.slug);
+  const previousPost = posts[currentIndex + 1];
+  const nextPost = posts[currentIndex - 1];
+  const relatedPosts = posts
+    .filter((item) => item.slug !== post.slug)
+    .sort((a, b) => {
+      const scoreA = a.tags.filter((tag) => post.tags.includes(tag)).length;
+      const scoreB = b.tags.filter((tag) => post.tags.includes(tag)).length;
+      return scoreB - scoreA || b.date.localeCompare(a.date);
+    })
+    .slice(0, 3);
+
   return (
     <main className="article-shell">
       <header className="article-header-bar">
@@ -48,7 +61,7 @@ export default async function PostPage({ params }: PostPageProps) {
             <small>日新知见</small>
           </span>
         </a>
-        <a className="back-link" href={`${basePath}/#notes`}>← 返回文章列表</a>
+        <a className="back-link" href={`${basePath}/posts/`}>← 文章目录</a>
       </header>
 
       <article className="article-page">
@@ -62,21 +75,85 @@ export default async function PostPage({ params }: PostPageProps) {
           </div>
         </header>
 
+        {post.toc.length > 0 ? (
+          <details className="article-toc-mobile">
+            <summary>本篇目录 · {post.toc.length} 个章节</summary>
+            <nav aria-label="本篇文章目录">
+              {post.toc.map((item) => (
+                <a
+                  className={item.level === 3 ? "toc-level-3" : undefined}
+                  href={`#${item.id}`}
+                  key={item.id}
+                >
+                  {item.title}
+                </a>
+              ))}
+            </nav>
+          </details>
+        ) : null}
+
         <div className="article-layout">
-          <aside>
-            <span>WUGUOBIN / NOTE</span>
-            <p>用 Obsidian 写作，以 Markdown 保存，通过 GitHub 自动发布。</p>
+          <aside className="article-toc article-toc-desktop">
+            <span>本篇目录</span>
+            {post.toc.length > 0 ? (
+              <nav aria-label="本篇文章目录">
+                {post.toc.map((item) => (
+                  <a
+                    className={item.level === 3 ? "toc-level-3" : undefined}
+                    href={`#${item.id}`}
+                    key={item.id}
+                  >
+                    {item.title}
+                  </a>
+                ))}
+              </nav>
+            ) : (
+              <p>这是一篇短文章，可直接向下阅读。</p>
+            )}
+            <a className="toc-all-link" href={`${basePath}/posts/`}>
+              查看全部文章 ↗
+            </a>
           </aside>
           <div
             className="prose"
             dangerouslySetInnerHTML={{ __html: post.html }}
           />
+          <aside className="article-related">
+            <span>继续阅读</span>
+            {relatedPosts.length > 0 ? (
+              <div className="related-list">
+                {relatedPosts.map((item) => (
+                  <a href={`${basePath}/posts/${item.slug}/`} key={item.slug}>
+                    <small>{formatPostDate(item.date)} · {item.readingTime} 分钟</small>
+                    <strong>{item.title}</strong>
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <p>更多文章正在整理中。</p>
+            )}
+          </aside>
         </div>
+
+        <nav className="article-pager" aria-label="相邻文章">
+          {previousPost ? (
+            <a href={`${basePath}/posts/${previousPost.slug}/`}>
+              <span>← 上一篇</span>
+              <strong>{previousPost.title}</strong>
+            </a>
+          ) : <span />}
+          {nextPost ? (
+            <a className="is-next" href={`${basePath}/posts/${nextPost.slug}/`}>
+              <span>下一篇 →</span>
+              <strong>{nextPost.title}</strong>
+            </a>
+          ) : <span />}
+        </nav>
       </article>
 
       <section className="article-end">
         <p>持续写，持续验证。</p>
-        <a href={`${basePath}/#notes`}>阅读更多知见 <span aria-hidden="true">↗</span></a>
+        <a href={`${basePath}/posts/`}>进入文章目录 <span aria-hidden="true">↗</span></a>
       </section>
     </main>
   );

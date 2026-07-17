@@ -4,10 +4,11 @@ import test from "node:test";
 
 const root = new URL("../", import.meta.url);
 
-test("exports the homepage and article pages", async () => {
+test("exports the homepage, directory, and article pages", async () => {
   const homepage = await readFile(new URL("dist/client/index.html", root), "utf8");
+  const directory = await readFile(new URL("dist/client/posts/index.html", root), "utf8");
   const article = await readFile(
-    new URL("dist/client/posts/2026-07-17-build-a-blog-in-30-minutes/index.html", root),
+    new URL("dist/client/posts/2026-07-17-build-a-personal-brand/index.html", root),
     "utf8",
   );
 
@@ -15,8 +16,10 @@ test("exports the homepage and article pages", async () => {
   assert.match(homepage, /日新知见/);
   assert.match(homepage, /OBSIDIAN/);
   assert.doesNotMatch(homepage, /codex-preview|react-loading-skeleton/);
-  assert.match(article, /30 分钟搭一个个人博客/);
-  assert.match(article, /GitHub Pages/);
+  assert.match(directory, /文章目录/);
+  assert.match(directory, /搜索文章/);
+  assert.match(article, /个人品牌，比简历有效100倍/);
+  assert.match(article, /本篇目录/);
 });
 
 test("keeps GitHub Pages metadata in the exported artifact", async () => {
