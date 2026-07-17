@@ -18,10 +18,10 @@ export default function Home() {
           </span>
         </a>
         <nav aria-label="主要导航">
-          <a href="#about" data-nav>关于</a>
-          <a href="#work" data-nav>实践</a>
-          <a href="#notes" data-nav>知见</a>
-          <a href="#contact" data-nav>联系</a>
+          <a href="#about">关于</a>
+          <a href="#work">实践</a>
+          <a href="#notes">知见</a>
+          <a href="#contact">联系</a>
         </nav>
       </header>
 
