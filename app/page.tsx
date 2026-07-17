@@ -27,30 +27,18 @@ export default function Home() {
 
       <section className="hero" id="top">
         <div className="hero-glow" aria-hidden="true" />
-        <div className="hero-kicker">
-          <span>Independent Developer · AI Practitioner</span>
-          <span>10+ Years Full-Stack · 3 Years AI Product</span>
-        </div>
-        <h1>
-          <span className="hero-line">把复杂技术，</span>
-          <span className="hero-line">
-            做成真正<strong>可用的 AI 产品。</strong>
-          </span>
-        </h1>
-        <div className="hero-footer">
-          <p>
+        <div className="hero-content">
+          <p className="hero-kicker">10+ 年全栈经验 · 近 3 年 AI 产品实践</p>
+          <h1>
+            把复杂技术，做成真正<strong>可用的 AI 产品。</strong>
+          </h1>
+          <p className="hero-intro">
             我是 wuguobin，持续探索 AI 在客服、外贸、知识生产与软件研发中的落地方式。
             这里记录方法、项目和仍在发生的思考。
           </p>
           <a className="hero-link" href="#notes" aria-label="阅读最新文章">
-            阅读最新知见 <span aria-hidden="true">↘</span>
+            <span aria-hidden="true">↘</span> 阅读最新知见
           </a>
-        </div>
-        <div className="hero-grid" aria-label="关注领域">
-          <span>AI PRODUCT</span>
-          <span>AGENT SYSTEM</span>
-          <span>FULL-STACK ENGINEERING</span>
-          <span>KNOWLEDGE SYSTEM</span>
         </div>
       </section>
 
@@ -114,13 +102,16 @@ export default function Home() {
 
       <section className="notes section" id="notes">
         <div className="notes-head">
-          <div className="section-label">
-            <span>03</span>
-            <p>日新知见</p>
-          </div>
-          <div className="notes-head-meta">
+          <div className="notes-head-title">
+            <div className="section-label">
+              <span>03</span>
+              <p>日新知见</p>
+            </div>
             <span className="notes-count">{posts.length} 篇文章</span>
           </div>
+          <a className="notes-all-link" href={`${basePath}/posts/`}>
+            浏览全部 <span aria-hidden="true">↗</span>
+          </a>
         </div>
 
         {featuredPost ? (
@@ -129,21 +120,33 @@ export default function Home() {
             href={`${basePath}/posts/${featuredPost.slug}/`}
           >
             <div className="featured-note-visual" aria-hidden="true">
-              <span>FEATURED · 01</span>
-              <strong>NOTE</strong>
+              <span className="featured-note-label">FEATURED · 01</span>
+              <div className="featured-note-window">
+                <span />
+                <span />
+                <span />
+                <span />
+              </div>
+              <strong>AI / WORKFLOW</strong>
               <span className="featured-note-arrow">↗</span>
             </div>
             <div className="featured-note-copy">
-              <p className="eyebrow">LATEST NOTE · {formatPostDate(featuredPost.date)}</p>
+              <div className="featured-note-meta">
+                <p className="eyebrow">LATEST NOTE · {formatPostDate(featuredPost.date)}</p>
+                <span>{featuredPost.readingTime} MIN READ</span>
+              </div>
               <h2>{featuredPost.title}</h2>
               <p>{featuredPost.description}</p>
+              <div className="featured-note-tags" aria-label="文章标签">
+                {featuredPost.tags.slice(0, 3).map((tag) => <span key={tag}>#{tag}</span>)}
+              </div>
               <span className="featured-note-link">读全文 ↗</span>
             </div>
           </a>
         ) : null}
 
         <div className="note-list">
-          {posts.slice(1, 5).map((post, index) => (
+          {posts.slice(1, 3).map((post, index) => (
             <a href={`${basePath}/posts/${post.slug}/`} key={post.slug}>
               <span className="note-index">{String(index + 2).padStart(2, "0")}</span>
               <div>
@@ -159,13 +162,6 @@ export default function Home() {
               </div>
             </a>
           ))}
-        </div>
-
-        <div className="notes-footer">
-          <p>首页只保留最近 5 篇，完整内容按标签和关键词查找。</p>
-          <a href={`${basePath}/posts/`}>
-            浏览全部 {posts.length} 篇文章 <span aria-hidden="true">↗</span>
-          </a>
         </div>
       </section>
 
@@ -185,10 +181,17 @@ export default function Home() {
         </div>
       </section>
 
-      <footer>
-        <span>© {new Date().getFullYear()} WUGUOBIN</span>
-        <span>OBSIDIAN → MARKDOWN → GITHUB PAGES</span>
-        <a href="#top">回到顶部 ↑</a>
+      <footer className="home-footer">
+        <div>
+          <strong>WUGUOBIN</strong>
+          <span>© {new Date().getFullYear()} AI PRACTITIONER PORTFOLIO</span>
+        </div>
+        <nav aria-label="页尾导航">
+          <a href="https://github.com/wuguobin123" target="_blank" rel="noreferrer">GitHub</a>
+          <a href={`${basePath}/posts/`}>文章目录</a>
+          <a href="#top">回到顶部 ↑</a>
+        </nav>
+        <p>OBSIDIAN → MARKDOWN → GITHUB PAGES</p>
       </footer>
     </main>
   );
