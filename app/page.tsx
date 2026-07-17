@@ -121,7 +121,6 @@ export default function Home() {
           </div>
           <div className="notes-head-meta">
             <span className="notes-count">{posts.length} 篇文章</span>
-            <p className="notes-intro">从 Markdown 原稿直接发布。观点会更新，过程有迹可循。</p>
           </div>
         </div>
 
