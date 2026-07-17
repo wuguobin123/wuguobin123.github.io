@@ -1,5 +1,4 @@
 import { formatPostDate, getAllPosts } from "@/lib/posts";
-import ScrollMotion from "./ScrollMotion";
 
 export default function Home() {
   const posts = getAllPosts();
@@ -8,7 +7,6 @@ export default function Home() {
 
   return (
     <main>
-      <ScrollMotion />
       <header className="site-header">
         <a className="brand" href="#top" aria-label="回到首页顶部">
           <span className="brand-mark">W</span>
@@ -26,17 +24,17 @@ export default function Home() {
       </header>
 
       <section className="hero" id="top">
-        <div className="hero-kicker" data-reveal>
+        <div className="hero-kicker">
           <span>10+ 年全栈经验</span>
           <span>近 3 年 AI 产品实践</span>
         </div>
-        <h1 data-reveal data-reveal-delay="1">
+        <h1>
           <span className="hero-line">把复杂技术，</span>
           <span className="hero-line">
             做成真正<strong>可用的 AI 产品。</strong>
           </span>
         </h1>
-        <div className="hero-footer" data-reveal data-reveal-delay="2">
+        <div className="hero-footer">
           <p>
             我是 wuguobin，持续探索 AI 在客服、外贸、知识生产与软件研发中的落地方式。
             这里记录方法、项目和仍在发生的思考。
@@ -47,7 +45,7 @@ export default function Home() {
             知见 <span aria-hidden="true">↘</span>
           </a>
         </div>
-        <div className="hero-grid" aria-hidden="true" data-reveal data-reveal-delay="3">
+        <div className="hero-grid" aria-hidden="true">
           <span>AI PRODUCT</span>
           <span>FULL-STACK</span>
           <span>OPEN SOURCE</span>
@@ -56,11 +54,11 @@ export default function Home() {
       </section>
 
       <section className="about section" id="about">
-        <div className="section-label" data-reveal>
+        <div className="section-label">
           <span>01</span>
           <p>关于我</p>
         </div>
-        <div className="about-copy" data-reveal data-reveal-delay="1">
+        <div className="about-copy">
           <p className="lead">
             从全栈研发到 AI 产品，我更在意技术如何穿过演示，进入真实业务流程。
           </p>
@@ -78,12 +76,12 @@ export default function Home() {
       </section>
 
       <section className="work section" id="work">
-        <div className="section-label" data-reveal>
+        <div className="section-label">
           <span>02</span>
           <p>实践方向</p>
         </div>
         <div className="work-list">
-          <article data-reveal>
+          <article>
             <span className="work-number">01</span>
             <div>
               <p className="eyebrow">AI × CUSTOMER SERVICE</p>
@@ -92,7 +90,7 @@ export default function Home() {
             </div>
             <span className="work-arrow" aria-hidden="true">↗</span>
           </article>
-          <article data-reveal data-reveal-delay="1">
+          <article>
             <span className="work-number">02</span>
             <div>
               <p className="eyebrow">AGENTS × ENGINEERING</p>
@@ -101,7 +99,7 @@ export default function Home() {
             </div>
             <span className="work-arrow" aria-hidden="true">↗</span>
           </article>
-          <article data-reveal data-reveal-delay="2">
+          <article>
             <span className="work-number">03</span>
             <div>
               <p className="eyebrow">OBSIDIAN × OPEN SOURCE</p>
@@ -114,7 +112,7 @@ export default function Home() {
       </section>
 
       <section className="notes section" id="notes">
-        <div className="notes-head" data-reveal>
+        <div className="notes-head">
           <div className="section-label">
             <span>03</span>
             <p>日新知见</p>
@@ -126,8 +124,6 @@ export default function Home() {
           <a
             className="featured-note"
             href={`${basePath}/posts/${featuredPost.slug}/`}
-            data-reveal
-            data-reveal-delay="1"
           >
             <div>
               <p className="eyebrow">LATEST NOTE · {formatPostDate(featuredPost.date)}</p>
@@ -138,7 +134,7 @@ export default function Home() {
           </a>
         ) : null}
 
-        <div className="note-list" data-reveal data-reveal-delay="2">
+        <div className="note-list">
           {posts.slice(1).map((post, index) => (
             <a href={`${basePath}/posts/${post.slug}/`} key={post.slug}>
               <span className="note-index">{String(index + 2).padStart(2, "0")}</span>
@@ -156,9 +152,9 @@ export default function Home() {
       </section>
 
       <section className="contact section" id="contact">
-        <p className="eyebrow" data-reveal>LET&apos;S BUILD SOMETHING USEFUL</p>
-        <h2 data-reveal data-reveal-delay="1">一起探索下一件<br />值得做的事。</h2>
-        <div className="contact-row" data-reveal data-reveal-delay="2">
+        <p className="eyebrow">LET&apos;S BUILD SOMETHING USEFUL</p>
+        <h2>一起探索下一件<br />值得做的事。</h2>
+        <div className="contact-row">
           <p>如果你也在做 AI 产品、Agent 工程或知识系统，欢迎交换实践。</p>
           <a href="https://github.com/wuguobin123" target="_blank" rel="noreferrer">
             GitHub <span aria-hidden="true">↗</span>
