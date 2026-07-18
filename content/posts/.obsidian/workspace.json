@@ -1,0 +1,195 @@
+{
+  "main": {
+    "id": "af388c17254ab61c",
+    "type": "split",
+    "children": [
+      {
+        "id": "2ff651e167d0041a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "99546b1eacd425f9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "2026-07-17-build-a-personal-brand.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "2026-07-17-build-a-personal-brand"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "3b2b44c6c4ac00e6",
+    "type": "split",
+    "children": [
+      {
+        "id": "62bf7abfb018a925",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f37097fa1592f9ba",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "14eaa9db91c43aad",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "59089186c37d2823",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "f498f662b7941039",
+    "type": "split",
+    "children": [
+      {
+        "id": "dcee8a42c3c8e67d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "74605979720e8995",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "2026-07-17-build-a-personal-brand.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "2026-07-17-build-a-personal-brand 的反向链接列表"
+            }
+          },
+          {
+            "id": "0496bd4e95378399",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "2026-07-17-build-a-personal-brand.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "2026-07-17-build-a-personal-brand 的出链列表"
+            }
+          },
+          {
+            "id": "2394f9620a2237b6",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "f907d19d4b8f5b26",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "c37d47979530837a",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "2026-07-17-build-a-personal-brand.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "2026-07-17-build-a-personal-brand 的大纲"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false
+    }
+  },
+  "active": "99546b1eacd425f9",
+  "lastOpenFiles": [
+    "未命名.canvas",
+    "未命名.base",
+    "2026-07-17-build-a-personal-brand.md",
+    "_template.md",
+    "2026-07-05-knowledge-production-loop.md",
+    "2026-07-12-ai-product-is-a-workflow.md",
+    "2026-07-17-build-a-blog-in-30-minutes.md"
+  ]
+}
