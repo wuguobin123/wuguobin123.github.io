@@ -1051,6 +1051,15 @@ footer {
 }
 
 .article-page {
+  --article-title-size: clamp(40px, 4.8vw, 64px);
+  --article-description-size: clamp(15.5px, 1.25vw, 19px);
+  --article-body-size: clamp(15.5px, 1vw, 16.5px);
+  --article-lead-size: clamp(16.5px, 1.2vw, 18px);
+  --article-h2-size: clamp(24px, 2vw, 30px);
+  --article-h3-size: clamp(19px, 1.45vw, 22px);
+  --article-h4-size: clamp(17px, 1.2vw, 19px);
+  --article-quote-size: clamp(16.5px, 1.2vw, 18px);
+  --article-code-size: 0.84em;
   max-width: 1408px;
   margin: 0 auto;
   padding: clamp(42px, 5vw, 72px) clamp(20px, 5vw, 64px) clamp(90px, 11vw, 150px);
@@ -1110,7 +1119,7 @@ footer {
 .article-hero h1 {
   max-width: 1000px;
   margin: 0;
-  font-size: clamp(42px, 5.2vw, 68px);
+  font-size: var(--article-title-size);
   font-weight: 720;
   letter-spacing: -0.045em;
   line-height: 1.08;
@@ -1121,7 +1130,7 @@ footer {
   max-width: 760px;
   margin: 28px 0 0;
   color: var(--muted);
-  font-size: clamp(16px, 1.35vw, 20px);
+  font-size: var(--article-description-size);
   line-height: 1.7;
 }
 
@@ -1293,19 +1302,19 @@ footer {
 }
 
 .prose {
-  font-size: clamp(16px, 1.1vw, 17px);
+  font-size: var(--article-body-size);
   line-height: 1.9;
 }
 
 .prose > p:first-child {
-  font-size: clamp(17px, 1.3vw, 19px);
+  font-size: var(--article-lead-size);
   line-height: 1.85;
 }
 
 .prose h2 {
   scroll-margin-top: 110px;
   margin: 2.75rem 0 1.2rem;
-  font-size: clamp(26px, 2.2vw, 32px);
+  font-size: var(--article-h2-size);
   font-weight: 720;
   letter-spacing: -0.025em;
   line-height: 1.25;
@@ -1314,9 +1323,17 @@ footer {
 .prose h3 {
   scroll-margin-top: 110px;
   margin: 2.25rem 0 0.9rem;
-  font-size: clamp(20px, 1.6vw, 23px);
+  font-size: var(--article-h3-size);
   font-weight: 680;
   line-height: 1.35;
+}
+
+.prose h4 {
+  scroll-margin-top: 110px;
+  margin: 1.9rem 0 0.75rem;
+  font-size: var(--article-h4-size);
+  font-weight: 660;
+  line-height: 1.4;
 }
 
 .prose p,
@@ -1340,9 +1357,13 @@ footer {
   border-left: 4px solid var(--lime);
   background: transparent;
   color: var(--muted);
-  font-size: clamp(17px, 1.35vw, 19px);
+  font-size: var(--article-quote-size);
   font-style: italic;
   line-height: 1.8;
+}
+
+.prose code {
+  font-size: var(--article-code-size);
 }
 
 .prose strong {
@@ -1956,11 +1977,18 @@ footer {
   }
 
   .article-page {
+    --article-title-size: clamp(34px, 9.5vw, 44px);
+    --article-description-size: 15.5px;
+    --article-body-size: 16px;
+    --article-lead-size: 17px;
+    --article-h2-size: 24px;
+    --article-h3-size: 19px;
+    --article-h4-size: 17px;
+    --article-quote-size: 16.5px;
     padding: 64px 18px 84px;
   }
 
   .article-hero h1 {
-    font-size: clamp(38px, 10.5vw, 52px);
     line-height: 1.1;
   }
 
@@ -1974,7 +2002,6 @@ footer {
 
   .article-description {
     margin-top: 24px;
-    font-size: 16px;
   }
 
   .article-info-band {

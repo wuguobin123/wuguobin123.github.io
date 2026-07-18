@@ -69,3 +69,13 @@ test("keeps the reusable article publishing skill in the repository", async () =
     ),
   );
 });
+
+test("uses one responsive typography scale across article pages", async () => {
+  const css = await readFile(new URL("app/globals.css", root), "utf8");
+
+  assert.match(css, /--article-title-size:\s*clamp\(/);
+  assert.match(css, /--article-body-size:\s*clamp\(/);
+  assert.match(css, /font-size:\s*var\(--article-title-size\)/);
+  assert.match(css, /font-size:\s*var\(--article-body-size\)/);
+  assert.match(css, /\.prose h4\s*\{/);
+});

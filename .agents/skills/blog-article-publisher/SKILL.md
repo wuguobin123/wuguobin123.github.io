@@ -77,13 +77,14 @@ embed inline CSS or presentation HTML.
 
 The current reading scale is:
 
-- article title: responsive 42–68 px on desktop and 38–52 px on mobile;
-- description: 16–20 px, 1.7 line height;
-- lead paragraph: 17–19 px, 1.85 line height;
-- body: 16–17 px, 1.9 line height;
-- H2: 26–32 px with about 2.75 rem of top spacing;
-- H3: 20–23 px;
-- blockquote: 17–19 px with a lime left rule;
+- article title: responsive 40–64 px on desktop and 34–44 px on mobile;
+- description: 15.5–19 px, 1.7 line height;
+- lead paragraph: 16.5–18 px, 1.85 line height;
+- body: 15.5–16.5 px on desktop and 16 px on mobile, 1.9 line height;
+- H2: 24–30 px with about 2.75 rem of top spacing;
+- H3: 19–22 px;
+- H4: 17–19 px;
+- blockquote: 16.5–18 px with a lime left rule;
 - main text measure: about 720 px.
 
 Write headings that remain useful in the generated table of contents. Prefer
@@ -127,7 +128,7 @@ and mobile-safe heading hierarchy.
 - The body has no H1 and has a coherent H2/H3 hierarchy.
 - The opening establishes the problem and the conclusion establishes the next step.
 - Examples and claims are supported by the provided source or experience.
-- Paragraphs are readable at the site's 17–18 px body scale.
+- Paragraphs are readable at the site's 15.5–16.5 px body scale.
 - The generated table of contents is useful rather than repetitive.
 - Validation and site build pass.
 - The commit excludes unrelated local changes.
