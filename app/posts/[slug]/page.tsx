@@ -178,7 +178,10 @@ export default async function PostPage({ params }: PostPageProps) {
 
       <section className="article-end">
         <p>WUGUOBIN · 日新知见</p>
-        <a href={`${basePath}/posts/`}>进入文章目录 <span aria-hidden="true">↗</span></a>
+        <div className="article-end-links">
+          <a href="mailto:wgblearn@163.com">wgblearn@163.com</a>
+          <a href={`${basePath}/posts/`}>进入文章目录 <span aria-hidden="true">↗</span></a>
+        </div>
       </section>
     </main>
   );

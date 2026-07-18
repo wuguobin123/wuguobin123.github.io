@@ -187,6 +187,7 @@ export default function Home() {
           <span>© {new Date().getFullYear()} AI PRACTITIONER PORTFOLIO</span>
         </div>
         <nav aria-label="页尾导航">
+          <a href="mailto:wgblearn@163.com">wgblearn@163.com</a>
           <a href="https://github.com/wuguobin123" target="_blank" rel="noreferrer">GitHub</a>
           <a href={`${basePath}/posts/`}>文章目录</a>
           <a href="#top">回到顶部 ↑</a>

@@ -59,6 +59,7 @@ export default function PostsPage() {
       <footer>
         <span>© {new Date().getFullYear()} WUGUOBIN</span>
         <span>{posts.length} NOTES · KEEP SHIPPING</span>
+        <a href="mailto:wgblearn@163.com">wgblearn@163.com</a>
         <a href={`${basePath}/`}>返回首页 ↑</a>
       </footer>
     </>

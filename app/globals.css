@@ -1456,6 +1456,13 @@ footer {
   color: var(--lime);
 }
 
+.article-end-links {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-end;
+}
+
 /* Posts directory */
 .posts-index-header {
   position: sticky;
@@ -1878,6 +1885,10 @@ footer {
   .article-end {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .article-end-links {
+    align-items: flex-start;
   }
 
   .notes-head {

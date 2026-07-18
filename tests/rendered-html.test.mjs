@@ -48,13 +48,16 @@ test("exports the homepage, directory, and article pages", async () => {
   assert.match(homepage, /把复杂技术/);
   assert.match(homepage, /日新知见/);
   assert.match(homepage, /OBSIDIAN/);
+  assert.match(homepage, /mailto:wgblearn@163\.com/);
   assert.doesNotMatch(homepage, /codex-preview|react-loading-skeleton/);
   assert.match(directory, /文章目录/);
   assert.match(directory, /搜索文章/);
+  assert.match(directory, /mailto:wgblearn@163\.com/);
   assert.match(article, /个人品牌，比简历有效100倍/);
   assert.match(article, /本篇目录/);
   assert.match(article, /PUBLIC NOTE/);
   assert.match(article, /IDEAS/);
+  assert.match(article, /mailto:wgblearn@163\.com/);
 });
 
 test("keeps GitHub Pages metadata in the exported artifact", async () => {
