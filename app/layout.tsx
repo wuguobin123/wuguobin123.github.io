@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import AmbientPlayer from "./AmbientPlayer";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -33,9 +34,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
   return (
     <html lang="zh-CN">
-      <body>{children}</body>
+      <body>
+        {children}
+        <AmbientPlayer src={`${basePath}/audio/placid-ambient.mp3`} />
+      </body>
     </html>
   );
 }

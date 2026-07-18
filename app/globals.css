@@ -152,6 +152,120 @@ footer a:hover::after {
   color: white;
 }
 
+.ambient-player {
+  position: fixed;
+  z-index: 50;
+  right: 18px;
+  bottom: 18px;
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  width: min(308px, calc(100vw - 36px));
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  background: rgba(252, 249, 242, 0.94);
+  box-shadow: 8px 8px 0 rgba(20, 20, 17, 0.15);
+  backdrop-filter: blur(12px);
+}
+
+.ambient-player-toggle {
+  display: grid;
+  min-height: 96px;
+  padding: 0;
+  border: 0;
+  border-right: 2px solid var(--ink);
+  background: var(--ink);
+  color: var(--lime);
+  cursor: pointer;
+  place-items: center;
+}
+
+.ambient-player-toggle:focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: -5px;
+}
+
+.ambient-equalizer {
+  display: flex;
+  height: 23px;
+  gap: 4px;
+  align-items: flex-end;
+}
+
+.ambient-equalizer i {
+  width: 3px;
+  height: 7px;
+  background: currentColor;
+  animation: ambient-pulse 850ms ease-in-out infinite alternate;
+}
+
+.ambient-equalizer i:nth-child(2) {
+  height: 18px;
+  animation-delay: -460ms;
+}
+
+.ambient-equalizer i:nth-child(3) {
+  height: 12px;
+  animation-delay: -220ms;
+}
+
+.ambient-player:not(.is-playing) .ambient-equalizer i {
+  height: 4px;
+  animation-play-state: paused;
+}
+
+.ambient-player-copy {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+  align-content: center;
+  padding: 13px 15px;
+}
+
+.ambient-player-copy > span,
+.ambient-player-copy > small,
+.ambient-player-copy > a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ambient-player-copy > span {
+  color: var(--red);
+  font: 700 8px/1 var(--font-mono);
+  letter-spacing: 0.1em;
+}
+
+.ambient-player-copy > strong {
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.ambient-player-copy > small,
+.ambient-player-copy > a {
+  color: var(--muted);
+  font: 500 9px/1.35 var(--font-mono);
+  letter-spacing: 0.02em;
+}
+
+.ambient-player-copy > a {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.ambient-player-copy > a:hover {
+  color: var(--ink);
+}
+
+@keyframes ambient-pulse {
+  from {
+    transform: scaleY(0.45);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
 .hero {
   position: relative;
   isolation: isolate;
@@ -1985,6 +2099,22 @@ footer {
   .article-header-bar .brand span:last-child,
   .back-link::after {
     display: none;
+  }
+
+  .ambient-player {
+    right: 12px;
+    bottom: 12px;
+    grid-template-columns: 46px minmax(0, 1fr);
+    width: min(282px, calc(100vw - 24px));
+    box-shadow: 5px 5px 0 rgba(20, 20, 17, 0.14);
+  }
+
+  .ambient-player-toggle {
+    min-height: 86px;
+  }
+
+  .ambient-player-copy {
+    padding: 11px 13px;
   }
 
   .article-page {
