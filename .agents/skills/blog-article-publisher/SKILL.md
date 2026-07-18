@@ -75,6 +75,11 @@ bold text.
 The site owns typography; articles should remain semantic Markdown and must not
 embed inline CSS or presentation HTML.
 
+Treat the current editorial layout and reading scale as the default baseline
+for every future article. Do not add per-article font sizes, custom title
+scales, or inline layout exceptions unless the user explicitly requests a
+different treatment.
+
 The current reading scale is:
 
 - article title: responsive 36–56 px on desktop and 30–38 px on mobile;
