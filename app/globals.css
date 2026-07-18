@@ -1051,7 +1051,7 @@ footer {
 }
 
 .article-page {
-  --article-title-size: clamp(40px, 4.8vw, 64px);
+  --article-title-size: clamp(36px, 4.2vw, 56px);
   --article-description-size: clamp(15.5px, 1.25vw, 19px);
   --article-body-size: clamp(15.5px, 1vw, 16.5px);
   --article-lead-size: clamp(16.5px, 1.2vw, 18px);
@@ -1977,7 +1977,7 @@ footer {
   }
 
   .article-page {
-    --article-title-size: clamp(34px, 9.5vw, 44px);
+    --article-title-size: clamp(30px, 8.5vw, 38px);
     --article-description-size: 15.5px;
     --article-body-size: 16px;
     --article-lead-size: 17px;

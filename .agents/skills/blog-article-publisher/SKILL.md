@@ -77,7 +77,7 @@ embed inline CSS or presentation HTML.
 
 The current reading scale is:
 
-- article title: responsive 40–64 px on desktop and 34–44 px on mobile;
+- article title: responsive 36–56 px on desktop and 30–38 px on mobile;
 - description: 15.5–19 px, 1.7 line height;
 - lead paragraph: 16.5–18 px, 1.85 line height;
 - body: 15.5–16.5 px on desktop and 16 px on mobile, 1.9 line height;
