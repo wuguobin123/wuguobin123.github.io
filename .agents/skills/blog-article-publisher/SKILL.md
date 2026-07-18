@@ -77,14 +77,14 @@ embed inline CSS or presentation HTML.
 
 The current reading scale is:
 
-- article title: responsive 52–88 px;
-- description: 18–23 px, 1.65 line height;
-- lead paragraph: 19–21 px, 1.8 line height;
-- body: 17–18 px, 1.85 line height;
-- H2: 30–38 px with about 3 rem of top spacing;
-- H3: 22–26 px;
-- blockquote: 19–22 px with a lime left rule;
-- main text measure: about 760 px.
+- article title: responsive 42–68 px on desktop and 38–52 px on mobile;
+- description: 16–20 px, 1.7 line height;
+- lead paragraph: 17–19 px, 1.85 line height;
+- body: 16–17 px, 1.9 line height;
+- H2: 26–32 px with about 2.75 rem of top spacing;
+- H3: 20–23 px;
+- blockquote: 17–19 px with a lime left rule;
+- main text measure: about 720 px.
 
 Write headings that remain useful in the generated table of contents. Prefer
 specific headings such as `如何建立第一批可验证作品` over vague headings such
