@@ -168,6 +168,7 @@ export function formatPostDate(date: string): string {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
+    timeZone: "Asia/Shanghai",
   })
     .format(new Date(`${date}T00:00:00+08:00`))
     .replaceAll("/", ".");
