@@ -87,3 +87,21 @@ test("uses one responsive typography scale across article pages", async () => {
   assert.match(css, /font-size:\s*var\(--article-body-size\)/);
   assert.match(css, /\.prose h4\s*\{/);
 });
+
+test("renders Markdown tables as readable responsive regions", async () => {
+  const article = await readFile(
+    new URL(
+      "dist/client/posts/2026-07-20-product-design-by-subtraction/index.html",
+      root,
+    ),
+    "utf8",
+  );
+  const css = await readFile(new URL("app/globals.css", root), "utf8");
+
+  assert.match(article, /class="prose-table-scroll"/);
+  assert.match(article, /aria-label="可横向滚动的数据表格"/);
+  assert.match(article, /<table>/);
+  assert.match(css, /\.prose-table-scroll\s*\{/);
+  assert.match(css, /min-width:\s*680px/);
+  assert.match(css, /overflow-x:\s*auto/);
+});

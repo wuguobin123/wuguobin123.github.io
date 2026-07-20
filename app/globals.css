@@ -1537,6 +1537,68 @@ footer {
   font-weight: 720;
 }
 
+.prose-table-scroll {
+  width: 100%;
+  max-width: 100%;
+  margin: 2.3rem 0 2.8rem;
+  overflow-x: auto;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  scrollbar-color: var(--ink) var(--paper-deep);
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.prose-table-scroll:focus-visible {
+  outline: 3px solid var(--lime);
+  outline-offset: 3px;
+}
+
+.prose-table-scroll table {
+  width: 100%;
+  min-width: 680px;
+  margin: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.88em;
+  line-height: 1.65;
+}
+
+.prose-table-scroll th,
+.prose-table-scroll td {
+  padding: 13px 14px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+  word-break: normal;
+}
+
+.prose-table-scroll th {
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.prose-table-scroll th:last-child,
+.prose-table-scroll td:last-child {
+  border-right: 0;
+}
+
+.prose-table-scroll tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.prose-table-scroll tbody tr:nth-child(even) {
+  background: var(--paper-deep);
+}
+
+.prose-table-scroll tbody td:first-child {
+  color: var(--ink);
+  font-weight: 680;
+}
+
 .prose hr {
   margin: 4rem 0;
   border-top: 2px solid var(--ink);
@@ -2284,6 +2346,22 @@ footer {
   .prose blockquote {
     margin: 2rem 0;
     padding: 18px;
+  }
+
+  .prose-table-scroll {
+    width: calc(100% + 12px);
+    max-width: calc(100% + 12px);
+    margin: 2rem -6px 2.4rem;
+  }
+
+  .prose-table-scroll table {
+    min-width: 660px;
+    font-size: 0.9em;
+  }
+
+  .prose-table-scroll th,
+  .prose-table-scroll td {
+    padding: 12px 13px;
   }
 
   .prose > p:has(> strong:only-child) {

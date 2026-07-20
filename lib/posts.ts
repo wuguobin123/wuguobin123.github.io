@@ -97,6 +97,15 @@ function createHeadingId(title: string, index: number): string {
   return normalized || `section-${index + 1}`;
 }
 
+function addTableScrollContainers(markup: string): string {
+  return markup
+    .replace(
+      /<table([^>]*)>/g,
+      '<div class="prose-table-scroll" role="region" aria-label="可横向滚动的数据表格" tabindex="0"><table$1>',
+    )
+    .replace(/<\/table>/g, "</table></div>");
+}
+
 function addHeadingNavigation(markup: string): {
   html: string;
   toc: TableOfContentsItem[];
@@ -141,7 +150,9 @@ export function getAllPosts(): Post[] {
         /\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g,
         (_match, title: string, alias?: string) => alias ?? title,
       );
-      const rendered = addHeadingNavigation(marked.parse(preparedBody) as string);
+      const rendered = addHeadingNavigation(
+        addTableScrollContainers(marked.parse(preparedBody) as string),
+      );
 
       return {
         slug,
