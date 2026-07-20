@@ -7,7 +7,7 @@ tags: [AI Coding, 微信小程序, 产品设计, Stitch, WorkBuddy, ChatGPT]
 
 > **AI Coding 实战系列 · 第 2 篇**
 >
-> [第 1 篇复盘两天交付的完整小程序](/posts/2026-07-19-build-wechat-mini-program-in-two-days/)；本篇拆解六阶段提效；[第 3 篇介绍如何用手机远程推进任务](/posts/2026-07-20-control-chatgpt-from-phone/)。
+> [01 两天做完小程序](/posts/2026-07-19-build-wechat-mini-program-in-two-days/) · **02 本篇** · [03 手机远程协作](/posts/2026-07-20-control-chatgpt-from-phone/) · [04 产品设计做减法](/posts/2026-07-20-product-design-by-subtraction/)
 
 上一篇文章里，我复盘了如何在两天内完成「算一卦」微信小程序。从结果看，它包含完整的问事流程、云函数、大模型解读、历史记录、隐私设置和分享能力。
 

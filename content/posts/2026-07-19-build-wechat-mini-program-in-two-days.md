@@ -7,7 +7,7 @@ tags: [AI Coding, 微信小程序, 产品设计, CloudBase, 大模型应用]
 
 > **AI Coding 实战系列 · 第 1 篇**
 >
-> 本篇复盘两天交付的完整结果；[第 2 篇拆解六个环节如何提效](/posts/2026-07-20-from-tweet-to-miniprogram/)，[第 3 篇介绍如何用手机远程推进任务](/posts/2026-07-20-control-chatgpt-from-phone/)。
+> **01 本篇** · [02 六阶段提效](/posts/2026-07-20-from-tweet-to-miniprogram/) · [03 手机远程协作](/posts/2026-07-20-control-chatgpt-from-phone/) · [04 产品设计做减法](/posts/2026-07-20-product-design-by-subtraction/)
 
 两天，能不能从一个想法走到一款可以完整体验的微信小程序？
 

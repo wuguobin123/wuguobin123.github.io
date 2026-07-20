@@ -7,7 +7,7 @@ tags: [AI Coding, ChatGPT, Codex, 远程控制, 效率工具]
 
 > **AI Coding 实战系列 · 第 3 篇**
 >
-> [第 1 篇复盘两天做完一个微信小程序](/posts/2026-07-19-build-wechat-mini-program-in-two-days/)，[第 2 篇拆解六个环节如何提效](/posts/2026-07-20-from-tweet-to-miniprogram/)；本篇解决“人离开电脑之后，任务怎样继续推进”。
+> [01 两天做完小程序](/posts/2026-07-19-build-wechat-mini-program-in-two-days/) · [02 六阶段提效](/posts/2026-07-20-from-tweet-to-miniprogram/) · **03 本篇** · [04 产品设计做减法](/posts/2026-07-20-product-design-by-subtraction/)
 
 做「算一卦」小程序时，很多工作并不是敲完一条指令就立刻结束。云函数需要部署，大模型报告需要等待，页面修改后还要重新构建，AI 也可能在中途询问方向或等待授权。
 
@@ -173,3 +173,5 @@ Agent 需要人做判断时，及时回答；任务有结果时，快速确认�
 从桌面到手机，真正被延伸的不是工作时间，而是一条任务上下文。规则、项目、文件和工具都留在主机上，人只在最值得介入的时刻出现。
 
 这也是 AI Coding 工作流能够连续运转的最后一块拼图。
+
+下一篇继续回到产品本身，讨论「算一卦」最重要的一次方向调整：[产品设计先做减法](/posts/2026-07-20-product-design-by-subtraction/)。
