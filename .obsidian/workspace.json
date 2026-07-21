@@ -11,13 +11,32 @@
             "id": "0eec840c967f86de",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "content/posts/2026-07-17-build-a-personal-brand.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "2026-07-17-build-a-personal-brand"
+            }
+          },
+          {
+            "id": "732e4a406bfa6545",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "content/posts/2026-07-17-build-a-personal-brand.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "2026-07-17-build-a-personal-brand"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -150,12 +169,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "content/posts/2026-07-17-build-a-personal-brand.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "2026-07-17-build-a-personal-brand 的大纲"
             }
           }
         ],
@@ -176,19 +196,30 @@
       "bases:新建数据库": false
     }
   },
-  "active": "f0774b1851587dfd",
+  "active": "69df3f725f4dec78",
   "lastOpenFiles": [
-    "dist/server/ssr/assets/layout-segment-context-D0p3pSsw.js",
-    "dist/server/ssr/assets/error-boundary-zWDjd8gm.js",
-    "dist/server/ssr/assets/AnchorNavigation-DzyVqJ8K.js",
-    "dist/client/assets/layout-segment-context-BTVpkLHD.js",
-    "dist/client/assets/AnchorNavigation-CwZKzIy0.js",
-    "dist/client/assets/index-DxlszVgX.js",
+    "dist/client/images/2026-07-19-suanyigua 2/11-profile.png",
+    "dist/client/images/2026-07-19-suanyigua 2/10-history.png",
+    "dist/client/images/2026-07-19-suanyigua 2/09-report-share.png",
+    "dist/client/images/2026-07-19-suanyigua 2/08-report-action.png",
+    "dist/client/images/2026-07-19-suanyigua 2/07-report-top.png",
+    "dist/client/images/2026-07-19-suanyigua 2/06-loading.png",
+    "dist/client/images/2026-07-19-suanyigua 2/05-revealed.png",
+    "dist/client/images/2026-07-19-suanyigua 2/04-ritual.png",
+    "dist/client/images/2026-07-19-suanyigua 2/03-followup.png",
+    "dist/client/images/2026-07-19-suanyigua 2/02-topic.png",
+    "dist/client/images/2026-07-19-suanyigua 2/01-home.png",
+    "dist/client/images/2026-07-19-suanyigua 2",
+    "dist/client/posts/2026-07-19-build-wechat-mini-program-in-two-days.rsc",
+    "dist/client/posts/2026-07-19-build-wechat-mini-program-in-two-days/index.html",
+    "dist/client/posts/2026-07-19-build-wechat-mini-program-in-two-days",
+    "dist/client/images/2026-07-19-suanyigua",
+    "dist/client/images",
     "dist/server/BUILD_ID",
-    "app/AnchorNavigation.tsx",
-    "dist/server/ssr/assets/layout-segment-context-CsIlB3ne.js",
-    "dist/server/ssr/assets/error-boundary-HzfbbYpK.js",
-    "dist/client/assets/index-BAZzyaZ2.css",
+    "content/posts/2026-07-19-build-wechat-mini-program-in-two-days.md",
+    "public/images/2026-07-19-suanyigua",
+    "public/images",
+    "dist/server/ssr/assets/layout-segment-context-D0p3pSsw.js",
     "content/posts/未命名.canvas"
   ]
 }
