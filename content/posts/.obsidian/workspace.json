@@ -207,7 +207,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 422.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -268,7 +268,7 @@
       }
     ]
   },
-  "active": "2bfda2d4de1817e9",
+  "active": "5c09385b8020b3c1",
   "lastOpenFiles": [
     "2026-07-21-codex-with-kimi-k3.md",
     "未命名.canvas",
