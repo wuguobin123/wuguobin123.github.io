@@ -3,7 +3,7 @@ title: "AI 中转站落地实践（七）：合规边界与安全加固"
 date: 2026-07-22
 description: "系列收官篇：明确自用与商用的合规边界、解读 OpenAI / Anthropic ToS、API Key 加密存储、SSH 加固、Cloudflare WAF、数据隐私与应急响应预案。"
 tags: [AI 中转站, 合规, 安全, API Key, SSH, Cloudflare WAF, 数据隐私]
-draft: true
+draft: false
 ---
 
 > **AI 中转站落地实践 · 系列目录**

@@ -3,7 +3,7 @@ title: "AI 中转站落地实践（一）：架构设计与服务器选型"
 date: 2026-07-22
 description: "系列第 1 篇：从问题出发，画清楚 AI API 反代中转站的整体架构，对比国内外主流服务器区域，给出 2C4G 配置的系统初始化全过程。"
 tags: [AI 中转站, 反向代理, Docker, Cloudflare, 服务器选型]
-draft: true
+draft: false
 ---
 
 > **AI 中转站落地实践 · 系列目录**

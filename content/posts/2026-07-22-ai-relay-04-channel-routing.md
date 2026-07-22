@@ -3,7 +3,7 @@ title: "AI 中转站落地实践（四）：多渠道负载均衡与故障转移
 date: 2026-07-22
 description: "系列第 4 篇：深入 new-api 渠道管理，按权重分配请求、自动故障转移、限速保护、模型-渠道映射表 abilities 的 SQL 调优，以及如何在多上游之间做智能路由。"
 tags: [AI 中转站, new-api, 渠道管理, 负载均衡, 故障转移, SQLite]
-draft: true
+draft: false
 ---
 
 > **AI 中转站落地实践 · 系列目录**

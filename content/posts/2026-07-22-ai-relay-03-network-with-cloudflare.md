@@ -3,7 +3,7 @@ title: "AI 中转站落地实践（三）：用 Cloudflare Tunnel 打通公网�
 date: 2026-07-22
 description: "系列第 3 篇：从国内访问海外 VPS 的网络瓶颈讲起，详细讲解 Cloudflare Tunnel 临时隧道和 Named Tunnel 长期方案，含 DNS / HTTPS / 自动续期 / systemd 自启。"
 tags: [AI 中转站, Cloudflare, Tunnel, 网络加速, HTTPS, 内网穿透]
-draft: true
+draft: false
 ---
 
 > **AI 中转站落地实践 · 系列目录**

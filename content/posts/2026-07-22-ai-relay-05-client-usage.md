@@ -3,7 +3,7 @@ title: "AI 中转站落地实践（五）：客户端接入与多工具协同"
 date: 2026-07-22
 description: "系列第 5 篇：把 AI 中转站接到 Claude Code / Cherry Studio / CC Switch / Cursor / Cline / 手机端等主流客户端，覆盖 IDE 集成、GUI 客户端、命令行工具三大场景。"
 tags: [AI 中转站, Claude Code, Cherry Studio, CC Switch, Cursor, IDE 集成]
-draft: true
+draft: false
 ---
 
 > **AI 中转站落地实践 · 系列目录**

@@ -3,7 +3,7 @@ title: "AI 中转站落地实践（二）：服务部署与账号配置"
 date: 2026-07-22
 description: "系列第 2 篇：把 new-api / CLIProxyAPI / kiro-rs / WindsurfAPI 四个服务用 docker-compose 一键跑起来，详细讲解每个服务的账号配置和 Token 分配机制。"
 tags: [AI 中转站, Docker Compose, new-api, CLIProxyAPI, Kiro, Windsurf]
-draft: true
+draft: false
 ---
 
 > **AI 中转站落地实践 · 系列目录**
