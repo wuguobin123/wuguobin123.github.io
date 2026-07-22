@@ -714,4 +714,3 @@ sqlite3 /opt/ai-services/new-api/data/one-api.db \
 
 ---
 
-**下一步**：等你把上面的监控脚本都部署好，告诉我，我们写系列最后一篇《07 合规与安全》。

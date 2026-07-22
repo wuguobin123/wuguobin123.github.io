@@ -434,5 +434,3 @@ new-api 默认会把 429 视为"软失败"（不触发 auto_ban），会自动�
 - [负载均衡策略对比](https://en.wikipedia.org/wiki/Load_balancing_(computing))
 
 ---
-
-**下一步**：客户端集成稳定后，告诉我，我们继续写系列第五篇《客户端使用：Claude Code / Cherry Studio / CC Switch》。

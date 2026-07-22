@@ -534,5 +534,3 @@ WHERE name = 'frontend-token';
 - [Open WebUI](https://github.com/open-webui/open-webui)
 
 ---
-
-**下一步**：客户端接入稳定后，告诉我，我们继续写系列第六篇《运维监控：健康检查、用量统计、Token 刷新与故障排查》。

@@ -237,5 +237,3 @@ cloudflared tunnel --url http://localhost:3000
 - [Cloudflare Tunnel 文档](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/)
 
 ---
-
-**下一步**：根据你实际选择的服务器和操作系统，初始化好环境，准备好 Docker，准备好之后告诉我，我们开始系列第二篇《服务部署》。

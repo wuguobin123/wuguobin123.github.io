@@ -581,5 +581,3 @@ new-api 数据库存的 Token 不带 `sk-` 前缀（HTTP Header 里带）。Web 
 - [Cloudflare Tunnel 文档](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/)
 
 ---
-
-**下一步**：等服务都跑通后，告诉我，我们开始系列第三篇《网络打通：Cloudflare Tunnel 临时方案 + 长期域名方案》。

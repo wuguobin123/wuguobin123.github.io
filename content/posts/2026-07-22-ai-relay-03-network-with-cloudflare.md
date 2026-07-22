@@ -442,5 +442,3 @@ Cloudflare 控制台 → DNS → Records → **Export** 按钮可以导出 BIND 
 - [Cloudflare 域名注册](https://www.cloudflare.com/products/registrar/)
 
 ---
-
-**下一步**：Cloudflare 配好后，告诉我，我们继续写系列第四篇《渠道配置细节：负载均衡、故障转移、限速与优先级》。
