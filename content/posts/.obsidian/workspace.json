@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2026-07-22-ai-relay-07-compliance-and-security.md",
+                "file": "2026-07-23-ai-relay-11-pricing-model.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026-07-22-ai-relay-07-compliance-and-security"
+              "title": "2026-07-23-ai-relay-11-pricing-model"
             }
           }
         ],
@@ -171,13 +171,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2026-07-22-ai-relay-07-compliance-and-security.md",
+                "file": "2026-07-23-ai-relay-11-pricing-model.md",
                 "followCursor": true,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "2026-07-22-ai-relay-07-compliance-and-security 的大纲"
+              "title": "2026-07-23-ai-relay-11-pricing-model 的大纲"
             }
           },
           {
@@ -186,7 +186,7 @@
             "state": {
               "type": "footnotes",
               "state": {
-                "file": "2026-07-22-ai-relay-07-compliance-and-security.md"
+                "file": "2026-07-23-ai-relay-11-pricing-model.md"
               },
               "icon": "lucide-file-signature",
               "title": "脚注"
@@ -231,6 +231,8 @@
   },
   "active": "2bfda2d4de1817e9",
   "lastOpenFiles": [
+    "2026-07-22-ai-relay-07-compliance-and-security.md",
+    "2026-07-23-ai-relay-11-pricing-model.md",
     "2026-07-23-ai-relay-10-final-pitfalls-and-pricing.md",
     "2026-07-23-ai-relay-09-cluster-deployment.md",
     "2026-07-22-ai-relay-08-capacity-planning.md",
@@ -240,7 +242,6 @@
     "2026-07-22-ai-relay-04-channel-routing.md",
     "2026-07-22-ai-relay-05-client-usage.md",
     "2026-07-22-ai-relay-06-ops-monitoring.md",
-    "2026-07-22-ai-relay-07-compliance-and-security.md",
     "2026-07-21-codex-with-kimi-k3.md",
     "未命名.canvas",
     "2026-07-20-product-design-by-subtraction.md",
