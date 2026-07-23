@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2026-07-23-ai-relay-10-final-pitfalls-and-pricing.md",
+                "file": "2026-07-22-ai-relay-07-compliance-and-security.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026-07-23-ai-relay-10-final-pitfalls-and-pricing"
+              "title": "2026-07-22-ai-relay-07-compliance-and-security"
             }
           }
         ],
@@ -171,13 +171,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2026-07-23-ai-relay-10-final-pitfalls-and-pricing.md",
+                "file": "2026-07-22-ai-relay-07-compliance-and-security.md",
                 "followCursor": true,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "2026-07-23-ai-relay-10-final-pitfalls-and-pricing 的大纲"
+              "title": "2026-07-22-ai-relay-07-compliance-and-security 的大纲"
             }
           },
           {
@@ -186,7 +186,7 @@
             "state": {
               "type": "footnotes",
               "state": {
-                "file": "2026-07-23-ai-relay-10-final-pitfalls-and-pricing.md"
+                "file": "2026-07-22-ai-relay-07-compliance-and-security.md"
               },
               "icon": "lucide-file-signature",
               "title": "脚注"
@@ -231,8 +231,8 @@
   },
   "active": "2bfda2d4de1817e9",
   "lastOpenFiles": [
-    "2026-07-23-ai-relay-09-cluster-deployment.md",
     "2026-07-23-ai-relay-10-final-pitfalls-and-pricing.md",
+    "2026-07-23-ai-relay-09-cluster-deployment.md",
     "2026-07-22-ai-relay-08-capacity-planning.md",
     "2026-07-22-ai-relay-01-architecture-and-server.md",
     "2026-07-22-ai-relay-02-deployment-and-config.md",

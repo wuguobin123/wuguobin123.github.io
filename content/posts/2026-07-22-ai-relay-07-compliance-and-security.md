@@ -669,7 +669,5 @@ OpenAI 总计：$335/月 ≈ ¥2400/月
 - [Cloudflare WAF 文档](https://developers.cloudflare.com/waf/)
 - [fail2ban 文档](https://github.com/fail2ban/fail2ban)
 
----
 
-**全系列完结** 🎉
 
