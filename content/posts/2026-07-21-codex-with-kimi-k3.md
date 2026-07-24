@@ -11,16 +11,15 @@ tags: [AI Coding, Codex, Kimi K3, CC Switch, 效率工具]
 
 手上有 Kimi 会员附带的 Kimi Code 编程权益，又有 ChatGPT 的 Codex 作为日常编程工具，自然会想：能不能让 Codex 直接跑 Kimi 最新的 K3 模型？
 
-答案是能，但不是"填个 Key 就完事"。实际走一遍会踩到三个坑，每一个的报错信息都指向错误的方向。本文把完整过程和排障思路整理出来，照着做一遍大概十分钟。
+答案是能，但不是"填个 Key 就完事"。实际走一遍会踩到三个坑，每一个的报错信息都指向错误的方向。本文把完整过程和排障思路整理出来，照着做大概十分钟。
 
 ## 先讲清楚三个坑
 
-### 坑一：Kimi 有两个平台，地址完全不同
+### 坑一：Kimi 有两个平台，地址不同
 
-- **Kimi 开放平台**：`https://api.moonshot.cn/v1`，按量付费，充值即用；
-- **Kimi Code 编程会员**：`https://api.kimi.com/coding/v1`，会员订阅制，专为编程场景设计。
+Kimi 开放平台：`https://api.moonshot.cn/v1`，按量付费，充值即用。Kimi Code 编程会员：`https://api.kimi.com/coding/v1`，会员订阅制，专为编程场景设计。
 
-Kimi Code 控制台生成的 Key（`sk-kimi-` 开头）**只能用于后者**。如果把它填到 `api.moonshot.cn`，会直接报：
+Kimi Code 控制台生成的 Key（`sk-kimi-` 开头）只能用于后者。如果把它填到 `api.moonshot.cn`，会直接报：
 
 ```
 401 Invalid Authentication
@@ -47,9 +46,9 @@ invalid configuration: `wire_api = "chat"` is no longer supported.
 How to fix: set `wire_api = "responses"` in your provider config.
 ```
 
-但把 `wire_api` 改成 `responses` 直连 Kimi 又是不行的——`api.kimi.com/coding/v1/responses` 这个端点根本不存在。
+但把 `wire_api` 改成 `responses` 直连 Kimi 又不行——`api.kimi.com/coding/v1/responses` 这个端点根本不存在。
 
-解法就是 Kimi 官方推荐的做法：**开启 CC Switch 的本地路由（Local Routing），由它在 Responses 与 Chat Completions 之间做实时协议转换**。整体链路：
+解法就是 Kimi 官方推荐的做法：开启 CC Switch 的本地路由（Local Routing），由它在 Responses 与 Chat Completions 之间做实时协议转换。整体链路：
 
 ```
 Codex ──Responses──> CC Switch 本地路由(127.0.0.1:15721) ──Chat Completions──> api.kimi.com/coding/v1
@@ -59,7 +58,7 @@ Codex ──Responses──> CC Switch 本地路由(127.0.0.1:15721) ──Chat 
 
 ### 第一步：获取 API Key
 
-进入 Kimi Code 控制台，点击「新建 API Key」，复制生成的 `sk-kimi-` 开头的 Key 并妥善保存——**关闭弹窗后无法再次查看完整 Key**。
+进入 Kimi Code 控制台，点击「新建 API Key」，复制生成的 `sk-kimi-` 开头的 Key 并妥善保存——关闭弹窗后无法再次查看完整 Key。
 
 ### 第二步：在 CC Switch 中添加 Codex 供应商
 
@@ -124,10 +123,7 @@ curl -s http://127.0.0.1:15721/v1/responses \
 
 ## 几个注意点
 
-- **CC Switch 必须保持运行**，本地路由进程由它提供，退出它 Codex 就断连。
-- **会员档位决定能力上限**：`k3` 需 Moderato 及以上；Allegretto 及以上可解锁 K3 的 100 万上下文。
-- **不要篡改客户端标识（User-Agent）**，官方明确这属于违规，可能导致权益暂停。
-- CC Switch 是第三方开源工具，API Key 和请求会经过它的本地路由，有合规要求的环境请先自行评估。
+CC Switch 必须保持运行，本地路由进程由它提供，退出它 Codex 就断连。会员档位决定能力上限：`k3` 需 Moderato 及以上；Allegretto 及以上可解锁 K3 的 100 万上下文。不要篡改客户端标识（User-Agent），官方明确这属于违规，可能导致权益暂停。CC Switch 是第三方开源工具，API Key 和请求会经过它的本地路由，有合规要求的环境请先自行评估。
 
 ## 参考
 
