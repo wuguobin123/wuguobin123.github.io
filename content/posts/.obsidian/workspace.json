@@ -214,12 +214,68 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
+  "floating": {
+    "id": "8ce5587b43f27358",
+    "type": "floating",
+    "children": [
+      {
+        "id": "ac5a9044b9ba332a",
+        "type": "window",
+        "children": [
+          {
+            "id": "bdcd7c79def184a9",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "e63f1f73e1c33d90",
+                "type": "leaf",
+                "state": {
+                  "type": "webviewer",
+                  "state": {
+                    "url": "https://community.sketch-your-mind.com/t/a-visual-catalogue-of-all-my-youtube-videos/701",
+                    "title": "A visual catalogue of all my YouTube Videos - Zsolt's Blog - Sketch Your Mind",
+                    "mode": "webview"
+                  },
+                  "icon": "globe-2",
+                  "title": "A visual catalogue of all my YouTube Videos - Zsolt's Blog - Sketch Your Mind"
+                }
+              },
+              {
+                "id": "4e5f8d34b4e8fc4a",
+                "type": "leaf",
+                "state": {
+                  "type": "webviewer",
+                  "state": {
+                    "url": "https://community.sketch-your-mind.com/t/a-visual-catalogue-of-all-my-youtube-videos/701",
+                    "title": "A visual catalogue of all my YouTube Videos - Zsolt's Blog - Sketch Your Mind",
+                    "mode": "webview"
+                  },
+                  "icon": "globe-2",
+                  "title": "A visual catalogue of all my YouTube Videos - Zsolt's Blog - Sketch Your Mind"
+                }
+              }
+            ],
+            "currentTab": 1
+          }
+        ],
+        "direction": "vertical",
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080,
+        "maximize": false,
+        "zoom": 0
+      }
+    ]
+  },
   "active": "28b31912f1c6374c",
   "lastOpenFiles": [
-    "2026-07-25-ai-twelve-themes-03-china-models.md",
-    "2026-07-25-ai-twelve-themes-02-ai-coding.md",
+    "2026-07-24-liang-wenfeng-transcript.md",
+    "2026-07-24-deepseek-agi-strategy.md",
     "2026-07-25-ai-twelve-themes-01-agent-harness.md",
     "2026-07-25-ai-twelve-themes-00-overview.md",
+    "2026-07-25-ai-twelve-themes-03-china-models.md",
+    "2026-07-25-ai-twelve-themes-02-ai-coding.md",
     "2026-07-25-ai-twelve-themes-12-value-distribution.md",
     "posts/2026-07-25-ai-twelve-themes-12-value-distribution.md",
     "2026-07-25-ai-twelve-themes-11-platform.md",
@@ -238,8 +294,6 @@
     "2026-07-20-product-design-by-subtraction.md",
     "2026-07-21-codex-with-kimi-k3.md",
     "2026-07-22-ai-relay-01-architecture-and-server.md",
-    "2026-07-24-liang-wenfeng-transcript.md",
-    "2026-07-24-deepseek-agi-strategy.md",
     "2026-07-23-ai-relay-14-qa-quota-display.md",
     "2026-07-24-liang-wenfeng-agi-open-source-strategy.md",
     "2026-07-23-ai-relay-13-quota-buckets.md",

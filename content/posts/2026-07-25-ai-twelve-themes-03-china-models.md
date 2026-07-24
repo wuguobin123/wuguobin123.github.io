@@ -22,15 +22,9 @@ draft: false
 
 ## 三条路线一张图
 
-> 它们不是同一条路线赛跑，而是三种完全不同押注。下表对照看：
+> 它们不是同一条路线赛跑，而是三种完全不同押注。
 
-| 维度 | DeepSeek | Kimi | MiniMax |
-|---|---|---|---|
-| 路线 | 效率与开源 | 长 Context + Agentic | 多模态与产品 |
-| 核心技术 | MLA / MoE / FP8 训练 | 200 万 Context Window | 语音 + 视觉 + 视频 |
-| 关键产品 | 开源 HF 权重 | 浏览器 + Agent 工具链 | 海螺 AI / Talkie / 星野 |
-| 战场 | 企业推理 / 私有部署 | C 端 Chat + Agent 平台 | C 端内容 + 海外 |
-| 一句话 | 让模型跑得更便宜 | 让模型能看更多 | 让模型能听能看能演 |
+![中国模型三条路线：DeepSeek 效率与开源、Kimi 长 Context、MiniMax 多模态](../../images/2026-07-25-ai-twelve-themes/03-china-three-routes.png)
 
 我用一家公司一句话总结每条路线：
 
