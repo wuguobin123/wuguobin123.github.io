@@ -141,7 +141,7 @@ AI 产品不是一类，按场景拆开后，PMF 判断标准完全不一样。
 
 我把 PMF 拆成 5 个维度，每个产品都该问自己：
 
-![PMF 五维评分：需求真实 80、工作流嵌入 75、留存 70、付费意愿 60、单位经济 55](../../images/2026-07-25-ai-twelve-themes/04-pmf-five-dimensions.png)
+<img src="../../images/2026-07-25-ai-twelve-themes/04-pmf-five-dimensions.svg" alt="PMF 五维评分：需求真实 80、工作流嵌入 75、留存 70、付费意愿 60、单位经济 55" style="width: 100%; max-width: 900px; display: block; margin: 2rem auto;" />
 
 > 5 个维度都 ≥ 60 才算真实 PMF；任何一项 < 40 都要警惕
 

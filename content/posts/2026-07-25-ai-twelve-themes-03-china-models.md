@@ -24,7 +24,7 @@ draft: false
 
 > 它们不是同一条路线赛跑，而是三种完全不同押注。
 
-![中国模型三条路线：DeepSeek 效率与开源、Kimi 长 Context、MiniMax 多模态](../../images/2026-07-25-ai-twelve-themes/03-china-three-routes.png)
+<img src="../../images/2026-07-25-ai-twelve-themes/03-china-three-routes.svg" alt="中国模型三条路线：DeepSeek 效率与开源、Kimi 长 Context、MiniMax 多模态" style="width: 100%; max-width: 900px; display: block; margin: 2rem auto;" />
 
 我用一家公司一句话总结每条路线：
 

@@ -96,7 +96,7 @@ Infra 不是被动底座，它决定哪些模型能力可以进入生产。
 
 > 价值不会固定停在某一层，会随能力、成本、入口持续迁移。
 
-![AI 产业价值迁移三阶段：模型稀缺期 → 模型商品化期 → Agent 平台期](../../images/2026-07-25-ai-twelve-themes/12-value-migration.png)
+<img src="../../images/2026-07-25-ai-twelve-themes/12-value-migration.svg" alt="AI 产业价值迁移三阶段：模型稀缺期 → 模型商品化期 → Agent 平台期" style="width: 100%; max-width: 900px; display: block; margin: 2rem auto;" />
 
 **底层逻辑**：模型能力稀缺 → 价值集中模型；当能力商品化 → 价值向应用迁移；Agent 时代 → 价值向控制点迁移。
 

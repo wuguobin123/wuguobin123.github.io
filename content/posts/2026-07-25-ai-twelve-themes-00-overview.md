@@ -33,7 +33,7 @@ draft: false
 
 我用 Excalidraw 把它们按技术链、商业链、物理链、平台链画成一张总览：
 
-![AI 产业 12 主线 4 链总览](../../images/2026-07-25-ai-twelve-themes/00-ai-twelve-themes-overview.png)
+<img src="../../images/2026-07-25-ai-twelve-themes/00-ai-twelve-themes-overview.svg" alt="AI 产业 12 主线 4 链总览" style="width: 100%; max-width: 900px; display: block; margin: 2rem auto;" />
 
 四个链之间互相牵动：
 
