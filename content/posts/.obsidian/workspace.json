@@ -4,39 +4,24 @@
     "type": "split",
     "children": [
       {
-        "id": "2ff651e167d0041a",
+        "id": "fceff4040ffd512a",
         "type": "tabs",
         "children": [
           {
-            "id": "99546b1eacd425f9",
+            "id": "28b31912f1c6374c",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2026-07-20-control-chatgpt-from-phone.md",
+                "file": "2026-07-25-ai-twelve-themes-12-value-distribution.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026-07-20-control-chatgpt-from-phone"
-            }
-          },
-          {
-            "id": "2bfda2d4de1817e9",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "2026-07-24-liang-wenfeng-transcript.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "2026-07-24-liang-wenfeng-transcript"
+              "title": "2026-07-25-ai-twelve-themes-12-value-distribution"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -171,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2026-07-24-liang-wenfeng-transcript.md",
+                "file": "2026-07-25-ai-twelve-themes-12-value-distribution.md",
                 "followCursor": true,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "2026-07-24-liang-wenfeng-transcript 的大纲"
+              "title": "2026-07-25-ai-twelve-themes-12-value-distribution 的大纲"
             }
           },
           {
@@ -186,7 +171,7 @@
             "state": {
               "type": "footnotes",
               "state": {
-                "file": "2026-07-24-liang-wenfeng-transcript.md"
+                "file": "2026-07-25-ai-twelve-themes-12-value-distribution.md"
               },
               "icon": "lucide-file-signature",
               "title": "脚注"
@@ -229,36 +214,36 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "2bfda2d4de1817e9",
+  "active": "28b31912f1c6374c",
   "lastOpenFiles": [
-    "2026-07-24-deepseek-agi-strategy.md",
+    "posts/2026-07-25-ai-twelve-themes-12-value-distribution.md",
+    "2026-07-25-ai-twelve-themes-11-platform.md",
+    "posts",
+    "2026-07-25-ai-twelve-themes-10-superindividual.md",
+    "2026-07-25-ai-twelve-themes-09-org.md",
+    "2026-07-25-ai-twelve-themes-08-robotics.md",
+    "2026-07-25-ai-twelve-themes-07-autonomous-driving.md",
+    "2026-07-25-ai-twelve-themes-06-funding.md",
+    "2026-07-25-ai-twelve-themes-05-globalization.md",
+    "2026-07-25-ai-twelve-themes-04-pmf.md",
+    "2026-07-25-ai-twelve-themes-03-china-models.md",
+    "2026-07-25-ai-twelve-themes-02-ai-coding.md",
+    "2026-07-25-ai-twelve-themes-12-value-distribution.md",
+    "2026-07-25-ai-twelve-themes-01-agent-harness.md",
+    "2026-07-25-ai-twelve-themes-00-overview.md",
+    "2026-07-17-build-a-personal-brand.md",
+    "2026-07-19-build-wechat-mini-program-in-two-days.md",
+    "2026-07-20-control-chatgpt-from-phone.md",
+    "2026-07-20-from-tweet-to-miniprogram.md",
+    "2026-07-20-product-design-by-subtraction.md",
+    "2026-07-21-codex-with-kimi-k3.md",
+    "2026-07-22-ai-relay-01-architecture-and-server.md",
     "2026-07-24-liang-wenfeng-transcript.md",
+    "2026-07-24-deepseek-agi-strategy.md",
     "2026-07-23-ai-relay-14-qa-quota-display.md",
     "2026-07-24-liang-wenfeng-agi-open-source-strategy.md",
     "2026-07-23-ai-relay-13-quota-buckets.md",
-    "2026-07-23-ai-relay-12-proxy-principles.md",
-    "2026-07-23-ai-relay-11-pricing-model.md",
-    "2026-07-22-ai-relay-07-compliance-and-security.md",
-    "2026-07-23-ai-relay-10-final-pitfalls-and-pricing.md",
-    "2026-07-23-ai-relay-09-cluster-deployment.md",
-    "2026-07-22-ai-relay-08-capacity-planning.md",
-    "2026-07-22-ai-relay-01-architecture-and-server.md",
-    "2026-07-22-ai-relay-02-deployment-and-config.md",
-    "2026-07-22-ai-relay-03-network-with-cloudflare.md",
-    "2026-07-22-ai-relay-04-channel-routing.md",
-    "2026-07-22-ai-relay-05-client-usage.md",
-    "2026-07-22-ai-relay-06-ops-monitoring.md",
-    "2026-07-21-codex-with-kimi-k3.md",
     "未命名.canvas",
-    "2026-07-20-product-design-by-subtraction.md",
-    "posts/2026-07-20-product-design-by-subtraction.md",
-    "posts",
-    "2026-07-20-control-chatgpt-from-phone.md",
-    "2026-07-20-from-tweet-to-miniprogram.md",
-    "2026-07-19-build-wechat-mini-program-in-two-days.md",
-    "2026-07-17-build-a-personal-brand.md",
-    "_template.md",
-    "未命名.base",
-    "2026-07-05-knowledge-production-loop.md"
+    "未命名.base"
   ]
 }
