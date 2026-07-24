@@ -22,18 +22,7 @@ draft: false
 
 ## 三条路线一张图
 
-```mermaid
-flowchart LR
-  A[DeepSeek<br/>效率与开源] --> A1[研究优先<br/>MLA / MoE / FP8]
-  A --> A2[开源 Hugging Face 权重]
-  A --> A3[承接 to B 推理需求]
-  B[Kimi<br/>长 Context 与 Agentic] --> B1[200 万 Context Window]
-  B --> B2[浏览器 + Agent 工具链]
-  B --> B3[Agent 平台化设想]
-  C[MiniMax<br/>多模态与产品] --> C1[语音 + 视觉 + 视频 + 文本]
-  C --> C2[海螺 AI / Talkie / 星野]
-  C --> C3[内容 + 陪伴 + 全球化]
-```
+![中国模型三条路线：DeepSeek 效率与开源、Kimi 长 Context、MiniMax 多模态](../../images/2026-07-25-ai-twelve-themes/03-china-three-routes.svg)
 
 我用一家公司一句话总结每条路线：
 

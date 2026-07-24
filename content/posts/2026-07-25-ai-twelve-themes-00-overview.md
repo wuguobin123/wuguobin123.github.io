@@ -33,26 +33,7 @@ draft: false
 
 我把它们按技术链、商业链、物理链、平台链排成一张总览：
 
-```mermaid
-mindmap
-  root((AI 产业<br/>十二主线))
-    技术链
-      Agent 与 Harness
-      AI Coding
-      中国模型三条路线
-    商业链
-      产品 PMF
-      出海与全球化
-      融资与泡沫
-      组织能力
-      超级个体
-    物理链
-      自动驾驶
-      机器人与 VLA
-    平台链
-      TikTok 平台增长
-      模型/应用/Infra 价值分配
-```
+![AI 产业 12 主线一张图：技术链、商业链、物理链、平台链](../../images/2026-07-25-ai-twelve-themes/00-twelve-themes-overview.svg)
 
 四类之间不是孤立的：
 

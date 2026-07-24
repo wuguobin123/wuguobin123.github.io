@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2026-07-25-ai-twelve-themes-12-value-distribution.md",
+                "file": "2026-07-25-ai-twelve-themes-03-china-models.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026-07-25-ai-twelve-themes-12-value-distribution"
+              "title": "2026-07-25-ai-twelve-themes-03-china-models"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2026-07-25-ai-twelve-themes-12-value-distribution.md",
+                "file": "2026-07-25-ai-twelve-themes-03-china-models.md",
                 "followCursor": true,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "2026-07-25-ai-twelve-themes-12-value-distribution 的大纲"
+              "title": "2026-07-25-ai-twelve-themes-03-china-models 的大纲"
             }
           },
           {
@@ -171,7 +171,7 @@
             "state": {
               "type": "footnotes",
               "state": {
-                "file": "2026-07-25-ai-twelve-themes-12-value-distribution.md"
+                "file": "2026-07-25-ai-twelve-themes-03-china-models.md"
               },
               "icon": "lucide-file-signature",
               "title": "脚注"
@@ -216,6 +216,10 @@
   },
   "active": "28b31912f1c6374c",
   "lastOpenFiles": [
+    "2026-07-25-ai-twelve-themes-02-ai-coding.md",
+    "2026-07-25-ai-twelve-themes-01-agent-harness.md",
+    "2026-07-25-ai-twelve-themes-00-overview.md",
+    "2026-07-25-ai-twelve-themes-12-value-distribution.md",
     "posts/2026-07-25-ai-twelve-themes-12-value-distribution.md",
     "2026-07-25-ai-twelve-themes-11-platform.md",
     "posts",
@@ -227,10 +231,6 @@
     "2026-07-25-ai-twelve-themes-05-globalization.md",
     "2026-07-25-ai-twelve-themes-04-pmf.md",
     "2026-07-25-ai-twelve-themes-03-china-models.md",
-    "2026-07-25-ai-twelve-themes-02-ai-coding.md",
-    "2026-07-25-ai-twelve-themes-12-value-distribution.md",
-    "2026-07-25-ai-twelve-themes-01-agent-harness.md",
-    "2026-07-25-ai-twelve-themes-00-overview.md",
     "2026-07-17-build-a-personal-brand.md",
     "2026-07-19-build-wechat-mini-program-in-two-days.md",
     "2026-07-20-control-chatgpt-from-phone.md",

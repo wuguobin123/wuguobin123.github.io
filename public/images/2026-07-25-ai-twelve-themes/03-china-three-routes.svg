@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" font-family="-apple-system, 'PingFang SC', 'Helvetica Neue', sans-serif">
+  <defs>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="0" dy="2" result="offsetblur"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.18"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="700" fill="#fafafa"/>
+
+  <text x="600" y="48" text-anchor="middle" font-size="22" font-weight="700" fill="#111827">中国模型三条路线</text>
+  <text x="600" y="78" text-anchor="middle" font-size="13" fill="#6b7280">不是同一条路线赛跑，而是三种不同押注</text>
+
+  <!-- DeepSeek 列 -->
+  <g filter="url(#softShadow)">
+    <rect x="60" y="130" width="320" height="80" rx="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+    <text x="220" y="168" text-anchor="middle" font-size="18" font-weight="700" fill="#92400e">DeepSeek</text>
+    <text x="220" y="192" text-anchor="middle" font-size="13" fill="#78350f">效率与开源</text>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <rect x="60" y="240" width="320" height="50" rx="8" fill="#fffbeb" stroke="#fbbf24"/>
+    <text x="220" y="272" text-anchor="middle" font-size="13" fill="#451a03">MLA · MoE · FP8 训练</text>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <rect x="60" y="310" width="320" height="50" rx="8" fill="#fffbeb" stroke="#fbbf24"/>
+    <text x="220" y="342" text-anchor="middle" font-size="13" fill="#451a03">开源 Hugging Face 权重</text>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <rect x="60" y="380" width="320" height="50" rx="8" fill="#fffbeb" stroke="#fbbf24"/>
+    <text x="220" y="412" text-anchor="middle" font-size="13" fill="#451a03">承接 To B 推理需求</text>
+  </g>
+
+  <text x="220" y="500" text-anchor="middle" font-size="12" font-weight="600" fill="#92400e">核心押注：让模型跑得更便宜</text>
+  <text x="220" y="520" text-anchor="middle" font-size="11" fill="#78716c">战场：企业推理 / 私有部署</text>
+
+  <!-- Kimi 列 -->
+  <g filter="url(#softShadow)">
+    <rect x="440" y="130" width="320" height="80" rx="12" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+    <text x="600" y="168" text-anchor="middle" font-size="18" font-weight="700" fill="#1e3a8a">Kimi</text>
+    <text x="600" y="192" text-anchor="middle" font-size="13" fill="#1e40af">长 Context 与 Agentic</text>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <rect x="440" y="240" width="320" height="50" rx="8" fill="#eff6ff" stroke="#60a5fa"/>
+    <text x="600" y="272" text-anchor="middle" font-size="13" fill="#1e3a8a">200 万 Context Window</text>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <rect x="440" y="310" width="320" height="50" rx="8" fill="#eff6ff" stroke="#60a5fa"/>
+    <text x="600" y="342" text-anchor="middle" font-size="13" fill="#1e3a8a">浏览器 + Agent 工具链</text>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <rect x="440" y="380" width="320" height="50" rx="8" fill="#eff6ff" stroke="#60a5fa"/>
+    <text x="600" y="412" text-anchor="middle" font-size="13" fill="#1e3a8a">Agent 平台化设想</text>
+  </g>
+
+  <text x="600" y="500" text-anchor="middle" font-size="12" font-weight="600" fill="#1e3a8a">核心押注：让模型能看更多、做更复杂的任务</text>
+  <text x="600" y="520" text-anchor="middle" font-size="11" fill="#78716c">战场：C 端 Chat + Agent 平台</text>
+
+  <!-- MiniMax 列 -->
+  <g filter="url(#softShadow)">
+    <rect x="820" y="130" width="320" height="80" rx="12" fill="#f5f3ff" stroke="#8b5cf6" stroke-width="2"/>
+    <text x="980" y="168" text-anchor="middle" font-size="18" font-weight="700" fill="#5b21b6">MiniMax</text>
+    <text x="980" y="192" text-anchor="middle" font-size="13" fill="#6d28d9">多模态与产品</text>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <rect x="820" y="240" width="320" height="50" rx="8" fill="#faf5ff" stroke="#a78bfa"/>
+    <text x="980" y="272" text-anchor="middle" font-size="13" fill="#4c1d95">语音 + 视觉 + 视频 + 文本</text>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <rect x="820" y="310" width="320" height="50" rx="8" fill="#faf5ff" stroke="#a78bfa"/>
+    <text x="980" y="342" text-anchor="middle" font-size="13" fill="#4c1d95">海螺 AI / Talkie / 星野</text>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <rect x="820" y="380" width="320" height="50" rx="8" fill="#faf5ff" stroke="#a78bfa"/>
+    <text x="980" y="412" text-anchor="middle" font-size="13" fill="#4c1d95">内容 + 陪伴 + 全球化</text>
+  </g>
+
+  <text x="980" y="500" text-anchor="middle" font-size="12" font-weight="600" fill="#5b21b6">核心押注：让模型能听能看能演</text>
+  <text x="980" y="520" text-anchor="middle" font-size="11" fill="#78716c">战场：C 端内容 + 海外</text>
+
+  <!-- 底部一句话总结 -->
+  <g transform="translate(0,600)">
+    <rect x="80" y="0" width="1040" height="70" rx="8" fill="#1f2937"/>
+    <text x="600" y="30" text-anchor="middle" font-size="14" font-weight="600" fill="#fde68a">一句话</text>
+    <text x="600" y="55" text-anchor="middle" font-size="13" fill="#e5e7eb">DeepSeek 让模型更便宜 · Kimi 让模型能看更多 · MiniMax 让模型能听能看能演</text>
+  </g>
+</svg>

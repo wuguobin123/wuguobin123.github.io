@@ -94,14 +94,7 @@ Infra 不是被动底座，它决定哪些模型能力可以进入生产。
 
 ## 价值迁移的三个阶段
 
-```mermaid
-flowchart LR
-  S1[阶段一<br/>模型能力稀缺期] --> S2[阶段二<br/>模型商品化期]
-  S2 --> S3[阶段三<br/>Agent 平台期]
-  S1 --> S1a[价值集中在<br/>模型 + GPU + 训练 Infra]
-  S2 --> S2a[价值向用户、品牌、<br/>工作流、数据、分发迁移]
-  S3 --> S3a[价值向 Runtime、Context、Memory、<br/>权限、身份、支付迁移]
-```
+![AI 产业价值迁移三阶段：模型能力稀缺期、模型商品化期、Agent 平台期](../../images/2026-07-25-ai-twelve-themes/12-value-migration.svg)
 
 ### 阶段一：模型能力稀缺期
 
