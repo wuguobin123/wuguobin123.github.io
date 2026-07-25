@@ -39,10 +39,12 @@ export default function RootLayout({
 
   return (
     <html lang="zh-CN">
+      <head>
+        <Analytics />
+      </head>
       <body>
         {children}
         <AmbientPlayer src={`${basePath}/audio/placid-ambient.mp3`} />
-        <Analytics />
       </body>
     </html>
   );
