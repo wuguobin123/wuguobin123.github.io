@@ -38,6 +38,9 @@ jobs:
         env:
           CUSTOM_DOMAIN: ${{ vars.CUSTOM_DOMAIN }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL }}
+          NEXT_PUBLIC_BAIDU_TONGJI_ID: ${{ secrets.BAIDU_TONGJI_ID }}
+          NEXT_PUBLIC_UMAMI_SRC: ${{ vars.UMAMI_SRC }}
+          NEXT_PUBLIC_UMAMI_WEBSITE_ID: ${{ secrets.UMAMI_WEBSITE_ID }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

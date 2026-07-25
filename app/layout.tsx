@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import AmbientPlayer from "./AmbientPlayer";
+import Analytics from "./Analytics";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -41,6 +42,7 @@ export default function RootLayout({
       <body>
         {children}
         <AmbientPlayer src={`${basePath}/audio/placid-ambient.mp3`} />
+        <Analytics />
       </body>
     </html>
   );
