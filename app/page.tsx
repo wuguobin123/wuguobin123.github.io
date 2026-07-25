@@ -33,7 +33,7 @@ export default function Home() {
             把复杂技术，做成真正<strong>可用的 AI 产品。</strong>
           </h1>
           <p className="hero-intro">
-            我是 wuguobin，持续探索 AI 在客服、外贸、知识生产与软件研发中的落地方式。
+            我是 wuguobin，持续探索 AI 在客服、知识生产与软件研发中的落地方式。
             这里记录方法、项目和仍在发生的思考。
           </p>
           <a className="hero-link" href="#notes" aria-label="阅读最新文章">
@@ -54,7 +54,7 @@ export default function Home() {
           <div className="about-columns">
             <p>
               过去十多年，我在产品、研发和交付之间工作。近三年重点探索客服场景中的
-              AI 外呼、AI 质检，以及 AI 在外贸和组品中的应用。
+              AI 外呼和 AI 质检。
             </p>
             <p>
               我相信好的 AI 产品不是多一个对话框，而是重新组织信息、工具、人员与决策边界。
