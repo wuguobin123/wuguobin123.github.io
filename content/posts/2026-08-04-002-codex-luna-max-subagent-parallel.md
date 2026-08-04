@@ -1,10 +1,9 @@
 ---
-标题: Codex 配置 luna_worker/sol_worker 子代理：luna-max 并行执行工作流
-日期: 2026-08-04
-标签: [Codex, 子代理, 多Agent, luna-max, 工作流]
+title: "Codex 配置 luna_worker/sol_worker 子代理：luna-max 并行执行工作流"
+date: "2026-08-04"
+description: "按推文方法在 Codex 中配置 sol_worker 做方案设计、luna_worker 以 luna-max 并行执行小任务；因当前 CLI 不读取 agents 目录，改写 AGENTS.md 让调度立即生效。"
+tags: [Codex, 子代理, 多Agent, luna-max, 工作流]
 ---
-
-# Codex 配置 luna_worker/sol_worker 子代理：luna-max 并行执行工作流
 
 ## 摘要
 
@@ -12,7 +11,7 @@
 
 ## 背景：什么是「无限子弹」
 
-推文思路：Codex 主代理派生的子代理如果默认继承主模型，成本和速率都受主模型约束；把执行型子代理换成更快更便宜的模型（`gpt-5.6-luna`）并开到 `max` 推理强度，就能大量并行处理边界明确的小任务——即「无限子弹」。分工是：
+推文思路：Codex 主代理派生的子代理如果默认继承主模型，成本和速率都受主模型约束；把执行型子代理换成更快更便宜的模型（`gpt-5.6-luna`）并开到 `max` 推理强度，就能大量并行处理边界明确的小任务--即「无限子弹」。分工是：
 
 - 复杂任务先由强模型（`gpt-5.6-sol`）做方案设计；
 - 方案拆成独立小任务后，交给 `luna-max` 子代理并行执行。
@@ -67,7 +66,7 @@ model_reasoning_effort = "max"
 
 - `sol_worker`：复杂任务的方案设计者，`gpt-5.6-sol` + `max`，产出已拆分为独立小任务的结构化实施方案。
 - `luna_worker`：边界明确、可重复的小任务执行者，`gpt-5.6-luna` + `max`；严格限定范围、独立执行、可行时验证、简洁汇报（结果/文件路径/验证情况/注意事项）。
-- 调度规则：派生子代理时传入对应的模型与推理强度覆盖，并把工作方式作为子代理指令；多个独立小任务并行派发；复杂任务走「sol 设计 → 审阅拆分 → luna 并行执行」流程。
+- 调度规则：派生子代理时传入对应的模型与推理强度覆盖，并把工作方式作为子代理指令；多个独立小任务并行派发；复杂任务走「sol 设计 -> 审阅拆分 -> luna 并行执行」流程。
 
 ## 使用方式
 
@@ -86,9 +85,9 @@ Codex 新会话中直接说：
 
 ## 相关页面
 
-- [[2026-08-04-001-Codex先调研后编码省token工作流]]：另一条 Codex 提示词工作流实践
-- [[2026-07-11-019-Codex与Claude-Code使用最佳实践]]：Codex 长任务、Subagent、Worktree 官方机制
-- [[2026-07-14-006-OpenClaw与Claude-Code的Agent模块构建拆解]]：子 Agent 模块的源码级拆解
+- [[2026-08-04-001-codex-research-before-coding]]：另一条 Codex 提示词工作流实践
+- [[文章/2026-07-11-019-Codex与Claude-Code使用最佳实践]]：Codex 长任务、Subagent、Worktree 官方机制
+- [[文章/2026-07-14-006-OpenClaw与Claude-Code的Agent模块构建拆解]]：子 Agent 模块的源码级拆解
 - [[../概念/多Agent与Subagent设计|多Agent 与 Subagent 设计]]
 
 ## 来源
