@@ -179,8 +179,8 @@ export default function Home() {
             <p className="eyebrow">MACOS · APPLE SILICON</p>
             <h2>macOS arm64</h2>
             <p>M1 / M2 / M3 / M4 原生包。终端粘贴一键脚本会自动识别架构、去除 quarantine。</p>
-            <pre className="download-cmd"><code>bash -c "$(curl -fsSL https://xiaowei.119.45.252.25.nip.io/releases/install-mac.sh)"</code></pre>
-            <a className="download-link" href="https://xiaowei.119.45.252.25.nip.io/releases/latest-mac-arm64.dmg">
+            <pre className="download-cmd"><code>bash -c "$(curl -fsSL http://xiaowei.119.45.252.25.nip.io/releases/install-mac.sh)"</code></pre>
+            <a className="download-link" href="http://xiaowei.119.45.252.25.nip.io/releases/latest-mac-arm64.dmg">
               下载 .dmg ↗
             </a>
           </article>
@@ -192,8 +192,8 @@ export default function Home() {
             <p className="eyebrow">MACOS · INTEL</p>
             <h2>macOS x64</h2>
             <p>Intel 处理器 Mac（2019 年前机型及部分 iMac/Mac Pro）。同一键脚本自动识别。</p>
-            <pre className="download-cmd"><code>bash -c "$(curl -fsSL https://xiaowei.119.45.252.25.nip.io/releases/install-mac.sh)"</code></pre>
-            <a className="download-link" href="https://xiaowei.119.45.252.25.nip.io/releases/latest-mac-x64.dmg">
+            <pre className="download-cmd"><code>bash -c "$(curl -fsSL http://xiaowei.119.45.252.25.nip.io/releases/install-mac.sh)"</code></pre>
+            <a className="download-link" href="http://xiaowei.119.45.252.25.nip.io/releases/latest-mac-x64.dmg">
               下载 .dmg ↗
             </a>
           </article>
@@ -204,9 +204,9 @@ export default function Home() {
             </div>
             <p className="eyebrow">WINDOWS · X64</p>
             <h2>Windows x64</h2>
-            <p>Windows 10 / 11 (64-bit) NSIS 安装包。下载后双击运行，按向导完成。</p>
-            <pre className="download-cmd"><code>Invoke-WebRequest -OutFile installer.exe https://xiaowei.119.45.252.25.nip.io/releases/latest-win-x64.exe; .\installer.exe</code></pre>
-            <a className="download-link" href="https://xiaowei.119.45.252.25.nip.io/releases/latest-win-x64.exe">
+            <p>Windows 10 / 11 (64-bit)。粘贴一键命令：自动退出运行中的实例、卸载旧版后安装新版；首次安装可直接下载 .exe 双击运行。</p>
+            <pre className="download-cmd"><code>powershell -ExecutionPolicy Bypass -Command "iex (Invoke-WebRequest -UseBasicParsing 'http://xiaowei.119.45.252.25.nip.io/releases/install-win.ps1').Content"</code></pre>
+            <a className="download-link" href="http://xiaowei.119.45.252.25.nip.io/releases/latest-win-x64.exe">
               下载 .exe ↗
             </a>
           </article>
