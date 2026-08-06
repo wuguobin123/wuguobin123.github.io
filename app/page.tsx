@@ -205,7 +205,7 @@ export default function Home() {
             <p className="eyebrow">WINDOWS · X64</p>
             <h2>Windows x64</h2>
             <p>Windows 10 / 11 (64-bit)。粘贴一键命令：自动退出运行中的实例、卸载旧版后安装新版；首次安装可直接下载 .exe 双击运行。</p>
-            <pre className="download-cmd"><code>powershell -ExecutionPolicy Bypass -Command "iex (Invoke-WebRequest -UseBasicParsing 'http://xiaowei.119.45.252.25.nip.io/releases/install-win.ps1').Content"</code></pre>
+            <pre className="download-cmd"><code>curl -fsSL -o "%TEMP%\install-win.bat" http://xiaowei.119.45.252.25.nip.io/releases/install-win.bat && call "%TEMP%\install-win.bat"</code></pre>
             <a className="download-link" href="http://xiaowei.119.45.252.25.nip.io/releases/latest-win-x64.exe">
               下载 .exe ↗
             </a>
