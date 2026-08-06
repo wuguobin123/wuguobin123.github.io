@@ -168,7 +168,7 @@ export default function Home() {
       <section className="download section" id="download">
         <div className="section-label">
           <span>04</span>
-          <p>桌面客户端实践</p>
+          <p>智能体平台实践</p>
         </div>
         <div className="download-grid">
           <article className="download-card">
