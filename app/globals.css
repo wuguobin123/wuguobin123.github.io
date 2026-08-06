@@ -615,24 +615,12 @@ footer a:hover::after {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   row-gap: clamp(28px, 4vw, 48px);
-  padding: clamp(80px, 9vw, 130px) clamp(20px, 5vw, 64px) clamp(80px, 9vw, 130px);
+  padding: clamp(80px, 9vw, 130px) max(20px, calc((100vw - 1280px) / 2)) clamp(80px, 9vw, 130px);
   border-bottom: 2px solid var(--ink);
 }
 
 .download .section-label {
   margin-bottom: clamp(28px, 4vw, 48px);
-}
-
-.download-intro {
-  max-width: 760px;
-  margin: 0;
-  color: var(--muted);
-  font-size: clamp(15.5px, 1.3vw, 17px);
-  line-height: 1.75;
-}
-
-.download-intro strong {
-  color: var(--ink);
 }
 
 .download-grid {
@@ -727,21 +715,6 @@ footer a:hover::after {
   color: var(--paper);
 }
 
-.download-foot {
-  margin: 0;
-  color: var(--muted);
-  font-size: 13.5px;
-  line-height: 1.7;
-}
-
-.download-foot a {
-  color: var(--ink);
-  border-bottom: 1px solid currentColor;
-}
-
-.download-foot a:hover {
-  color: var(--red);
-}
 
 @media (hover: hover) and (pointer: fine) {
   .featured-note:hover h2 {

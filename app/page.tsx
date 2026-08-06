@@ -168,12 +168,8 @@ export default function Home() {
       <section className="download section" id="download">
         <div className="section-label">
           <span>04</span>
-          <p>桌面客户端</p>
+          <p>桌面客户端实践</p>
         </div>
-        <p className="download-intro">
-          把方法变成可以直接打开的应用。当前版本 <strong>0.2.1</strong>（2026-08-05 发布）。
-          国内下载走自有镜像，海外用户可直接访问 GitHub Releases。
-        </p>
         <div className="download-grid">
           <article className="download-card">
             <div className="download-card-head">
@@ -215,10 +211,6 @@ export default function Home() {
             </a>
           </article>
         </div>
-        <p className="download-foot">
-          版本号 / 更新日志详见 <a href="https://xiaowei.119.45.252.25.nip.io/releases/latest.json" target="_blank" rel="noreferrer">releases/latest.json</a>，
-          或浏览 <a href="https://github.com/wuguobin123/multi-agent-assistant/releases" target="_blank" rel="noreferrer">GitHub Releases</a>。
-        </p>
       </section>
 
       <section className="contact section" id="contact">
