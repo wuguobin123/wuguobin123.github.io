@@ -49,9 +49,6 @@ test("exports the homepage, directory, and article pages", async () => {
   assert.match(homepage, /日新知见/);
   assert.match(homepage, /OBSIDIAN/);
   assert.match(homepage, /mailto:wgblearn@163\.com/);
-  assert.match(homepage, /audio\/placid-ambient\.mp3/);
-  assert.match(homepage, /Placid Ambient/);
-  assert.match(homepage, /MusicLFiles · CC BY 4\.0/);
   assert.doesNotMatch(homepage, /codex-preview|react-loading-skeleton/);
   assert.match(directory, /文章目录/);
   assert.match(directory, /搜索文章/);
@@ -65,8 +62,6 @@ test("exports the homepage, directory, and article pages", async () => {
 
 test("keeps GitHub Pages metadata in the exported artifact", async () => {
   await access(new URL("dist/client/.nojekyll", root));
-  await access(new URL("dist/client/audio/placid-ambient.mp3", root));
-  await access(new URL("dist/client/audio/ATTRIBUTION.md", root));
 });
 
 test("keeps the reusable article publishing skill in the repository", async () => {

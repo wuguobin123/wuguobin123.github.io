@@ -165,6 +165,62 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="download section" id="download">
+        <div className="section-label">
+          <span>04</span>
+          <p>桌面客户端</p>
+        </div>
+        <p className="download-intro">
+          把方法变成可以直接打开的应用。当前版本 <strong>0.2.1</strong>（2026-08-05 发布）。
+          国内下载走自有镜像，海外用户可直接访问 GitHub Releases。
+        </p>
+        <div className="download-grid">
+          <article className="download-card">
+            <div className="download-card-head">
+              <span className="work-number">01</span>
+              <span className="download-card-arrow" aria-hidden="true">↗</span>
+            </div>
+            <p className="eyebrow">MACOS · APPLE SILICON</p>
+            <h2>macOS arm64</h2>
+            <p>M1 / M2 / M3 / M4 原生包。终端粘贴一键脚本会自动识别架构、去除 quarantine。</p>
+            <pre className="download-cmd"><code>bash -c "$(curl -fsSL https://xiaowei.119.45.252.25.nip.io/releases/install-mac.sh)"</code></pre>
+            <a className="download-link" href="https://xiaowei.119.45.252.25.nip.io/releases/latest-mac-arm64.dmg">
+              下载 .dmg ↗
+            </a>
+          </article>
+          <article className="download-card">
+            <div className="download-card-head">
+              <span className="work-number">02</span>
+              <span className="download-card-arrow" aria-hidden="true">↗</span>
+            </div>
+            <p className="eyebrow">MACOS · INTEL</p>
+            <h2>macOS x64</h2>
+            <p>Intel 处理器 Mac（2019 年前机型及部分 iMac/Mac Pro）。同一键脚本自动识别。</p>
+            <pre className="download-cmd"><code>bash -c "$(curl -fsSL https://xiaowei.119.45.252.25.nip.io/releases/install-mac.sh)"</code></pre>
+            <a className="download-link" href="https://xiaowei.119.45.252.25.nip.io/releases/latest-mac-x64.dmg">
+              下载 .dmg ↗
+            </a>
+          </article>
+          <article className="download-card">
+            <div className="download-card-head">
+              <span className="work-number">03</span>
+              <span className="download-card-arrow" aria-hidden="true">↗</span>
+            </div>
+            <p className="eyebrow">WINDOWS · X64</p>
+            <h2>Windows x64</h2>
+            <p>Windows 10 / 11 (64-bit) NSIS 安装包。下载后双击运行，按向导完成。</p>
+            <pre className="download-cmd"><code>Invoke-WebRequest -OutFile installer.exe https://xiaowei.119.45.252.25.nip.io/releases/latest-win-x64.exe; .\installer.exe</code></pre>
+            <a className="download-link" href="https://xiaowei.119.45.252.25.nip.io/releases/latest-win-x64.exe">
+              下载 .exe ↗
+            </a>
+          </article>
+        </div>
+        <p className="download-foot">
+          版本号 / 更新日志详见 <a href="https://xiaowei.119.45.252.25.nip.io/releases/latest.json" target="_blank" rel="noreferrer">releases/latest.json</a>，
+          或浏览 <a href="https://github.com/wuguobin123/multi-agent-assistant/releases" target="_blank" rel="noreferrer">GitHub Releases</a>。
+        </p>
+      </section>
+
       <section className="contact section" id="contact">
         <p className="eyebrow">LET&apos;S BUILD SOMETHING USEFUL</p>
         <h2>一起探索下一件<br />值得做的事。</h2>

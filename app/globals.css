@@ -152,120 +152,6 @@ footer a:hover::after {
   color: white;
 }
 
-.ambient-player {
-  position: fixed;
-  z-index: 50;
-  right: 18px;
-  bottom: 18px;
-  display: grid;
-  grid-template-columns: 52px minmax(0, 1fr);
-  width: min(308px, calc(100vw - 36px));
-  overflow: hidden;
-  border: 2px solid var(--ink);
-  background: rgba(252, 249, 242, 0.94);
-  box-shadow: 8px 8px 0 rgba(20, 20, 17, 0.15);
-  backdrop-filter: blur(12px);
-}
-
-.ambient-player-toggle {
-  display: grid;
-  min-height: 96px;
-  padding: 0;
-  border: 0;
-  border-right: 2px solid var(--ink);
-  background: var(--ink);
-  color: var(--lime);
-  cursor: pointer;
-  place-items: center;
-}
-
-.ambient-player-toggle:focus-visible {
-  outline: 3px solid var(--red);
-  outline-offset: -5px;
-}
-
-.ambient-equalizer {
-  display: flex;
-  height: 23px;
-  gap: 4px;
-  align-items: flex-end;
-}
-
-.ambient-equalizer i {
-  width: 3px;
-  height: 7px;
-  background: currentColor;
-  animation: ambient-pulse 850ms ease-in-out infinite alternate;
-}
-
-.ambient-equalizer i:nth-child(2) {
-  height: 18px;
-  animation-delay: -460ms;
-}
-
-.ambient-equalizer i:nth-child(3) {
-  height: 12px;
-  animation-delay: -220ms;
-}
-
-.ambient-player:not(.is-playing) .ambient-equalizer i {
-  height: 4px;
-  animation-play-state: paused;
-}
-
-.ambient-player-copy {
-  display: grid;
-  min-width: 0;
-  gap: 4px;
-  align-content: center;
-  padding: 13px 15px;
-}
-
-.ambient-player-copy > span,
-.ambient-player-copy > small,
-.ambient-player-copy > a {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.ambient-player-copy > span {
-  color: var(--red);
-  font: 700 8px/1 var(--font-mono);
-  letter-spacing: 0.1em;
-}
-
-.ambient-player-copy > strong {
-  font-size: 15px;
-  line-height: 1.2;
-}
-
-.ambient-player-copy > small,
-.ambient-player-copy > a {
-  color: var(--muted);
-  font: 500 9px/1.35 var(--font-mono);
-  letter-spacing: 0.02em;
-}
-
-.ambient-player-copy > a {
-  width: fit-content;
-  max-width: 100%;
-}
-
-.ambient-player-copy > a:hover {
-  color: var(--ink);
-}
-
-@keyframes ambient-pulse {
-  from {
-    transform: scaleY(0.45);
-  }
-
-  to {
-    transform: scaleY(1);
-  }
-}
-
 .hero {
   position: relative;
   isolation: isolate;
@@ -722,6 +608,136 @@ footer a:hover::after {
   gap: 24px;
   order: -1;
   white-space: nowrap;
+}
+
+
+.download.section {
+  padding: clamp(80px, 9vw, 130px) clamp(20px, 5vw, 64px) clamp(80px, 9vw, 130px);
+  border-bottom: 2px solid var(--ink);
+}
+
+.download .section-label {
+  margin-bottom: clamp(28px, 4vw, 48px);
+}
+
+.download-intro {
+  max-width: 760px;
+  margin: 0 0 clamp(40px, 5vw, 68px);
+  color: var(--muted);
+  font-size: clamp(15.5px, 1.3vw, 17px);
+  line-height: 1.75;
+}
+
+.download-intro strong {
+  color: var(--ink);
+}
+
+.download-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(20px, 2vw, 28px);
+}
+
+.download-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: clamp(26px, 2.6vw, 36px);
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  box-shadow: 8px 8px 0 rgba(20, 20, 17, 0.14);
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.download-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 11px 11px 0 rgba(20, 20, 17, 0.18);
+  background: var(--paper-deep);
+}
+
+.download-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-height: 56px;
+}
+
+.download-card-arrow {
+  color: var(--red);
+  font: 500 26px/1 var(--font-mono);
+}
+
+.download-card .eyebrow {
+  margin: 0;
+  color: var(--red);
+}
+
+.download-card h2 {
+  margin: 0;
+  font-size: clamp(22px, 1.9vw, 28px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.18;
+}
+
+.download-card > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+
+.download-cmd {
+  margin: 6px 0 0;
+  padding: 12px 14px;
+  overflow-x: auto;
+  border: 1px solid var(--ink);
+  background: var(--paper-deep);
+  font: 500 11.5px/1.5 var(--font-mono);
+  letter-spacing: -0.005em;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.download-cmd code {
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+  color: var(--ink);
+}
+
+.download-link {
+  margin-top: auto;
+  padding: 12px 16px;
+  border: 2px solid var(--ink);
+  background: var(--ink);
+  color: var(--lime);
+  font: 600 12px/1 var(--font-mono);
+  letter-spacing: 0.05em;
+  text-align: center;
+  text-transform: uppercase;
+  transition: background 180ms ease, color 180ms ease;
+}
+
+.download-link:hover {
+  background: var(--red);
+  color: var(--paper);
+}
+
+.download-foot {
+  margin: clamp(32px, 4vw, 48px) 0 0;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+
+.download-foot a {
+  color: var(--ink);
+  border-bottom: 1px solid currentColor;
+}
+
+.download-foot a:hover {
+  color: var(--red);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -2225,39 +2241,6 @@ footer {
   .article-header-bar .brand span:last-child,
   .back-link::after {
     display: none;
-  }
-
-  .ambient-player {
-    right: 12px;
-    bottom: 12px;
-    grid-template-columns: 46px;
-    width: 46px;
-    box-shadow: 5px 5px 0 rgba(20, 20, 17, 0.14);
-    transition: width 180ms ease;
-  }
-
-  .ambient-player-toggle {
-    min-height: 46px;
-    border-right: 0;
-  }
-
-  .ambient-player-copy {
-    display: none;
-  }
-
-  .ambient-player:focus-within {
-    grid-template-columns: 46px minmax(0, 1fr);
-    width: min(282px, calc(100vw - 24px));
-  }
-
-  .ambient-player:focus-within .ambient-player-toggle {
-    min-height: 86px;
-    border-right: 2px solid var(--ink);
-  }
-
-  .ambient-player:focus-within .ambient-player-copy {
-    display: grid;
-    padding: 11px 13px;
   }
 
   .article-page {
