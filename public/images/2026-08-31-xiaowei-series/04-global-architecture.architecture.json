@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "小薇全局技术架构",
+    "subtitle": "Electron 双 Host、Agent 运行时与数据所有权",
+    "output": "04-global-architecture.html",
+    "viewBox": [1680, 1100]
+  },
+  "components": [
+    { "id": "user", "type": "external", "label": "用户", "sublabel": "对话 / 文件 / 审批", "pos": [40, 430], "size": [120, 64] },
+    { "id": "renderer", "type": "frontend", "label": "Renderer 插件 UI", "sublabel": "React + Zustand", "pos": [220, 430], "size": [150, 64] },
+    { "id": "preload", "type": "security", "label": "Preload 窄桥", "sublabel": "workbenchApi", "pos": [430, 430], "size": [140, 64] },
+    { "id": "main", "type": "backend", "label": "Electron Main", "sublabel": "RPC / SSE / IPC / credentials", "pos": [640, 360], "size": [180, 74] },
+    { "id": "router", "type": "backend", "label": "DualHostRouter", "sublabel": "方法 + 资源位置", "pos": [640, 520], "size": [180, 74], "tag": "fail closed" },
+    { "id": "localHost", "type": "backend", "label": "本机 Host", "sublabel": "127.0.0.1 动态端口", "pos": [940, 160], "size": [170, 74] },
+    { "id": "localPreset", "type": "messagebus", "label": "xiaowei-local-safe", "sublabel": "本机安全 Preset", "pos": [1190, 90], "size": [180, 70] },
+    { "id": "localAgent", "type": "backend", "label": "本机 Agent Loop", "sublabel": "Turn / Step / Tool", "pos": [1190, 210], "size": [180, 70] },
+    { "id": "localRegistry", "type": "messagebus", "label": "本机 Registries", "sublabel": "Tool / Skill / Artifact", "pos": [1190, 330], "size": [180, 70] },
+    { "id": "localWorkspace", "type": "database", "label": "本机源目录", "sublabel": "实时读写，不上传", "pos": [1420, 150], "size": [130, 70] },
+    { "id": "localHome", "type": "database", "label": "账号设备 DSH_HOME", "sublabel": "Session / 附件 / Skill / 产物", "pos": [1400, 300], "size": [160, 82] },
+    { "id": "cloudHost", "type": "cloud", "label": "账号云 Host", "sublabel": "dsh-xiaowei", "pos": [940, 650], "size": [170, 74] },
+    { "id": "cloudBundle", "type": "messagebus", "label": "小薇账号 Bundle", "sublabel": "auth / owner / wallet / models", "pos": [1190, 570], "size": [180, 70] },
+    { "id": "cloudAgent", "type": "backend", "label": "云端 Agent Loop", "sublabel": "账号安全 Preset", "pos": [1190, 690], "size": [180, 70] },
+    { "id": "cloudRegistry", "type": "messagebus", "label": "云端 Registries", "sublabel": "Tool / Skill / Artifact", "pos": [1190, 810], "size": [180, 70] },
+    { "id": "accountData", "type": "database", "label": "账号数据", "sublabel": "Workspace / Session / wallet", "pos": [1400, 600], "size": [160, 76] },
+    { "id": "cloudArtifact", "type": "database", "label": "云端产物与 Skill", "sublabel": "owner 隔离", "pos": [1400, 770], "size": [160, 76] },
+    { "id": "model", "type": "external", "label": "账号模型 Provider", "sublabel": "认证推理 + 结算", "pos": [900, 890], "size": [190, 70] },
+    { "id": "web", "type": "external", "label": "Web / Browser Provider", "sublabel": "公开网络或用户授权站点", "pos": [1180, 930], "size": [210, 70] }
+  ],
+  "boundaries": [
+    { "kind": "security-group", "label": "Renderer sandbox", "wraps": ["renderer"] },
+    { "kind": "security-group", "label": "Electron 信任区", "wraps": ["preload", "main", "router"] },
+    { "kind": "region", "label": "设备执行与存储边界", "wraps": ["localHost", "localPreset", "localAgent", "localRegistry", "localWorkspace", "localHome"] },
+    { "kind": "region", "label": "账号云端 owner 边界", "wraps": ["cloudHost", "cloudBundle", "cloudAgent", "cloudRegistry", "accountData", "cloudArtifact"] }
+  ],
+  "connections": [
+    { "from": "user", "to": "renderer", "label": "操作", "variant": "emphasis" },
+    { "from": "renderer", "to": "preload", "label": "typed API", "variant": "security" },
+    { "from": "preload", "to": "main", "label": "IPC", "variant": "security" },
+    { "from": "main", "to": "router", "variant": "emphasis", "fromSide": "bottom", "toSide": "top" },
+    { "from": "router", "to": "localHost", "label": "local resource", "variant": "emphasis", "fromSide": "right", "toSide": "left", "route": "orthogonal-h", "labelAt": [875, 270] },
+    { "from": "router", "to": "cloudHost", "label": "cloud / account", "variant": "emphasis", "fromSide": "right", "toSide": "left", "route": "orthogonal-h", "labelAt": [875, 610] },
+    { "from": "localHost", "to": "localPreset" },
+    { "from": "localPreset", "to": "localAgent" },
+    { "from": "localAgent", "to": "localRegistry" },
+    { "from": "localRegistry", "to": "localWorkspace" },
+    { "from": "localRegistry", "to": "localHome" },
+    { "from": "cloudHost", "to": "cloudBundle" },
+    { "from": "cloudBundle", "to": "cloudAgent" },
+    { "from": "cloudAgent", "to": "cloudRegistry" },
+    { "from": "cloudBundle", "to": "accountData" },
+    { "from": "cloudRegistry", "to": "cloudArtifact" },
+    { "from": "localAgent", "to": "cloudHost", "label": "窄化账号推理中继", "variant": "security", "fromSide": "left", "toSide": "right", "route": "orthogonal-h", "via": [[1140, 245], [1140, 687]] },
+    { "from": "cloudAgent", "to": "model", "label": "模型请求", "variant": "security" },
+    { "from": "cloudHost", "to": "model", "label": "本机账号推理", "variant": "security" },
+    { "from": "localRegistry", "to": "web", "label": "受控访问", "variant": "dashed" },
+    { "from": "cloudRegistry", "to": "web", "label": "受控访问", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "装配原则", "items": ["Cordis Profile 选择 Bundle，Preset 选择 Agent 能力", "Definition、Provider、Consumer 组成完整能力 seam", "工具清单由组装结果决定，不由页面文字决定"] },
+    { "dot": "rose", "title": "信任原则", "items": ["Renderer 不持有 Bearer、Cookie 或本机绝对路径", "资源请求按位置返回原 Host", "没有通用远程工具总线，跨 Host 只允许窄化中继"] },
+    { "dot": "emerald", "title": "数据原则", "items": ["本机源目录与设备 DSH_HOME 留在设备", "云 Workspace、账号 Skill 和钱包留在账号 Host", "只有模型可见摘要、schema 与 Tool Result 进入账号推理"] }
+  ]
+}

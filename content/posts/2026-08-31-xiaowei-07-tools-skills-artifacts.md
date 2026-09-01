@@ -18,22 +18,9 @@ draft: false
 
 这篇按一次调用的时间顺序复盘这些边界。代码里有 `tool/call`、guard、`artifact.read` 等硬事实；规格里标注 `approved` 的浏览器和账号搜索，则只代表批准进入开发或验收。
 
-> **事实状态**：`host.openPath` 远程拒绝、HTML 走 Artifact、tool-html 注入缺失、文档附件准入与文件系统读取分离、Skill Markdown 与执行器分离，都有仓库记录。知识库 seam 不等于小薇已上线 RAG。
+完整产品能力和规格状态集中在 [00 篇的产品能力地图](/posts/2026-08-31-xiaowei-00-overview/#产品能力地图)，本篇只展开工具、Skill 与 Artifact 的执行细节。
 
 ## 背景：工具调用不是一个函数调用
-
-### 读者与前置知识
-
-本文面向维护模型工具、文件上传、Skill 和产物预览的工程师。需要了解 RPC、事件和权限；工具结果的模型面与 UI 面会分别说明。
-
-### 术语与对象
-
-|对象|职责|关键接口|
-|---|---|---|
-|Tool|模型可调用能力|`ctx.tools`|
-|Skill|Markdown instructions|`SKILL.md`|
-|Attachment|消息输入引用|`documentUpload.*`|
-|Artifact|持久产物|`artifact.read`|
 
 模型产生 tool-call 后，系统还要记录 call id，展示 pending card，检查参数和策略，询问一次性审批，进入沙箱，执行 body，归一化结果，再写回 Session。任何一步失败，都应该能告诉用户失败发生在哪一层。
 
@@ -41,11 +28,7 @@ draft: false
 
 ## 目标与非目标：把能力状态说准确
 
-### 输入输出
-
 工具输入先写 `tool/call`，输出写 `tool/result`；Artifact 输入输出是内容寻址 id。附件准入通过不等于解析成功，Skill 可见不等于 Session 已加载，更不等于执行器存在。
-
-### 权限与状态
 
 审批、sandbox、Workspace 约束和 Host location 各自生效。`approved` 浏览器或账号搜索只表示规格批准；Knowledge seam 只有 Provider 也不能写成生产 RAG。
 
@@ -69,11 +52,11 @@ Pre-execute 放权限、hook 和 sandbox；`ctx.approval` 处理一次性询问�
 
 ## 详细设计：四个具体边界
 
-### Web 与文件系统
+### 案例一：Web 与文件系统必须分开
 
 Web 搜索区分云端账号搜索和本机 SearXNG，来源由设置选择，本机请求不带 Bearer 或 Cookie。filesystem 工具按 Workspace 约束读写，和附件入口不是同一个路径。
 
-### 文档与产物表
+### 案例二：附件准入不等于文件读取
 
 |阶段|输入|失败示例|
 |---|---|---|
@@ -86,21 +69,23 @@ Web 搜索区分云端账号搜索和本机 SearXNG，来源由设置选择，�
 
 这些数字只能说明准入和读取预算。256 MiB 的 PDF 上传成功，不代表全部页面已经解析，更不代表模型已经读完内容；调用方仍要持续使用 `nextCursor`，直到没有游标，再合并各段结果。老式 DOC、XLS、PPT 不在现代 Office Open XML 支持范围内，扫描 PDF 也需要单独 OCR 能力。
 
-第一，远程 HTML 不能调用 `host.openPath`。我复盘过 `path open failed: forbidden`：远程 Host 的本地路径不是用户电脑路径，放宽权限会暴露服务器文件。正确路径是 `html_build` 将自包含 HTML 写入 Artifact Registry，桌面再调用 `artifact.read`，校验 id、媒体类型、字节数和 base64 后交给预览器。
+### 案例三：HTML 预览不能打开远程路径
 
-第二，`tool-html` 曾出现 `cannot get property "tools" without inject`。插件使用 `ctx.tools` 却没有声明 `inject: ['tools']`，实际组合才暴露问题。修复时要同时核对插件的 `inject`、manifest 和 preset，不要只补一个测试 mock。
+远程 HTML 不能调用 `host.openPath`。我复盘过 `path open failed: forbidden`：远程 Host 的本地路径不是用户电脑路径，放宽权限会暴露服务器文件。正确路径是 `html_build` 将自包含 HTML 写入 Artifact Registry，桌面再调用 `artifact.read`，校验 id、媒体类型、字节数和 base64 后交给预览器。
 
-第三，文档附件准入不等于 filesystem 读取。大 PDF 报 `Document batch exceeds the configured byte limit`，说明附件批次在消息入口被拦截，并不能证明 Workspace 的文件读取失败。现在的本地路径使用 begin/chunk/commit/abort 和 file-token；分段传输仍保留单文件解析、文件数量、临时空间、归档保护和跨 Session token 检查。
+`tool-html` 曾出现 `cannot get property "tools" without inject`。插件使用 `ctx.tools` 却没有声明 `inject: ['tools']`，实际组合才暴露问题。修复时要同时核对插件的 `inject`、manifest 和 preset，不要只补一个测试 mock。
 
-第四，Skill Markdown 不等于执行器。账户 Skill 安装接收名称、描述和 Markdown instructions，写入私有 `SKILL.md`；真正可执行的工具仍由工具插件注册 schema、权限、审批、校验和 telemetry。看到 Skill 文本，不代表它可以运行任意脚本或依赖。
+### 案例四：Skill 文本不是执行器
+
+Skill Markdown 不等于执行器。账户 Skill 安装接收名称、描述和 Markdown instructions，写入私有 `SKILL.md`；真正可执行的工具仍由工具插件注册 schema、权限、审批、校验和 telemetry。看到 Skill 文本，不代表它可以运行任意脚本或依赖。
+
+### Knowledge seam 仍需单独验收
+
+Knowledge Definition、Provider 和检索 Consumer 只能说明接口已经接入。没有 implemented 规格、租户隔离、索引任务和真实数据验收，就只能称为知识能力开发中；浏览器和账号搜索若标为 approved，也只能按批准范围记录，不能写成已上线。
 
 ## QA 与上线验收：先测拒绝路径
 
-### 文档到 Artifact E2E
-
 选择本地 PDF，执行 begin、chunk、commit，确认附件引用进入 Session；调用 `document_read`，持续读取直到没有 `nextCursor`；将分析结果写入 Artifact；调用 `artifact.read`，校验 id、MIME、字节数和预览器输出。
-
-### 验收清单
 
 覆盖审批四种结果、FS 越界、远程 `host.openPath` 403、HTML Artifact 预览、Skill 冲突、附件批次超限、单文件解析上限、浏览器撤销和搜索认证。每项记录规格状态。
 
@@ -112,11 +97,7 @@ Skill 验收分成目录安装、冲突处理、Session 发现和实际调用四
 
 ## 踩坑：四个错误结论
 
-### 输入输出误判
-
 `host.openPath` 403 说明远程服务器路径被保护，正确路径是 Artifact Registry → `artifact.read` → DocumentPreview。`tool-html` 使用 `ctx.tools` 却缺 `inject: ['tools']` 时，真实组合会报 `cannot get property "tools" without inject`。
-
-### 故障排查表
 
 |现象|优先检查|正确方向|
 |---|---|---|
@@ -135,11 +116,7 @@ Skill 验收分成目录安装、冲突处理、Session 发现和实际调用四
 
 ## 认知迭代：质量看拒绝和归属
 
-### 限制
-
 本地文档仍有单文件解析、文件数、chunk、临时空间、归档和跨 Session token 限制。Skill Markdown 不执行脚本；浏览器和搜索的批准状态不改变发布状态。
-
-### 最佳实践结尾
 
 每个工具至少补一条无权限、无交互、路径越界、资源不存在或内容超限用例，并保存 call/result、Host、Session 和 Artifact 归属证据。
 
@@ -149,8 +126,6 @@ Skill 验收分成目录安装、冲突处理、Session 发现和实际调用四
 
 先查模型是否生成 `tool/call`，再查 inject、preset 和 approval；随后查 attachment 或工具 body 的实际入口；最后查 `tool/result` 与 `artifact.read`。不要用 UI 卡片代替这些事实。
 
-### 发布前记录
-
 记录版本、Profile、Host、Session、文件类型与大小、工具 schema、规格状态和错误原文。对 approved 项记录“已批准/开发中”，对 implemented 项附真实验收结果。
 
 我现在不再用“工具调用成功”作为唯一指标，而是记录四个问题：调用有没有进 Session，拒绝发生在哪个 guard，结果属于哪个 Host 和 Session，用户点击预览时读取的是什么资源。
@@ -158,23 +133,3 @@ Skill 验收分成目录安装、冲突处理、Session 发现和实际调用四
 这套检查也改变了文章里的状态措辞。实现、批准、真实验收、公开发布是四个阶段。对于浏览器和搜索，我只引用规格状态；对于 Artifact 和文档，我把可读取路径、大小限制和错误信息写具体。
 
 工具系统的下一步工作，是给每个新工具补一条失败用例：无权限、无交互、路径越界、资源不存在或内容超限。成功路径很容易演示，拒绝路径才告诉我边界有没有真正落到代码上。
-
-### PDF 与 Office 的读取差异
-
-PDF 的本地读取可使用 `PDFDataRangeTransport` 按范围获取字节，解析器只读取需要的区段；这是随机访问路径。Office 文件通常需要将 ZIP 容器完整物化到受限暂存区，再按页、工作表或幻灯片返回单元。两者都受大小、压缩比、字符数和临时空间限制，不能把 PDF 的 range read 结论推广成所有格式都流式解析。
-
-### 四层 Skill 状态
-
-Skill 有四个独立观察点：安装请求写入目录、目录清单发现条目、当前 Session 加载 instructions、执行器注册可调用工具。前一层成功不推出后一层成功。安装冲突不覆盖已有内容；Session 选择在创建时记录，后来新增的 Skill 不改写旧会话能力。
-
-从本机目录导入 Skill 时，根目录必须包含 `SKILL.md`。当前导入器拒绝符号链接和特殊文件，单文件默认不超过 5 MiB，总量不超过 25 MiB；相同内容重复导入可视为幂等，名称相同但内容冲突时拒绝覆盖。当前版本不要把“导入”理解成完整的覆盖升级或卸载系统。
-
-### Artifact 内容寻址与预览策略
-
-Artifact id 由内容寻址，读取前校验 Session 和账号 owner、MIME、字节数与 base64 负载。HTML 预览放进 sandbox iframe，使用无网络 CSP；Markdown、SVG、图片、PDF 和 Office 走各自渲染路径。下载由 Main 通过另存为对话框完成，Renderer 不接触任意服务器路径。
-
-### Knowledge seam 的边界
-
-Knowledge Definition、SQLite Provider 和检索 Consumer 只能证明能力 seam 已定义或已接入。要写生产 RAG，还需要已实现规格、租户隔离、索引任务、真实数据和验收记录。没有这些证据，文档应称“知识能力开发中”或“可替换 Provider”，不能写成小薇已经上线企业知识库。
-
-文档 E2E 的记录应把文件原始大小、批次大小、chunk 偏移、commit token、解析游标、生成的 Artifact id 和最终 MIME 一并保存。这样可以判断失败发生在准入、传输、解析、产物保存还是预览，而不会把所有问题都归因于模型。验收记录同时保留成功样本和拒绝样本，前者证明链路可用，后者证明限制仍然有效。

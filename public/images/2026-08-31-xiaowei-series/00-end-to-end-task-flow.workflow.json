@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "小薇一次任务的端到端流程",
+    "subtitle": "从登录、路由、模型决策到产物预览与恢复",
+    "output": "00-end-to-end-task-flow.html",
+    "viewBox": [720, 1120]
+  },
+  "lanes": [
+    { "id": "user", "label": "用户" },
+    { "id": "ui", "label": "Renderer" },
+    { "id": "main", "label": "Electron Main / Router" },
+    { "id": "host", "label": "所属 Host" },
+    { "id": "agent", "label": "Agent Loop / 模型" },
+    { "id": "policy", "label": "工具 / 审批" },
+    { "id": "store", "label": "Session / Artifact" }
+  ],
+  "nodes": [
+    { "id": "ask", "lane": "user", "col": 0, "type": "external", "label": "提出任务", "sublabel": "文字 + 文件" },
+    { "id": "take", "lane": "user", "col": 5, "type": "frontend", "label": "接手结果", "sublabel": "预览 / 下载 / 继续" },
+    { "id": "choose", "lane": "ui", "col": 0, "type": "frontend", "label": "选择位置", "sublabel": "本机或云端" },
+    { "id": "compose", "lane": "ui", "col": 1, "type": "frontend", "label": "发送输入", "sublabel": "Session + 附件" },
+    { "id": "preview", "lane": "ui", "col": 5, "type": "frontend", "label": "展示结果", "sublabel": "回复 + Artifact" },
+    { "id": "auth", "lane": "main", "col": 1, "type": "security", "label": "认证与准入", "sublabel": "principal + 限额", "width": 82 },
+    { "id": "route", "lane": "main", "col": 3, "type": "backend", "label": "按位置路由", "sublabel": "失败不换边", "tag": "resource id" },
+    { "id": "readArtifact", "lane": "main", "col": 5, "type": "backend", "label": "读取产物", "sublabel": "artifact.read" },
+    { "id": "create", "lane": "host", "col": 2, "type": "backend", "label": "创建 / 恢复", "sublabel": "Workspace + Session" },
+    { "id": "execute", "lane": "host", "col": 4, "type": "backend", "label": "执行工具", "sublabel": "所属 Host" },
+    { "id": "turn", "lane": "agent", "col": 0, "type": "messagebus", "label": "记录 Turn", "sublabel": "模型可见输入" },
+    { "id": "model", "lane": "agent", "col": 2, "type": "cloud", "label": "模型决策", "sublabel": "回复或 Tool Call" },
+    { "id": "next", "lane": "agent", "col": 4, "type": "backend", "label": "继续 Step", "sublabel": "直到终止" },
+    { "id": "gate", "lane": "policy", "col": 3, "type": "security", "label": "检查与审批", "sublabel": "允许 / 拒绝 / 取消", "tag": "side effect" },
+    { "id": "denied", "lane": "policy", "col": 5, "type": "security", "label": "保留失败", "sublabel": "拒绝原因可见" },
+    { "id": "append", "lane": "store", "col": 2, "type": "database", "label": "追加事件", "sublabel": "append-only log" },
+    { "id": "persist", "lane": "store", "col": 4, "type": "database", "label": "保存结果", "sublabel": "文件 / Artifact" },
+    { "id": "checkpoint", "lane": "store", "col": 5, "type": "database", "label": "Checkpoint", "sublabel": "重启后恢复" }
+  ],
+  "edges": [
+    { "from": "ask", "to": "choose", "variant": "emphasis", "fromSide": "bottom", "toSide": "top", "route": "drop" },
+    { "from": "choose", "to": "compose" },
+    { "from": "compose", "to": "auth", "label": "typed IPC", "variant": "security", "fromSide": "bottom", "toSide": "top", "route": "drop" },
+    { "from": "auth", "to": "route" },
+    { "from": "route", "to": "create", "variant": "emphasis", "fromSide": "bottom", "toSide": "top", "route": "drop" },
+    { "from": "create", "to": "turn", "variant": "emphasis", "fromSide": "bottom", "toSide": "top", "route": "drop" },
+    { "from": "turn", "to": "append", "label": "durable event", "variant": "dashed", "fromSide": "bottom", "toSide": "top", "route": "drop" },
+    { "from": "turn", "to": "model", "variant": "emphasis" },
+    { "from": "model", "to": "gate", "label": "Tool Call", "variant": "security", "fromSide": "bottom", "toSide": "top", "route": "drop" },
+    { "from": "gate", "to": "execute", "variant": "emphasis", "fromSide": "top", "toSide": "bottom", "route": "drop" },
+    { "from": "gate", "to": "denied", "label": "拒绝 / 取消", "variant": "security" },
+    { "from": "execute", "to": "next", "label": "Tool Result", "variant": "emphasis", "fromSide": "bottom", "toSide": "top", "route": "drop" },
+    { "from": "next", "to": "persist", "label": "完成", "variant": "dashed", "fromSide": "bottom", "toSide": "top", "route": "drop" },
+    { "from": "next", "to": "model", "variant": "default", "fromSide": "left", "toSide": "right", "route": "return-left" },
+    { "from": "persist", "to": "checkpoint" },
+    { "from": "checkpoint", "to": "readArtifact", "label": "结果引用", "variant": "dashed", "fromSide": "top", "toSide": "bottom", "route": "drop" },
+    { "from": "denied", "to": "readArtifact", "label": "错误事件", "variant": "security", "fromSide": "top", "toSide": "bottom", "route": "up-channel" },
+    { "from": "readArtifact", "to": "preview", "variant": "emphasis", "fromSide": "top", "toSide": "bottom", "route": "drop" },
+    { "from": "preview", "to": "take", "variant": "emphasis", "fromSide": "top", "toSide": "bottom", "route": "drop" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "主链路", "items": ["位置在 Workspace / Session 创建时确定", "模型只选择已经注册的工具", "Tool Result 回到下一 Step 后才形成最终回复"] },
+    { "dot": "rose", "title": "失败链路", "items": ["附件准入、审批拒绝和 Host 未就绪保留不同错误", "资源路由失败不会静默切换 Host", "重试前先保留 Session 事件与失败现场"] },
+    { "dot": "emerald", "title": "恢复链路", "items": ["模型可见输入与结果进入追加日志", "Artifact 通过受控读取进入预览", "Checkpoint 让重启后的 Session 可以继续"] }
+  ]
+}

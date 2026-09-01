@@ -14,26 +14,15 @@ draft: false
 
 [打开可交互 HTML 图](/images/2026-08-31-xiaowei-series/05-desktop-dual-host.html)
 
+![小薇双 Host 关键时序：启动、推理、重连与切号](/images/2026-08-31-xiaowei-series/05-dual-host-sequence.png)
+
+[打开双 Host 关键时序可交互 HTML 图](/images/2026-08-31-xiaowei-series/05-dual-host-sequence.html)
+
 我复盘桌面客户端时，最危险的错误来自把两个 Host 当成一个服务，远比按钮样式问题严重。这样一来，列表看起来正常，打开、审批、Session 事件却可能发到错误的位置。
 
 小薇的桌面端因此先固定 Electron 三层，再把本机 Host 和云端 Host 的调用策略写进 `DualHostRouter`。以下只描述仓库代码和规格已有的设计，不把一次安装包测试扩大成所有能力已上线。
 
-> **事实状态**：桌面 README 明确了 main/preload/renderer 隔离；`DualHostRouter` 代码明确了 RPC 分类、资源 id 编码和 fail-closed 行为。云端搜索、浏览器等能力仍以规格状态为准。
-
 ## 背景：桌面端同时面对两个执行地点
-
-### 读者与前置知识
-
-本文面向维护 Electron 客户端、RPC 和本机运行时的工程师。需要知道进程、IPC、SSE/WebSocket 和 Promise 生命周期；不要求熟悉全部前端组件。
-
-### 术语与对象
-
-|对象|职责|证据|
-|---|---|---|
-|Renderer|页面与交互|React、HashRouter|
-|Preload|窄桥|`contextBridge`|
-|Main|RPC、连接、凭证|`ipc-handlers.ts`|
-|Host|实际执行环境|本机或云端|
 
 本机 Workspace 需要直接读写用户选定的原目录，云端 Workspace 则通过 `workspace.importDirectory` 创建账号私有副本。本机修改不会自动同步到云端，两个 Session 的事件流和 Artifact 也不能互相读取。
 
@@ -41,11 +30,7 @@ draft: false
 
 ## 目标与非目标：先确定隔离线
 
-### 输入与输出
-
 Router 输入方法名和 payload，输出来自唯一归属 Host 的结果；聚合列表只合并展示项并附加 location。响应 rpcId 和事件帧必须保持同一位置编码。
-
-### 非目标与权限
 
 远程 Host 不获得打开服务器路径的桌面权限，Renderer 不获得任意网络或 Node 权限；未知方法不猜 Host，缺少本机运行时也不能静默改走云端。
 
@@ -69,6 +54,20 @@ Main 负责 POST `/api/<method>`、SSE 下行、IPC 分发、更新下载和账�
 
 ## 详细设计：Router 按方法和资源归属分流
 
+### 冷启动到 ready
+
+冷启动时 Main 启动本机 Host，建立 cloud 与 local 的下行订阅，然后等待 `workspace.list` 成功。端口监听只说明进程占用了端口，不能说明插件、Session 和 Workspace 已准备好。ready 探针通过后，Renderer 才刷新两边聚合列表。
+
+### 资源调用与账号推理
+
+Renderer 的请求经 Preload、Main 到 `DualHostRouter`。Router 对 `aggregate` 并行访问两边，对 `cloud` 固定走云端，对 `resource` 按资源 ID 选择 Host，对 `explicit` 要求 payload 带 location。`session.documentUpload.begin/chunk/commit/abort` 特殊地固定本机，避免本地文件 token 被送到云端。
+
+资源 ID 返回前加上 Host 位置，响应发回前剥离；账号推理请求可以由本机 Agent 使用已授权的云端模型服务，但 Session、工具结果、审批和 Artifact 仍留在产生它们的 Host。
+
+### 半开重连与切号
+
+0.3.4 的事故是消息已提交，WebSocket 仍像连接着，却收不到后续事件。丢失 pong 或入站帧超时后，Main 必须关闭旧连接代次，重开 mux/host 双流并重新拉取打开的 Session。切号顺序固定为 cancel 请求、stop 旧 Host、保存新 credential、创建新的 `DSH_HOME`，最后等待新的 `workspace.list` ready；旧的 ConnectionRouter 全局切换语义不适用于当前双 Host 产品。
+
 ### 分类表
 
 |类别|示例|策略|
@@ -90,27 +89,21 @@ Main 负责 POST `/api/<method>`、SSE 下行、IPC 分发、更新下载和账�
 
 ## QA 与上线验收：端口监听不算 ready
 
-### E2E 教程
-
 启动本机 Host，等待 `workspace.list`；创建本机 Workspace，再创建云端 Workspace。打开两边 Session，分别读取历史和 Artifact，确认调用路径不交叉。随后断开一条下行链路，观察重连和重新拉取。
-
-### 验收清单
 
 检查三进程安全属性、IPC 方法白名单、ping/pong、两类列表聚合、位置 id、双 Host 失败、`workspace.list` ready 探针和切号后的旧 Host 停止。
 
 在两个 Host 分别创建 Workspace 和 Session，确认聚合列表能显示位置；随后重命名、读取历史、创建 Artifact，检查每次调用仍回到原 Host。再让一边失败，验证另一边的聚合结果仍可用；两边都失败才报告整体失败。
 
-连接测试不能只看端口。0.3.4 的问题是提交消息成功，但半开的 WebSocket 不再下发事件，界面一直等。修复后 Main 用 ping/pong 识别静默死连接，关闭旧代次，重建 mux 与 host，并重新拉取打开的 Session。只有 `workspace.list` 成功，本机 Host 才报告 ready。
+连接测试不能只看端口。0.3.4 曾出现消息提交成功、半开 WebSocket 不再下发事件；修复后 Main 用 ping/pong 关闭旧代次并重建 mux、host。只有 `workspace.list` 成功才报告 ready。
 
-当时桌面测试是 56 项，连接层测试是 14 项；安装后的 `/Applications/小薇.app` 先返回“已恢复”，静置 42 秒跨过一次心跳周期后，再次发送得到“连接正常”。这组结果只证明 0.3.4 的该条链路，但比“WebSocket 对象还在”更接近用户感受到的可用性。
+当时安装后的 `/Applications/小薇.app` 静置 42 秒跨过一次心跳周期后仍可再次发送；这只证明该版本链路。
 
 ## 踩坑：半开连接与错误的 fallback
 
 ### 失败语义
 
 WebSocket 半开时 TCP 可能仍显示连接；缺 pong 或 inbound 帧超时就必须关闭该代次。云端或本机单边失败可以保留另一边结果，两边失败才返回聚合错误。
-
-### 故障排查表
 
 |现象|检查|结论|
 |---|---|---|
@@ -126,17 +119,11 @@ WebSocket 半开时 TCP 可能仍显示连接；缺 pong 或 inbound 帧超时�
 
 ## 认知迭代：路由表先于页面设计
 
-### 限制
-
 本机 Host 的文件和进程属于设备；云端账号、钱包和云端副本属于服务端。聚合列表不提供跨 Host 写操作，`host.openPath` 不能变成远程文件浏览器。
-
-### 最佳实践结尾
 
 维护 RPC ownership 表后再写页面；先验证 stop、切号和 ready，再优化重连动画。每个新方法必须声明分类、资源字段、响应剥离规则和失败语义。
 
 ## 参考：账号切换与半开恢复
-
-### 生命周期
 
 切号时取消旧请求，停止旧 Host，确认停止完成后再保存新凭证并广播认证状态。新 Host 只有 `workspace.list` 成功才算 ready；仅端口监听不足以证明插件和历史已初始化。
 

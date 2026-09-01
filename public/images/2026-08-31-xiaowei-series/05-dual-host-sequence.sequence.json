@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "桌面双 Host 关键时序",
+    "subtitle": "冷启动、本机任务、半开恢复与账号切换",
+    "output": "05-dual-host-sequence.html",
+    "viewBox": [920, 1420]
+  },
+  "participants": [
+    { "id": "user", "type": "external", "label": "用户", "sublabel": "desktop" },
+    { "id": "renderer", "type": "frontend", "label": "Renderer", "sublabel": "product UI" },
+    { "id": "preload", "type": "security", "label": "Preload", "sublabel": "typed bridge" },
+    { "id": "main", "type": "backend", "label": "Main / Router", "sublabel": "IPC + routing" },
+    { "id": "local", "type": "backend", "label": "本机 Host", "sublabel": "account runtime" },
+    { "id": "cloud", "type": "cloud", "label": "云 Host", "sublabel": "account owner" },
+    { "id": "model", "type": "external", "label": "账号模型", "sublabel": "provider" },
+    { "id": "store", "type": "database", "label": "Session Store", "sublabel": "local / cloud" }
+  ],
+  "segments": [
+    { "from": 150, "to": 410, "label": "01 / 冷启动与就绪" },
+    { "from": 420, "to": 770, "label": "02 / 本机任务与账号推理" },
+    { "from": 780, "to": 930, "label": "03 / 结果回传" },
+    { "from": 940, "to": 1075, "label": "04 / 半开连接恢复" },
+    { "from": 1085, "to": 1300, "label": "05 / 账号切换" }
+  ],
+  "messages": [
+    { "from": "renderer", "to": "preload", "y": 180, "label": "getSession", "variant": "security" },
+    { "from": "preload", "to": "main", "y": 215, "label": "恢复账号状态", "variant": "security" },
+    { "from": "main", "to": "cloud", "y": 250, "label": "校验 Bearer", "variant": "security" },
+    { "from": "cloud", "to": "main", "y": 285, "label": "trusted principal", "variant": "return" },
+    { "from": "main", "to": "local", "y": 320, "label": "启动账号专属运行时", "variant": "emphasis" },
+    { "from": "main", "to": "local", "y": 355, "label": "workspace.list", "variant": "emphasis", "note": "端口监听不代表产品就绪" },
+    { "from": "local", "to": "main", "y": 390, "label": "ready + local list", "variant": "return" },
+    { "from": "main", "to": "local", "y": 440, "label": "subscribe Mux + Host", "variant": "dashed" },
+    { "from": "main", "to": "cloud", "y": 475, "label": "subscribe Mux + Host", "variant": "dashed" },
+    { "from": "user", "to": "renderer", "y": 510, "label": "选择本机目录并发送", "variant": "emphasis" },
+    { "from": "renderer", "to": "preload", "y": 545, "label": "session.create / send", "variant": "emphasis" },
+    { "from": "preload", "to": "main", "y": 580, "label": "typed IPC", "variant": "security" },
+    { "from": "main", "to": "local", "y": 615, "label": "按 location 路由", "variant": "emphasis" },
+    { "from": "local", "to": "cloud", "y": 650, "label": "账号推理中继", "variant": "security", "note": "不传本机路径和 Session id" },
+    { "from": "cloud", "to": "model", "y": 685, "label": "reserve + stream", "variant": "security" },
+    { "from": "model", "to": "cloud", "y": 720, "label": "模型帧 / Tool Call", "variant": "return" },
+    { "from": "cloud", "to": "local", "y": 755, "label": "类型化推理帧", "variant": "return" },
+    { "from": "local", "to": "store", "y": 800, "label": "append events", "variant": "dashed" },
+    { "from": "local", "to": "main", "y": 835, "label": "Session events", "variant": "dashed" },
+    { "from": "main", "to": "preload", "y": 870, "label": "typed IPC events", "variant": "return" },
+    { "from": "preload", "to": "renderer", "y": 905, "label": "更新 UI", "variant": "return" },
+    { "from": "main", "to": "local", "y": 950, "label": "ping", "variant": "dashed" },
+    { "from": "local", "to": "main", "y": 985, "label": "pong 超时", "variant": "return" },
+    { "from": "main", "to": "local", "y": 1020, "label": "关闭旧代次并重订阅", "variant": "emphasis" },
+    { "from": "main", "to": "store", "y": 1055, "label": "重新加载打开的 Session", "variant": "dashed" },
+    { "from": "user", "to": "renderer", "y": 1090, "label": "切换账号", "variant": "security" },
+    { "from": "renderer", "to": "preload", "y": 1125, "label": "sign in new account", "variant": "security" },
+    { "from": "preload", "to": "main", "y": 1160, "label": "typed account IPC", "variant": "security" },
+    { "from": "main", "to": "local", "y": 1195, "label": "取消旧请求 + 停旧 Host", "variant": "security" },
+    { "from": "main", "to": "cloud", "y": 1230, "label": "保存新凭据并重新认证", "variant": "security" },
+    { "from": "main", "to": "local", "y": 1265, "label": "启动新账号运行时", "variant": "emphasis" }
+  ],
+  "activations": [
+    { "participant": "main", "from": 210, "to": 405, "type": "backend" },
+    { "participant": "local", "from": 315, "to": 395, "type": "backend" },
+    { "participant": "local", "from": 610, "to": 910, "type": "backend" },
+    { "participant": "cloud", "from": 645, "to": 760, "type": "cloud" },
+    { "participant": "model", "from": 680, "to": 725, "type": "external" },
+    { "participant": "main", "from": 945, "to": 1060, "type": "backend" },
+    { "participant": "main", "from": 1155, "to": 1280, "type": "security" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "就绪与路由", "items": ["本机 Host 以 workspace.list 作为产品就绪门", "列表聚合不改变资源所有权", "资源请求按 location 回到创建它的 Host"] },
+    { "dot": "rose", "title": "账号与推理", "items": ["Bearer 由 Electron Main 持有", "本机 Agent 只通过窄化协议调用账号推理", "路径、文件引用和本机 Session id 不进入中继"] },
+    { "dot": "emerald", "title": "恢复与切号", "items": ["pong 超时终止旧连接代次并重订阅", "重连后从持久日志加载打开的 Session", "切号先停旧请求和旧 Host，再启动新账号运行时"] }
+  ]
+}

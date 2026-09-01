@@ -14,40 +14,25 @@ draft: false
 
 [打开可交互 HTML 图](/images/2026-08-31-xiaowei-series/04-plugin-profile-seam.html)
 
+![小薇全局技术架构：桌面、Host、Agent 与存储边界](/images/2026-08-31-xiaowei-series/04-global-architecture.png)
+
+[打开全局架构可交互 HTML 图](/images/2026-08-31-xiaowei-series/04-global-architecture.html)
+
 我做小薇架构复盘时，首先要回答的是要不要重新造一套 Agent 框架，而非某个 API 怎么写。仓库里已经有模型适配、会话、工具和循环，桌面端又有本机 Host。重新实现会同时复制状态、审批和恢复逻辑，出问题时很难判断是产品代码还是基础设施代码。
 
 我的选择是复用 DeepSeek Harness 的 Cordis 插件树，把小薇的差异放进 bundle、Profile、Preset 和 Provider。这样做的前提是把边界说清楚：下面写的是代码与规格里的工程事实，不把“有接口”写成“已上线”。
 
-> **事实状态**：仓库文档把模型、工具、Session、Agent loop 都定义为插件；小薇的 `cordis.patch.yml` 负责产品组合。规格标为 `approved` 的能力仍需单独验收，知识库 seam 也不能推出小薇已经上线 RAG。
-
 ## 背景：一体化应用很快会卡住
-
-### 读者与前置知识
-
-本文面向需要维护 Agent 组合和插件配置的工程师。读者只需了解 TypeScript、依赖注入和 YAML；不要求先读 Cordis 源码。文中的 `ctx` 是运行时共享上下文，`inject` 是插件声明的服务依赖。
-
-### 术语与对象
-
-|对象|职责|定位方式|
-|---|---|---|
-|Bundle|分发配置和挂载代码|`dsh.bundle`|
-|Profile|具名组合|`dsh.profile`|
-|Preset|一次 Agent 的能力选择|preset 文件|
-|能力 seam（可替换接口）|Definition、Provider、Consumer 三角色|服务名与事件|
 
 早期 Agent 可以把模型请求、工具函数和消息列表写在同一个服务里。需求增加后，几个变化会互相牵连：本地文件要换成远程沙箱，工具要加审批，模型要换 Provider，Session 要支持恢复，桌面还要把云端和本机结果放在一起。
 
 如果每项变化都改主循环，测试会变成一条巨大的回归链。更麻烦的是，某个工具的安全规则可能被另一个工具复制一份，最后两份规则在拒绝条件上不一致。
 
-我需要的是明确的装配位置，而非一个“万能插件市场”。Cordis 的共享 `ctx`、服务依赖和可撤销 effect 正好给出了这个位置。插件卸载时撤销注册，Provider 可以被替换，Consumer 不必知道实现来自哪个进程。每个 effect 都要有 disposer；没有 disposer 的监听、定时器或注册表写入会在重载后残留。
+我需要的是明确的装配位置。Cordis 的共享 `ctx`、服务依赖和可撤销 effect 让插件能够替换和卸载；每个 effect 都要有 disposer。
 
 ## 目标与非目标：先约束复用范围
 
-### 输入与输出
-
 输入是 bundle、patch、preset 和用户安装项；输出是可加载的 Cordis 树、Agent 请求头和可观测 Session 事件。配置错误必须在最早能判断的位置抛出。
-
-### 权限与限制
 
 Profile 不是账号授权。账号 owner、Host location 和审批策略分别约束数据与执行；一个可发现的 Skill 也不自动获得写文件权限。
 
@@ -71,6 +56,16 @@ Bundle 是 Cordis 配置和挂载代码的分发格式。小薇 bundle 的 `cord
 
 ## 详细设计：用 seam 替换实现
 
+### 全局边界怎么读
+
+全局图把 Renderer、Preload、Main 和 `DualHostRouter` 放在桌面侧。Renderer 只持有页面状态和类型化桥接，Preload 只转发白名单方法，Main 负责 RPC、下行流和账号凭证。Router 同时维护 cloud 与 local 两个客户端，不能把它理解成一个全局环境开关。
+
+Router 下面的本机 Host 负责源目录、进程、本地 Session、附件、Artifact、设置和已安装 Skill；云 Host 负责账号身份、钱包、模型凭证、云 Session、账号插件和云端副本。两边共享 RPC 定义与 Agent Loop，但不共享这些存储。
+
+Agent Loop 从 Host 取得 Session、请求头和注册表。注册表保存工具、提示词和能力 Provider；账号推理只负责把已授权的模型请求送到配置的模型服务，不把本机文件或凭证搬进另一侧。浏览器、账号搜索等 `approved` 能力不画在生产热路径上，必须按各自规格验收后才可声明可用。
+
+如果要沿一次真实任务继续往下读，00 篇的端到端流程图解释“先发生什么”，05 篇的双 Host 时序图解释“谁在什么时候调用谁”。本图只回答组件、所有权和信任边界，不在同一张图里重复时间顺序。
+
 ### Definition 与 Provider
 
 Definition 拥有接口、参数和事件语义；Provider 拥有执行位置、资源和失败转换。Provider 替换时，调用者只依赖服务接口，不复制远程分支。
@@ -89,11 +84,7 @@ Consumer 注册模型工具和展示方法，工具 schema 只有在当前 Prese
 
 ## QA 与上线验收：怎样证明装配正确
 
-### 组合验收
-
 验收至少包括配置 dump、类型检查、注册 disposer、真实 Session、允许与拒绝工具调用、重启恢复和 Provider 替换。每项记录使用的 Profile、Preset、模型和工作目录。
-
-### 状态闸门
 
 `implemented` 才能描述已实现并有验收依据；`approved` 只说明批准范围。没有规格或真实运行证据时，我写“设计中”或“待验收”，不写上线。
 
@@ -115,31 +106,23 @@ Consumer 注册模型工具和展示方法，工具 schema 只有在当前 Prese
 
 最容易误判的是“设置页看到了 Skill，所以模型一定能用”。实际上，Skill 目录清单、当前 Session 的 Preset、模型请求头中的 schema 是三个不同检查点。只证明第一项，会把 UI 投影当成运行时事实。
 
-另一个坑是只检查 bundle 中有没有条目，却没有检查 Profile 的叠加顺序和 Preset 的最终选择。同一个包可能已经安装，却没有进入当前 Agent 的请求头。排查时必须看实际 dump 出来的插件树和 Session 记录，不能凭目录存在下结论。
+另一个坑是只检查 bundle 中有没有条目，却没有检查 Profile 顺序和 Preset 选择。同一个包可能已安装，却没有进入当前 Agent 请求头。
 
 还有一种诱惑是为兼容旧组合保留隐藏 fallback。小薇仍在基础建设期，未知方法和缺失 Provider 应尽早报错；静默切换到另一个能力会让 Session、权限和审计都难以解释。
 
 ## 认知迭代：少写主循环，多写装配事实
 
-### 最佳实践
-
 新增能力先写 Definition，再列 Provider 的执行地点和 Consumer 的模型输入；把可调参数放进 config，把安全不变量留在代码；所有注册返回 disposer。
-
-### 结束检查
 
 我提交前会保存 `dump-config`、请求头和一次恢复日志，确认没有改动其他 Profile。三份证据都能指向同一个包和版本，才认为装配可交接。
 
 ## 参考流程：从配置到一次调用
-
-### E2E 步骤
 
 1. 选择 Profile，执行 `dsh --profile web --dump-config`。
 2. 找到目标 bundle 的 id、`name` 与 `inject`，确认 Provider 已挂载。
 3. 选择 Preset，创建 Session，检查 `request/header` 的工具 schema。
 4. 调用工具，观察 `tool/call`、策略事件和 `tool/result`。
 5. 重启并恢复 Session；若替换 Provider，重复同一调用并比较结果语义。
-
-### 故障排查表
 
 |现象|优先检查|处理|
 |---|---|---|

@@ -18,34 +18,15 @@ draft: false
 
 小薇沿用 Harness 的 Turn、Step 和 Session 模型，让每个可见变化有记录，让 Workflow 和 Subagent 的长任务有独立生命周期。
 
-> **事实状态**：以下内容来自 `docs/subsystems/session.zh.md`、架构文档和 Workflow/Subagent 包说明。它描述仓库能力；规格标为 `approved` 的产品功能仍不能直接写成全面上线。
-
 ## 背景：一次请求不足以承载长任务
-
-### 读者与前置知识
-
-本文面向实现 Agent loop、Session 持久化或长任务编排的工程师。需要了解事件、JSON 和异步取消；Turn、Step、Tool 的定义会在下文固定。
-
-### 术语与对象
-
-|对象|含义|关键记录|
-|---|---|---|
-|Turn|领取输入到无欠账工作|`turn/start/end`|
-|Step|一次模型请求及其工具|`step/start/end`|
-|Tool|模型请求的外部能力|`tool/call/result`|
-|Session|仅追加事件日志|`SessionEventMap`|
 
 一个 Agent 可能先读规则，再调用搜索，等待用户批准写文件，启动子任务，最后生成 Artifact。中途网络断开或桌面重启并不罕见。若只保存最终答案，无法知道工具是否执行、哪一步被取消、恢复后应该从哪里继续。
 
-我还遇到过把 UI 的 loading 状态当作运行状态的误区。UI 可以丢帧、重连或重新挂载，不能决定 Session 是否已提交。这个判断必须来自 Host 的事件和持久化结果。
+UI 可以丢帧、重连或重新挂载，不能决定 Session 是否已提交；判断必须来自 Host 事件和持久化结果。
 
 ## 目标与非目标：记录事实，不保存幻觉
 
-### 输入输出
-
 输入来自 inbox 和已记录的请求头；输出是 assistant 消息、工具结果、下一步状态和持久事件。UI 文本不能作为 loop 的输入来源。
-
-### 权限和限制
 
 恢复只能使用能校验的 JSON、序号和 owner；未知必需事件拒绝恢复。取消、拒绝、超时和部分流都要有明确结果，不能靠 spinner 推断。
 
@@ -92,11 +73,7 @@ Fork 读取源 Session 的事件边界，创建新的持久资源；恢复则校
 
 ## QA 与上线验收：从日志证明行为
 
-### E2E 教程
-
 先提交无工具 prompt，再提交含两个工具的 prompt，检查事件顺序和 call id。取消流式输出，检查 `interrupted`。重启 Host 后恢复同一 Session，再从边界 Fork，比较父子日志。
-
-### Workflow 与 Subagent
 
 Workflow 检查 start、phase、agent-start/end 和唯一 end；Subagent 检查 prompt、结果、失败、interrupt 和资源 owner。不能把“进程启动”记录成“任务完成”。
 
@@ -109,8 +86,6 @@ Workflow 检查 start、phase、agent-start/end 和唯一 end；Subagent 检查 
 ### 失败语义
 
 模型可见内容未写 Session 时，恢复必须拒绝或明确缺失，不能补猜。未识别且没有 `ignorable: true` 的事件不得静默跳过；取消中断只记录实际交付的文本。
-
-### 故障排查表
 
 |现象|检查|处理|
 |---|---|---|
@@ -126,17 +101,11 @@ Workflow 检查 start、phase、agent-start/end 和唯一 end；Subagent 检查 
 
 ## 认知迭代：先定义事件，再定义页面
 
-### 限制
-
 Session 是追加日志，不是可编辑消息数组；todo 等 UI 状态只有专门事件才持久。压缩必须留下 start、summary、end，不能直接删除旧事实。
-
-### 最佳实践结尾
 
 新增模型输入先扩展事件类型，新增长任务先定义终止原因和恢复点，再实现 UI。每次提交都附带一次冷恢复和一次失败重放证据。
 
 ## 参考：事件驱动故障定位
-
-### 观察点
 
 按 `turn/start`、`step/start`、`agent/request`、`tool/call`、`tool/result`、`step/end`、`turn/end` 顺序查日志。缺哪一段，就定位到对应生命周期，而不是从页面猜原因。
 
@@ -172,6 +141,6 @@ Workflow 的 start/end、Subagent 的 start/result/interrupt 都应携带可追�
 
 一个合格的恢复报告应列出最后已确认的 `seq`、最后完整的 `request/header`、未闭合的 Turn/Step、未完成的 Tool call，以及 checkpoint 是否已 flush。这样运维可以区分“事件已经写入但 UI 未同步”和“事件根本没有落盘”，后续动作也不会误创建第二个 Session。
 
-这次复盘让我把 Runtime 设计顺序调了过来：先列生命周期和持久事件，再做 UI 投影；先写恢复测试，再写重连体验。这样 Spinner、卡片和任务列表都只是同一组事实的不同读法。
+Runtime 设计先列生命周期和持久事件，再做 UI 投影；先写恢复测试，再写重连体验。Spinner、卡片和任务列表只是同一组事实的不同读法。
 
 我现在评审一项新能力会问四个问题：模型看见了什么，哪个事件记录它，重启后如何重建，失败由谁拥有。回答清楚后，Workflow 和 Subagent 才能安全叠加，Agent loop 也不需要为每种业务写一套特殊分支。恢复报告还应注明读取的是本机还是云端资源，并记录 owner 与 cursor，避免合法的同名 Session 被错误合并。

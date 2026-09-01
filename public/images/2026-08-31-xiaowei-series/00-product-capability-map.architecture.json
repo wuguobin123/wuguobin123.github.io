@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "小薇产品能力全景图",
+    "subtitle": "从用户入口、执行位置到可交付结果",
+    "output": "00-product-capability-map.html",
+    "viewBox": [1320, 900]
+  },
+  "components": [
+    { "id": "user", "type": "external", "label": "用户", "sublabel": "个人 / 团队 / 验收人员", "pos": [40, 360], "size": [130, 66] },
+    { "id": "client", "type": "frontend", "label": "桌面产品入口", "sublabel": "对话 / 任务 / 审批 / 历史 / 设置 / 更新", "pos": [225, 345], "size": [180, 96] },
+    { "id": "account", "type": "security", "label": "账号与商业", "sublabel": "注册 / 登录 / 邀请 / 钱包 / 模型", "pos": [490, 80], "size": [200, 70] },
+    { "id": "workspace", "type": "database", "label": "Workspace 与 Session", "sublabel": "本机目录 / 云端副本 / 历史 / 恢复", "pos": [490, 190], "size": [200, 70] },
+    { "id": "agent", "type": "backend", "label": "Agent 执行", "sublabel": "Plan / Todo / Goal / Job / Workflow / Subagent", "pos": [490, 300], "size": [200, 70] },
+    { "id": "tools", "type": "backend", "label": "工具与内容处理", "sublabel": "文件 / Shell / 搜索 / 浏览器 / 文档 / 表格", "pos": [490, 410], "size": [200, 70] },
+    { "id": "skills", "type": "messagebus", "label": "Skill 与插件", "sublabel": "发现 / 调用 / 安装 / Session 选择", "pos": [490, 520], "size": [200, 70] },
+    { "id": "governance", "type": "security", "label": "安全与治理", "sublabel": "owner / sandbox / approval / CSP / 隔离", "pos": [490, 630], "size": [200, 70] },
+    { "id": "local", "type": "backend", "label": "本机执行环境", "sublabel": "实时目录 / 进程 / 本机 Session", "pos": [790, 210], "size": [190, 76], "tag": "设备 Host" },
+    { "id": "cloud", "type": "cloud", "label": "账号云端环境", "sublabel": "账号副本 / 持续任务 / 账号服务", "pos": [790, 410], "size": [190, 76], "tag": "云 Host" },
+    { "id": "providers", "type": "external", "label": "外部能力", "sublabel": "账号模型 / Web / 浏览器站点", "pos": [790, 610], "size": [190, 70] },
+    { "id": "localResult", "type": "database", "label": "设备侧结果", "sublabel": "源文件 / 附件 / Skill / Artifact", "pos": [1080, 210], "size": [190, 76] },
+    { "id": "cloudResult", "type": "database", "label": "账号侧结果", "sublabel": "云 Workspace / Session / 产物", "pos": [1080, 410], "size": [190, 76] },
+    { "id": "delivery", "type": "frontend", "label": "用户可接手的交付", "sublabel": "回复 / 文件 / 预览 / 事件 / 恢复点", "pos": [1080, 610], "size": [190, 70] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "用户可见产品能力", "wraps": ["account", "workspace", "agent", "tools", "skills", "governance"] },
+    { "kind": "security-group", "label": "设备所有权", "wraps": ["local", "localResult"] },
+    { "kind": "security-group", "label": "账号所有权", "wraps": ["cloud", "cloudResult"] }
+  ],
+  "connections": [
+    { "from": "user", "to": "client", "label": "提出任务", "variant": "emphasis" },
+    { "from": "client", "to": "account", "label": "认证与配置", "variant": "security", "fromSide": "right", "toSide": "left", "route": "orthogonal-h", "labelAt": [440, 115] },
+    { "from": "client", "to": "workspace", "label": "选择位置", "variant": "emphasis", "fromSide": "right", "toSide": "left", "route": "orthogonal-h", "labelAt": [440, 225] },
+    { "from": "client", "to": "agent", "label": "发送任务", "variant": "emphasis" },
+    { "from": "agent", "to": "tools" },
+    { "from": "skills", "to": "tools", "label": "补充指令", "variant": "dashed", "fromSide": "top", "toSide": "bottom" },
+    { "from": "governance", "to": "tools", "label": "约束与审批", "variant": "security", "fromSide": "top", "toSide": "bottom" },
+    { "from": "workspace", "to": "local", "label": "本机位置", "variant": "emphasis" },
+    { "from": "workspace", "to": "cloud", "label": "云端位置", "variant": "emphasis" },
+    { "from": "tools", "to": "local", "label": "本机能力" },
+    { "from": "tools", "to": "cloud", "label": "云端能力" },
+    { "from": "local", "to": "localResult", "label": "本机持久化" },
+    { "from": "cloud", "to": "cloudResult", "label": "账号持久化" },
+    { "from": "local", "to": "providers", "variant": "security" },
+    { "from": "cloud", "to": "providers", "variant": "security" },
+    { "from": "localResult", "to": "delivery", "variant": "emphasis" },
+    { "from": "cloudResult", "to": "delivery", "variant": "emphasis" },
+    { "from": "delivery", "to": "client", "label": "预览与恢复", "variant": "emphasis", "fromSide": "bottom", "toSide": "bottom", "route": "orthogonal-v", "via": [[1175, 790], [315, 790]] }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "位置不等于能力开关", "items": ["Workspace 和 Session 创建后位置不可变", "列表可以聚合，资源操作回到所属 Host", "Host 不可用时失败关闭，不静默换边"] },
+    { "dot": "rose", "title": "权限不交给模型", "items": ["账号 principal 决定 owner", "sandbox 与审批约束副作用", "凭据、绝对路径和 Cookie 不进入 Renderer 或模型"] },
+    { "dot": "emerald", "title": "交付不只是一段回复", "items": ["文件、Artifact 与事件都有明确归属", "Session 日志支持重启恢复", "规格状态和安装态证据分别记录"] }
+  ]
+}
