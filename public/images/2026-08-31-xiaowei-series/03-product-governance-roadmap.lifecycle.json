@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "diagram_type": "lifecycle",
+  "meta": { "title": "小薇企业治理与发布路线", "subtitle": "从实现证据到真实客户端验收", "output": "03-product-governance-roadmap.html", "viewBox": [980, 660] },
+  "lanes": [
+    { "id": "main", "label": "产品能力阶段" },
+    { "id": "risk", "label": "治理与验收" },
+    { "id": "terminal", "label": "发布结果" }
+  ],
+  "states": [
+    { "id": "design", "type": "start", "label": "方案批准", "sublabel": "approved", "lane": "main", "col": 0, "step": "01" },
+    { "id": "impl", "type": "active", "label": "能力实现", "sublabel": "implemented", "lane": "main", "col": 1, "step": "02" },
+    { "id": "package", "type": "active", "label": "组合与打包", "sublabel": "profile + installer", "lane": "main", "col": 2, "step": "03" },
+    { "id": "accept", "type": "decision", "label": "真实客户端验收", "sublabel": "账号 + 文件 + 重启", "lane": "risk", "col": 1, "tag": "gate" },
+    { "id": "publish", "type": "success", "label": "版本化发布", "sublabel": "alias 最后提升", "lane": "terminal", "col": 2 },
+    { "id": "hold", "type": "failure", "label": "暂停与修复", "sublabel": "证据不足", "lane": "terminal", "col": 0 }
+  ],
+  "transitions": [
+    { "from": "design", "to": "impl", "variant": "emphasis" },
+    { "from": "impl", "to": "package", "variant": "emphasis" },
+    { "from": "package", "to": "accept", "label": "进入验收", "variant": "security", "route": "drop" },
+    { "from": "accept", "to": "publish", "label": "通过", "variant": "emphasis", "route": "drop" },
+    { "from": "accept", "to": "hold", "label": "失败", "variant": "security", "route": "left-channel" }
+  ],
+  "cards": []
+}

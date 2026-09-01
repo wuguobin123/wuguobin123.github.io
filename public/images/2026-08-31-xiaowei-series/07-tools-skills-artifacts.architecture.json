@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "小薇工具与产物流水线", "subtitle": "call → policy → execute → result", "output": "07-tools-skills-artifacts.html", "viewBox": [1120, 470] },
+  "components": [
+    { "id": "call", "type": "external", "label": "tool/call", "sublabel": "模型原样参数", "pos": [40, 190], "size": [150, 64] },
+    { "id": "policy", "type": "security", "label": "审批与 Guard", "sublabel": "permission / sandbox", "pos": [260, 190], "size": [180, 64] },
+    { "id": "execute", "type": "backend", "label": "Execute", "sublabel": "工具 body + fs/*", "pos": [510, 190], "size": [170, 64] },
+    { "id": "skills", "type": "cloud", "label": "Skills / 文档", "sublabel": "可发现、受限读取", "pos": [750, 90], "size": [190, 64] },
+    { "id": "artifact", "type": "database", "label": "Artifact Store", "sublabel": "owner + 可寻址结果", "pos": [750, 280], "size": [190, 64] },
+    { "id": "result", "type": "frontend", "label": "tool/result", "sublabel": "记录与 UI 卡片", "pos": [990, 190], "size": [110, 64] }
+  ],
+  "connections": [
+    { "from": "call", "to": "policy", "label": "pre-execute", "variant": "security" },
+    { "from": "policy", "to": "execute", "label": "allow once", "variant": "emphasis" },
+    { "from": "execute", "to": "skills", "label": "read", "route": "orthogonal-h" },
+    { "from": "execute", "to": "artifact", "label": "write", "route": "orthogonal-h" },
+    { "from": "execute", "to": "result", "label": "post / finalize", "variant": "emphasis", "route": "straight" }
+  ],
+  "cards": []
+}

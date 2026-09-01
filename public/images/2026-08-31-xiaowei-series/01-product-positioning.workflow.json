@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "diagram_type": "workflow",
+  "meta": { "title": "小薇任务执行工作流", "subtitle": "从目标到可继续的交付", "output": "01-product-positioning.html" },
+  "lanes": [
+    { "id": "human", "label": "用户" },
+    { "id": "agent", "label": "模型与 Agent" },
+    { "id": "system", "label": "工具与运行时" }
+  ],
+  "nodes": [
+    { "id": "goal", "lane": "human", "col": 0, "type": "external", "label": "提出目标", "sublabel": "任务输入" },
+    { "id": "context", "lane": "agent", "col": 0, "type": "frontend", "label": "理解上下文", "sublabel": "Session + 工具" },
+    { "id": "call", "lane": "agent", "col": 2, "type": "backend", "label": "选择工具", "sublabel": "schema + scope" },
+    { "id": "approve", "lane": "human", "col": 3, "type": "security", "label": "需要批准？", "sublabel": "副作用动作", "tag": "gate" },
+    { "id": "run", "lane": "system", "col": 4, "type": "backend", "label": "执行与记录", "sublabel": "Host + events" },
+    { "id": "deliver", "lane": "human", "col": 5, "type": "database", "label": "查看交付", "sublabel": "结果 + 下一步" }
+  ],
+  "edges": [
+    { "from": "goal", "to": "context", "variant": "emphasis" },
+    { "from": "context", "to": "call", "variant": "emphasis" },
+    { "from": "call", "to": "approve", "variant": "security", "route": "drop" },
+    { "from": "approve", "to": "run", "label": "批准后执行", "variant": "emphasis", "route": "drop" },
+    { "from": "run", "to": "deliver", "label": "产物 / 状态", "variant": "emphasis", "route": "drop" }
+  ],
+  "cards": []
+}

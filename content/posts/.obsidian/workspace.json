@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_template.md",
+                "file": "2026-08-31-xiaowei-01-product-positioning.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "_template"
+              "title": "2026-08-31-xiaowei-01-product-positioning"
             }
           }
         ]
@@ -41,7 +41,9 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": false
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-folder-closed",
               "title": "文件列表"
@@ -156,13 +158,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_template.md",
+                "file": "2026-08-08-pitfalls-13-rag-pipeline-composition.md",
                 "followCursor": true,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "_template 的大纲"
+              "title": "2026-08-08-pitfalls-13-rag-pipeline-composition 的大纲"
             }
           },
           {
@@ -171,7 +173,7 @@
             "state": {
               "type": "footnotes",
               "state": {
-                "file": "_template.md"
+                "file": "2026-08-08-pitfalls-13-rag-pipeline-composition.md"
               },
               "icon": "lucide-file-signature",
               "title": "脚注"
@@ -214,35 +216,35 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "5c09385b8020b3c1",
+  "active": "28b31912f1c6374c",
   "lastOpenFiles": [
-    "2026-08-04-002-codex-luna-max-subagent-parallel.md",
+    "2026-08-31-xiaowei-07-tools-skills-artifacts.md",
+    "2026-08-31-xiaowei-06-agent-runtime-sessions.md",
+    "2026-08-31-xiaowei-05-desktop-dual-host.md",
+    "2026-08-31-xiaowei-04-plugin-architecture.md",
+    "2026-08-31-xiaowei-03-product-governance-roadmap.md",
+    "2026-08-31-xiaowei-02-product-workspaces-data.md",
+    "2026-08-31-xiaowei-01-product-positioning.md",
+    "2026-08-31-xiaowei-00-overview.md",
+    "2026-08-08-pitfalls-13-rag-pipeline-composition.md",
+    "2026-08-08-pitfalls-10-email-verification-full-pipeline.md",
+    "2026-08-08-pitfalls-09-codex-subagent-toml-not-loaded.md",
+    "2026-08-08-pitfalls-06-two-skill-lifecycles-divergence.md",
+    "2026-08-08-pitfalls-04-css-grid-orphan-cells.md",
+    "2026-08-08-pitfalls-03-frontend-auth-tenant-mismatch.md",
+    "2026-08-08-pitfalls-02-macos-app-deploy-gatekeeper-mlx.md",
+    "2026-08-08-pitfalls-01-python-sqlite3-context-rollback.md",
+    "2026-08-08-pitfalls-00-overview.md",
     "2026-08-04-001-codex-research-before-coding.md",
+    "2026-08-08-pitfalls-12-multi-cli-orchestrator-from-zero.md",
+    "2026-08-08-pitfalls-11-agent-capability-registration-pattern.md",
+    "2026-08-08-pitfalls-08-builtin-skills-vs-docker-volume.md",
+    "2026-08-08-pitfalls-07-zip-install-skill-monorepo.md",
+    "2026-08-08-pitfalls-05-search-fallback-kills-github.md",
+    "_template.md",
+    "2026-08-04-002-codex-luna-max-subagent-parallel.md",
     "2026-08-04-002-Codex配置luna-max子代理实现并行执行.md",
-    "2026-08-04-001-Codex先调研后编码省token工作流.md",
-    "2026-07-26-ai-classic-papers-map.md",
-    "2026-07-25-ai-twelve-themes-00-overview.md",
-    "2026-07-24-liang-wenfeng-transcript.md",
-    "2026-07-24-deepseek-agi-strategy.md",
-    "2026-07-25-ai-twelve-themes-01-agent-harness.md",
-    "2026-07-25-ai-twelve-themes-03-china-models.md",
-    "2026-07-25-ai-twelve-themes-02-ai-coding.md",
-    "2026-07-25-ai-twelve-themes-12-value-distribution.md",
-    "posts/2026-07-25-ai-twelve-themes-12-value-distribution.md",
-    "2026-07-25-ai-twelve-themes-11-platform.md",
     "posts",
-    "2026-07-25-ai-twelve-themes-10-superindividual.md",
-    "2026-07-25-ai-twelve-themes-09-org.md",
-    "2026-07-25-ai-twelve-themes-08-robotics.md",
-    "2026-07-25-ai-twelve-themes-07-autonomous-driving.md",
-    "2026-07-25-ai-twelve-themes-06-funding.md",
-    "2026-07-25-ai-twelve-themes-05-globalization.md",
-    "2026-07-25-ai-twelve-themes-04-pmf.md",
-    "2026-07-17-build-a-personal-brand.md",
-    "2026-07-19-build-wechat-mini-program-in-two-days.md",
-    "2026-07-20-control-chatgpt-from-phone.md",
-    "2026-07-20-from-tweet-to-miniprogram.md",
-    "2026-07-20-product-design-by-subtraction.md",
     "未命名.canvas",
     "未命名.base"
   ]

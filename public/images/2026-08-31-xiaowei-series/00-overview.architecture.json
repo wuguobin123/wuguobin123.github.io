@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "小薇产品总览", "subtitle": "账号、环境、能力与可交付结果", "output": "00-overview.html", "viewBox": [980, 500] },
+  "components": [
+    { "id": "user", "type": "external", "label": "用户", "sublabel": "目标与批准", "pos": [40, 205], "size": [140, 64] },
+    { "id": "desktop", "type": "frontend", "label": "小薇桌面端", "sublabel": "Electron + RPC", "pos": [235, 205], "size": [160, 64] },
+    { "id": "local", "type": "backend", "label": "本机 Host", "sublabel": "实时目录与 Worker", "pos": [490, 110], "size": [170, 64] },
+    { "id": "cloud", "type": "cloud", "label": "云端 Host", "sublabel": "账号私有副本", "pos": [490, 300], "size": [170, 64] },
+    { "id": "result", "type": "database", "label": "Session 与产物", "sublabel": "可恢复、可交付", "pos": [760, 205], "size": [170, 64] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "小薇执行环境", "wraps": ["local", "cloud"] }
+  ],
+  "connections": [
+    { "from": "user", "to": "desktop", "variant": "emphasis" },
+    { "from": "desktop", "to": "local", "variant": "emphasis", "route": "orthogonal-h" },
+    { "from": "desktop", "to": "cloud", "route": "orthogonal-h" },
+    { "from": "local", "to": "result", "variant": "emphasis", "route": "orthogonal-h" },
+    { "from": "cloud", "to": "result", "route": "orthogonal-h" }
+  ],
+  "cards": []
+}

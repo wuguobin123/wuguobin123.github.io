@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "小薇桌面：三进程与双 Host", "subtitle": "Renderer → preload → main → location", "output": "05-desktop-dual-host.html", "viewBox": [1100, 450] },
+  "components": [
+    { "id": "renderer", "type": "frontend", "label": "Renderer", "sublabel": "React UI", "pos": [50, 190], "size": [150, 64] },
+    { "id": "preload", "type": "security", "label": "Preload", "sublabel": "窄桥 API", "pos": [270, 190], "size": [150, 64] },
+    { "id": "main", "type": "backend", "label": "Main", "sublabel": "RPC / SSE / IPC", "pos": [490, 190], "size": [170, 64] },
+    { "id": "local", "type": "database", "label": "本机 Host", "sublabel": "源目录与本地 Session", "pos": [790, 100], "size": [220, 64] },
+    { "id": "cloud", "type": "cloud", "label": "云端 Host", "sublabel": "账号与云端副本", "pos": [790, 280], "size": [220, 64] }
+  ],
+  "boundaries": [ { "kind": "security-group", "label": "Electron 安全边界", "wraps": ["renderer", "preload", "main"] } ],
+  "connections": [
+    { "from": "renderer", "to": "preload", "label": "typed bridge", "variant": "security" },
+    { "from": "preload", "to": "main", "label": "IPC", "variant": "security" },
+    { "from": "main", "to": "local", "label": "resource → local", "variant": "emphasis", "route": "orthogonal-h" },
+    { "from": "main", "to": "cloud", "label": "account → cloud", "route": "orthogonal-h" }
+  ],
+  "cards": []
+}

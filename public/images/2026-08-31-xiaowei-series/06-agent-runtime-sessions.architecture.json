@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "小薇 Agent Runtime", "subtitle": "Loop 推进，Session 记录，Workflow / Subagent 扩展", "output": "06-agent-runtime-sessions.html", "viewBox": [1040, 470] },
+  "components": [
+    { "id": "inbox", "type": "external", "label": "Inbox", "sublabel": "用户输入 / steering", "pos": [50, 190], "size": [160, 64] },
+    { "id": "loop", "type": "backend", "label": "Agent Loop", "sublabel": "turn / step / request", "pos": [290, 190], "size": [180, 64] },
+    { "id": "session", "type": "database", "label": "Session Event Log", "sublabel": "仅追加、可回放", "pos": [550, 190], "size": [200, 64] },
+    { "id": "workflow", "type": "cloud", "label": "Workflow", "sublabel": "phase / agent lifecycle", "pos": [820, 90], "size": [170, 64] },
+    { "id": "subagent", "type": "frontend", "label": "Subagent", "sublabel": "隔离执行与结果", "pos": [820, 270], "size": [170, 64] }
+  ],
+  "connections": [
+    { "from": "inbox", "to": "loop", "label": "claim", "variant": "emphasis" },
+    { "from": "loop", "to": "session", "label": "append events", "variant": "emphasis" },
+    { "from": "session", "to": "loop", "label": "derive / resume", "route": "orthogonal-v" },
+    { "from": "loop", "to": "workflow", "label": "orchestrate", "route": "orthogonal-h" },
+    { "from": "loop", "to": "subagent", "route": "orthogonal-h" }
+  ],
+  "cards": []
+}

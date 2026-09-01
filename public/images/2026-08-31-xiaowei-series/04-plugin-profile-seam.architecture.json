@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "小薇：插件与能力组合", "subtitle": "Profile → Preset → seam", "output": "04-plugin-profile-seam.html", "viewBox": [980, 440] },
+  "components": [
+    { "id": "profile", "type": "cloud", "label": "Profile", "sublabel": "组合 bundles", "pos": [70, 170], "size": [150, 64] },
+    { "id": "preset", "type": "backend", "label": "Agent Preset", "sublabel": "选择会话能力", "pos": [330, 170], "size": [170, 64] },
+    { "id": "definition", "type": "backend", "label": "Service Definition", "sublabel": "接口与事件", "pos": [610, 75], "size": [190, 64] },
+    { "id": "provider", "type": "database", "label": "Provider", "sublabel": "本机 / 云端实现", "pos": [610, 170], "size": [190, 64] },
+    { "id": "consumer", "type": "frontend", "label": "Consumer", "sublabel": "工具与 UI 投影", "pos": [610, 265], "size": [190, 64] }
+  ],
+  "boundaries": [ { "kind": "region", "label": "可替换能力 seam", "wraps": ["definition", "provider", "consumer"] } ],
+  "connections": [
+    { "from": "profile", "to": "preset", "label": "挂载", "variant": "emphasis" },
+    { "from": "preset", "to": "definition", "label": "注册", "route": "orthogonal-h" },
+    { "from": "definition", "to": "provider", "route": "orthogonal-v" },
+    { "from": "provider", "to": "consumer", "route": "orthogonal-v" }
+  ],
+  "cards": []
+}

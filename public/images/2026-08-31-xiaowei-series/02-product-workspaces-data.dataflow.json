@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": { "title": "小薇工作区与数据归属", "subtitle": "本机源目录、云端副本与模型请求分流", "output": "02-product-workspaces-data.html", "viewBox": [940, 720] },
+  "stages": [ { "label": "输入" }, { "label": "环境" }, { "label": "持久化" }, { "label": "使用" } ],
+  "nodes": [
+    { "id": "folder", "type": "external", "label": "本机源目录", "sublabel": "实时 Workspace", "stage": 0, "row": 0 },
+    { "id": "upload", "type": "frontend", "label": "附件上传", "sublabel": "有界字节", "stage": 0, "row": 1 },
+    { "id": "local", "type": "backend", "label": "本机 Host", "sublabel": "不复制目录", "stage": 1, "row": 0 },
+    { "id": "cloud", "type": "cloud", "label": "云端 Host", "sublabel": "账号私有副本", "stage": 1, "row": 1 },
+    { "id": "device", "type": "database", "label": "设备 Harness home", "sublabel": "附件 / Session / Skill", "stage": 2, "row": 0 },
+    { "id": "account", "type": "database", "label": "账号云端存储", "sublabel": "副本 / 钱包 / 配置", "stage": 2, "row": 1 },
+    { "id": "model", "type": "external", "label": "模型提供方", "sublabel": "用户有意加入的内容", "stage": 3, "row": 0 },
+    { "id": "artifact", "type": "frontend", "label": "用户产物", "sublabel": "结果与历史", "stage": 3, "row": 1 }
+  ],
+  "flows": [
+    { "from": "folder", "to": "local", "label": "规范路径", "variant": "emphasis", "classification": "本机" },
+    { "from": "upload", "to": "device", "label": "附件字节", "variant": "security", "classification": "有界" },
+    { "from": "local", "to": "device", "label": "Session 事件", "variant": "emphasis", "classification": "owner 绑定" },
+    { "from": "cloud", "to": "account", "label": "导入副本", "variant": "emphasis", "classification": "账号私有" },
+    { "from": "local", "to": "model", "label": "有意加入内容", "variant": "security", "classification": "需说明", "labelAt": [530, 94] },
+    { "from": "cloud", "to": "model", "label": "有意加入内容", "variant": "security", "classification": "需说明", "labelAt": [760, 340] },
+    { "from": "device", "to": "artifact", "label": "本机产物", "variant": "emphasis", "classification": "设备" },
+    { "from": "account", "to": "artifact", "label": "云端结果", "variant": "emphasis", "classification": "账号" }
+  ],
+  "cards": []
+}
