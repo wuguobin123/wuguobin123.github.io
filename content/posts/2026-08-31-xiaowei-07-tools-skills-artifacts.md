@@ -1,7 +1,7 @@
 ---
-title: "小薇工具、Skill、文档与 Artifact 指南"
+title: "小薇技术复盘 07：四次故障教会我怎样设计工具"
 date: "2026-08-31"
-description: "参考小薇工具审批、文件与附件、Web、Skill Markdown、Knowledge seam、文档解析和 Artifact 预览的输入输出与失败语义。"
+description: "从附件超限、远程 HTML、工具注入和 Skill 误解四次故障出发，复盘小薇怎样处理审批、文档、工具与可预览产物。"
 tags: [小薇, 工具调用, Skills, Artifact]
 draft: false
 ---
@@ -14,29 +14,21 @@ draft: false
 
 [打开可交互 HTML 图](/images/2026-08-31-xiaowei-series/07-tools-skills-artifacts.html)
 
-我排查工具问题时，常见的第一反应是看模型有没有选对工具。实际故障往往发生得更早：审批没有回传、工具没有注入、附件在准入阶段被拒绝，或者远程 Host 不允许打开服务器路径。
+这张图适合从左往右读：模型提出调用，审批与 Guard 决定能不能做，Execute 在所属 Host 执行，最后把结果写回 Session 或 Artifact。Skill 和文档提供说明与输入，但不会绕过中间的安全检查。
 
-这篇按一次调用的时间顺序复盘这些边界。代码里有 `tool/call`、guard、`artifact.read` 等硬事实；规格里标注 `approved` 的浏览器和账号搜索，则只代表批准进入开发或验收。
+我排查工具问题时，最初总盯着模型：是不是工具选错了，参数是不是写坏了。后来连续遇到几次故障，才发现问题经常发生在模型之外：附件在入口就被拒绝，工具插件少了一项注入，远程 Host 没有资格打开路径，或者我们把一份 Skill 说明误当成了执行器。
 
 完整产品能力和规格状态集中在 [00 篇的产品能力地图](/posts/2026-08-31-xiaowei-00-overview/#产品能力地图)，本篇只展开工具、Skill 与 Artifact 的执行细节。
 
-## 背景：工具调用不是一个函数调用
+## 工具不是一个函数，而是一段旅程
 
 模型产生 tool-call 后，系统还要记录 call id，展示 pending card，检查参数和策略，询问一次性审批，进入沙箱，执行 body，归一化结果，再写回 Session。任何一步失败，都应该能告诉用户失败发生在哪一层。
 
 如果每个工具自己处理这些步骤，审批顺序、错误格式和结果展示很快就会不一致。我需要一条统一流水线，也需要让文件、浏览器和 Artifact 保持各自的安全约束。
 
-## 目标与非目标：把能力状态说准确
+工具输入先写 `tool/call`，输出写 `tool/result`；Artifact 使用内容寻址 id。审批、sandbox、Workspace 约束和 Host location 各自生效。它们之所以分开，不是为了把架构画复杂，而是因为每一层都曾单独出过问题。
 
-工具输入先写 `tool/call`，输出写 `tool/result`；Artifact 输入输出是内容寻址 id。附件准入通过不等于解析成功，Skill 可见不等于 Session 已加载，更不等于执行器存在。
-
-审批、sandbox、Workspace 约束和 Host location 各自生效。`approved` 浏览器或账号搜索只表示规格批准；Knowledge seam 只有 Provider 也不能写成生产 RAG。
-
-目标是让工具调用可记录、可拒绝、可恢复，让 HTML、文档和图片等产物有受控读取路径，让 Skill 安装和执行权限分开管理。
-
-非目标是把“能看到接口”写成“用户已经可用”。`browser`、`account-web-search` 如果是 `approved`，正文只能说已批准或开发中；Skill 目录显示也不能证明当前 Session 已加载；知识库 Provider 存在也不能证明 RAG 已上线。
-
-## 方案设计：从 call 到 result 的固定顺序
+## 一次调用怎样经过策略和记录
 
 ### 流水线调用链
 
@@ -50,13 +42,9 @@ draft: false
 
 Pre-execute 放权限、hook 和 sandbox；`ctx.approval` 处理一次性询问；guard 只能拒绝或放行，不能重写已确认的执行身份；execute waterfall 适合超时和重试。监听 waterfall 的代码必须调用 `next()`，否则会提前截断链路。
 
-## 详细设计：四个具体边界
+## 四个故障怎样改变实现
 
-### 案例一：Web 与文件系统必须分开
-
-Web 搜索区分云端账号搜索和本机 SearXNG，来源由设置选择，本机请求不带 Bearer 或 Cookie。filesystem 工具按 Workspace 约束读写，和附件入口不是同一个路径。
-
-### 案例二：附件准入不等于文件读取
+### 附件太大，不代表本机文件不能读
 
 |阶段|输入|失败示例|
 |---|---|---|
@@ -69,33 +57,29 @@ Web 搜索区分云端账号搜索和本机 SearXNG，来源由设置选择，�
 
 这些数字只能说明准入和读取预算。256 MiB 的 PDF 上传成功，不代表全部页面已经解析，更不代表模型已经读完内容；调用方仍要持续使用 `nextCursor`，直到没有游标，再合并各段结果。老式 DOC、XLS、PPT 不在现代 Office Open XML 支持范围内，扫描 PDF 也需要单独 OCR 能力。
 
-### 案例三：HTML 预览不能打开远程路径
+### HTML 做出来了，桌面端却打不开
 
 远程 HTML 不能调用 `host.openPath`。我复盘过 `path open failed: forbidden`：远程 Host 的本地路径不是用户电脑路径，放宽权限会暴露服务器文件。正确路径是 `html_build` 将自包含 HTML 写入 Artifact Registry，桌面再调用 `artifact.read`，校验 id、媒体类型、字节数和 base64 后交给预览器。
 
+### 工具写好了，却没有装进真实组合
+
 `tool-html` 曾出现 `cannot get property "tools" without inject`。插件使用 `ctx.tools` 却没有声明 `inject: ['tools']`，实际组合才暴露问题。修复时要同时核对插件的 `inject`、manifest 和 preset，不要只补一个测试 mock。
 
-### 案例四：Skill 文本不是执行器
+### Skill 能看见，不代表它能执行
 
 Skill Markdown 不等于执行器。账户 Skill 安装接收名称、描述和 Markdown instructions，写入私有 `SKILL.md`；真正可执行的工具仍由工具插件注册 schema、权限、审批、校验和 telemetry。看到 Skill 文本，不代表它可以运行任意脚本或依赖。
 
-### Knowledge seam 仍需单独验收
-
-Knowledge Definition、Provider 和检索 Consumer 只能说明接口已经接入。没有 implemented 规格、租户隔离、索引任务和真实数据验收，就只能称为知识能力开发中；浏览器和账号搜索若标为 approved，也只能按批准范围记录，不能写成已上线。
-
-## QA 与上线验收：先测拒绝路径
+## 修复以后，我沿着一条真实任务再走一遍
 
 选择本地 PDF，执行 begin、chunk、commit，确认附件引用进入 Session；调用 `document_read`，持续读取直到没有 `nextCursor`；将分析结果写入 Artifact；调用 `artifact.read`，校验 id、MIME、字节数和预览器输出。
-
-覆盖审批四种结果、FS 越界、远程 `host.openPath` 403、HTML Artifact 预览、Skill 冲突、附件批次超限、单文件解析上限、浏览器撤销和搜索认证。每项记录规格状态。
 
 先调用只读工具，检查 call/result 成对写入和 UI 卡片。然后覆盖批准一次、拒绝、取消、没有交互四种审批结果，确认拒绝时工具 body 没有运行。再测写文件，验证 Workspace 约束、先读后编辑和符号链接逃逸检查。
 
 HTML 验收要检查远程 `host.openPath` 仍拒绝、Artifact 可按会话读取、预览器使用受限 CSP。文档验收要用小文件证明 `document_read` 到达模型，再用大文件证明切片和 cursor 合并，同时确认单文件解析上限仍生效。
 
-Skill 验收分成目录安装、冲突处理、Session 发现和实际调用四项。浏览器、账号搜索的验收报告单列规格状态、认证条件和未完成项，不把 approved 当作生产上线。
+Skill 则分成目录安装、冲突处理、Session 发现和实际调用四步。这里最容易偷懒的是只看设置页里有没有名字，但真正决定当前任务能不能用的，是 Session 有没有加载说明，以及相应工具有没有进入请求头。
 
-## 踩坑：四个错误结论
+## 仍然容易误判的地方
 
 `host.openPath` 403 说明远程服务器路径被保护，正确路径是 Artifact Registry → `artifact.read` → DocumentPreview。`tool-html` 使用 `ctx.tools` 却缺 `inject: ['tools']` 时，真实组合会报 `cannot get property "tools" without inject`。
 
@@ -104,7 +88,6 @@ Skill 验收分成目录安装、冲突处理、Session 发现和实际调用四
 |HTML 打不开|Host location|保持 403，读取 Artifact|
 |文档超限|attachment admission|区分切片传输与解析|
 |Skill 能见不能用|Session preset 与工具|补加载或执行器|
-|搜索无结果|账号认证与来源|按 approved 规格验收|
 
 错误结论一是“按钮能点，所以路径能打开”。远程 HTML 的按钮只能证明 UI 收到了点击；真正结果要看 `artifact.read` 是否返回了正确资源。
 
@@ -114,22 +97,10 @@ Skill 验收分成目录安装、冲突处理、Session 发现和实际调用四
 
 错误结论四是“Skill 写了 Python，所以系统会执行 Python”。Markdown 是给模型的说明，执行能力必须有独立工具和策略；把说明文字直接当代码入口，会绕过审批和沙箱。
 
-## 认知迭代：质量看拒绝和归属
+## 现在我先问：故障到底发生在哪一层
 
-本地文档仍有单文件解析、文件数、chunk、临时空间、归档和跨 Session token 限制。Skill Markdown 不执行脚本；浏览器和搜索的批准状态不改变发布状态。
+现在遇到“工具不能用”，我会先查模型有没有生成 `tool/call`，再查 inject、Preset 和 approval；随后看请求走的是附件入口还是工具 body；最后确认 `tool/result` 与 `artifact.read`。页面卡片只是这条链路的投影，不是答案。
 
-每个工具至少补一条无权限、无交互、路径越界、资源不存在或内容超限用例，并保存 call/result、Host、Session 和 Artifact 归属证据。
+每个工具至少要有一条失败用例：无权限、无交互、路径越界、资源不存在或内容超限。现场记录版本、Profile、Host、Session、文件类型与大小、工具 schema 和错误原文。这样下一次看到“打不开”时，我们讨论的会是同一个故障，而不是四个人心里的四种猜测。
 
-## 参考：从调用到预览的排查流程
-
-### 逐层定位
-
-先查模型是否生成 `tool/call`，再查 inject、preset 和 approval；随后查 attachment 或工具 body 的实际入口；最后查 `tool/result` 与 `artifact.read`。不要用 UI 卡片代替这些事实。
-
-记录版本、Profile、Host、Session、文件类型与大小、工具 schema、规格状态和错误原文。对 approved 项记录“已批准/开发中”，对 implemented 项附真实验收结果。
-
-我现在不再用“工具调用成功”作为唯一指标，而是记录四个问题：调用有没有进 Session，拒绝发生在哪个 guard，结果属于哪个 Host 和 Session，用户点击预览时读取的是什么资源。
-
-这套检查也改变了文章里的状态措辞。实现、批准、真实验收、公开发布是四个阶段。对于浏览器和搜索，我只引用规格状态；对于 Artifact 和文档，我把可读取路径、大小限制和错误信息写具体。
-
-工具系统的下一步工作，是给每个新工具补一条失败用例：无权限、无交互、路径越界、资源不存在或内容超限。成功路径很容易演示，拒绝路径才告诉我边界有没有真正落到代码上。
+四次故障之后，我对工具的理解发生了变化。工具能力不等于“模型会调用一个函数”，而是这次调用能否被允许、能否在正确的位置执行、失败后能否说清原因、结果能否留给用户。做到这四件事，工具才真正进入产品。
