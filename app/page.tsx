@@ -1,6 +1,9 @@
 import { formatPostDate, getAllPosts } from "@/lib/posts";
 import AnchorNavigation from "./AnchorNavigation";
 
+const MAC_INSTALL_COMMAND = String.raw`bash -c "$(curl -fsSL https://wgb123-1257121815.cos.ap-beijing.myqcloud.com/install-mac.sh)"`;
+const WINDOWS_INSTALL_COMMAND = String.raw`curl -fsSL -o "%TEMP%\install-win.raw" https://wgb123-1257121815.cos.ap-beijing.myqcloud.com/install-win.bat && powershell -NoProfile -Command "$s='%TEMP%\install-win.raw';$d='%TEMP%\install-win.bat';$t=[IO.File]::ReadAllText($s);[IO.File]::WriteAllText($d,($t -replace '\r?\n',[Environment]::NewLine),[Text.UTF8Encoding]::new($false))" && call "%TEMP%\install-win.bat"`;
+
 export default function Home() {
   const posts = getAllPosts();
   const featuredPost = posts[0];
@@ -179,7 +182,7 @@ export default function Home() {
             <p className="eyebrow">MACOS · APPLE SILICON</p>
             <h2>macOS arm64</h2>
             <p>M1 / M2 / M3 / M4 原生包。终端粘贴一键脚本会自动识别架构、去除 quarantine。</p>
-            <pre className="download-cmd"><code>bash -c "$(curl -fsSL https://wgb123-1257121815.cos.ap-beijing.myqcloud.com/install-mac.sh)"</code></pre>
+            <pre className="download-cmd"><code>{MAC_INSTALL_COMMAND}</code></pre>
             <a className="download-link" href="https://wgb123-1257121815.cos.ap-beijing.myqcloud.com/latest-mac-arm64.dmg">
               下载 .dmg ↗
             </a>
@@ -192,7 +195,7 @@ export default function Home() {
             <p className="eyebrow">MACOS · INTEL</p>
             <h2>macOS x64</h2>
             <p>Intel 处理器 Mac（2019 年前机型及部分 iMac/Mac Pro）。同一键脚本自动识别。</p>
-            <pre className="download-cmd"><code>bash -c "$(curl -fsSL https://wgb123-1257121815.cos.ap-beijing.myqcloud.com/install-mac.sh)"</code></pre>
+            <pre className="download-cmd"><code>{MAC_INSTALL_COMMAND}</code></pre>
             <a className="download-link" href="https://wgb123-1257121815.cos.ap-beijing.myqcloud.com/latest-mac-x64.dmg">
               下载 .dmg ↗
             </a>
@@ -205,7 +208,7 @@ export default function Home() {
             <p className="eyebrow">WINDOWS · X64</p>
             <h2>Windows x64</h2>
             <p>Windows 10 / 11 (64-bit)。粘贴一键命令：自动退出运行中的实例、卸载旧版后安装新版；首次安装可直接下载 .exe 双击运行。</p>
-            <pre className="download-cmd"><code>curl -fsSL -o "%TEMP%\install-win.bat" https://wgb123-1257121815.cos.ap-beijing.myqcloud.com/install-win.bat && call "%TEMP%\install-win.bat"</code></pre>
+            <pre className="download-cmd"><code>{WINDOWS_INSTALL_COMMAND}</code></pre>
             <a className="download-link" href="https://wgb123-1257121815.cos.ap-beijing.myqcloud.com/latest-win-x64.exe">
               下载 .exe ↗
             </a>

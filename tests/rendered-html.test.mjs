@@ -49,6 +49,9 @@ test("exports the homepage, directory, and article pages", async () => {
   assert.match(homepage, /日新知见/);
   assert.match(homepage, /OBSIDIAN/);
   assert.match(homepage, /mailto:wgblearn@163\.com/);
+  assert.match(homepage, /%TEMP%\\install-win\.raw/);
+  assert.match(homepage, /powershell -NoProfile -Command/);
+  assert.match(homepage, /Text\.UTF8Encoding/);
   assert.doesNotMatch(homepage, /codex-preview|react-loading-skeleton/);
   assert.match(directory, /文章目录/);
   assert.match(directory, /搜索文章/);
